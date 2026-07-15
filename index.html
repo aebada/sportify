@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RefereeX AI — Intelligent Officiating Platform · Sportify</title>
+  <meta name="description" content="RefereeX AI delivers real-time officiating intelligence, multi-camera fusion, and digital twin technology for modern football. Decision support — not replacement.">
+  <meta property="og:title" content="RefereeX AI · Sportify">
+  <meta property="og:description" content="AI referee decision support for federations, leagues, and broadcasters.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aebada.github.io/sportify-refereex/">
+  <meta property="og:image" content="https://sportifyplus.de/assets/img/logo.png">
+  <meta name="theme-color" content="#0c3020">
+  <link rel="icon" href="https://sportifyplus.de/assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://sportifyplus.de/assets/css/app.css">
+  <style>
+    :root {
+      --bg: #050A12;
+      --bg-2: #0a1420;
+      --green: #1a5c32;
+      --green-2: #22c55e;
+      --green-3: #4ade80;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,.08);
+      --radius-lg: 24px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; line-height: 1.6; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+    .site-header { position: sticky; top: 0; z-index: 40; background: rgba(5,10,18,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    .site-header .container { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; }
+    .brand-logo { height: 42px; width: auto; }
+    .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: .9rem; font-weight: 500; }
+    .nav a:hover, .nav a.active { color: var(--green-3); }
+    .btn { display: inline-block; padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none; border: 1px solid transparent; transition: .2s; cursor: pointer; font-size: .95rem; }
+    .btn-primary { background: linear-gradient(135deg, var(--green), #0f3d22); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--green-2); color: var(--green-3); }
+    .btn-sm { padding: 8px 16px; font-size: .85rem; }
+    .hero { padding: clamp(64px,10vw,96px) 0 clamp(48px,8vw,72px); background: radial-gradient(ellipse at 30% 0%, rgba(26,92,50,.25), transparent 60%); }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+    .eyebrow { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--green-3); margin-bottom: 12px; }
+    h1 { font-size: clamp(2.2rem,5vw,3.4rem); line-height: 1.1; margin: 0 0 16px; font-weight: 800; }
+    h1 .accent { color: var(--green-3); }
+    h2 { font-size: clamp(1.6rem,3vw,2.2rem); margin: 0 0 12px; font-weight: 800; }
+    h3 { font-size: 1.1rem; margin: 0 0 8px; font-weight: 700; }
+    .lead { font-size: 1.15rem; color: #cbd5e1; max-width: 52ch; }
+    .hero__sub { font-size: 1.25rem; color: var(--green-3); font-weight: 600; margin: 0 0 12px; }
+    .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .panel { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; }
+    .section { padding: clamp(48px,8vw,80px) 0; }
+    .section--tight { padding: clamp(32px,5vw,48px) 0; }
+    .section-head { text-align: center; max-width: 680px; margin: 0 auto 40px; }
+    .section-head p { color: var(--muted); }
+    .grid { display: grid; gap: 20px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .card { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 16px; }
+    .card__body { padding: 22px; }
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .stat-box { text-align: center; padding: 24px 16px; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 16px; }
+    .stat-box b { display: block; font-size: 2rem; color: var(--green-3); margin-bottom: 4px; }
+    .stat-box span { font-size: .85rem; color: var(--muted); }
+    .layout-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .step__icon { font-size: 1.8rem; }
+    .feature-list { list-style: none; padding: 0; margin: 20px 0 0; }
+    .feature-list li { padding: 8px 0; display: flex; gap: 10px; align-items: flex-start; }
+    .tick { color: var(--green-3); font-weight: 800; }
+    .small { font-size: .9rem; }
+    .muted { color: var(--muted); }
+    .text-green { color: var(--green-3); }
+    .fw-800 { font-weight: 800; }
+    .mb-0 { margin-bottom: 0; }
+    .mb-2 { margin-bottom: 12px; }
+    .mt-2 { margin-top: 16px; }
+    .mt-3 { margin-top: 24px; }
+    .center { text-align: center; }
+    .cta-banner { text-align: center; padding: 48px 32px; background: linear-gradient(135deg, rgba(26,92,50,.2), rgba(5,10,18,.8)); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    .refereex-faq__item summary { cursor: pointer; font-weight: 800; list-style: none; }
+    .refereex-faq__item summary::-webkit-details-marker { display: none; }
+    .refereex-hero-panel { min-height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; }
+    .refereex-hero-panel__icon { font-size: 3rem; }
+    .refereex-pipeline { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .refereex-pipeline__node { flex: 1 1 120px; max-width: 140px; min-height: 110px; text-align: center; }
+    .site-footer { border-top: 1px solid var(--border); padding: 40px 0 24px; margin-top: 40px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
+    .site-footer a { display: block; color: var(--muted); text-decoration: none; margin: 6px 0; font-size: .9rem; }
+    .site-footer a:hover { color: var(--green-3); }
+    .site-footer h4 { margin: 0 0 12px; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+    .notice-bar { background: rgba(26,92,50,.15); border-bottom: 1px solid rgba(34,197,94,.2); padding: 10px 20px; text-align: center; font-size: .85rem; color: #bbf7d0; }
+    .notice-bar a { color: var(--green-3); }
+    @media (max-width: 900px) {
+      .hero-grid, .layout-2col, .grid-4, .stat-grid { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .nav { display: none; }
+    }
+    @media (max-width: 600px) {
+      .hero-grid, .layout-2col, .grid-2, .grid-4, .stat-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="notice-bar">
+    Official RefereeX product page · Hosted at <strong>aebada.github.io/sportify-refereex</strong> · Main site: <a href="https://sportifyplus.de/">sportifyplus.de</a>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="https://sportifyplus.de/" class="brand" aria-label="Sportify home">
+        <img src="https://sportifyplus.de/assets/img/logo.png" alt="Sportify" class="brand-logo" width="168" height="42">
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="https://sportifyplus.de/">Home</a>
+        <a href="https://sportifyplus.de/fit-pass">FIT-Pass</a>
+        <a href="https://sportifyplus.de/live-sports">Live Sports</a>
+        <a href="#rx-features">Features</a>
+        <a href="#rx-faq">FAQ</a>
+        <a href="https://sportifyplus.de/contact?subject=RefereeX" class="active">Contact</a>
+      </nav>
+      <a href="https://sportifyplus.de/contact?subject=RefereeX%20Demo" class="btn btn-primary btn-sm">Request demo</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section class="hero" id="rx-hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Next-generation officiating intelligence</span>
+            <h1>RefereeX <span class="accent">AI</span></h1>
+            <p class="hero__sub">Real-time decision support for modern football</p>
+            <p class="lead">RefereeX AI fuses multi-camera feeds, computer vision, and digital twin technology to deliver <strong>explainable officiating intelligence</strong> for federations, leagues, and broadcasters. It supports human officials — it does not replace them.</p>
+            <div class="hero__cta">
+              <a href="https://sportifyplus.de/contact?subject=RefereeX%20Demo" class="btn btn-primary">Request a demo</a>
+              <a href="#rx-solution" class="btn btn-ghost">How it works</a>
+            </div>
+          </div>
+          <div class="panel refereex-hero-panel">
+            <div class="refereex-hero-panel__icon">📹</div>
+            <p class="mb-0 fw-800">Live officiating intelligence</p>
+            <p class="small muted mb-0">Multi-camera fusion · Digital twin · Explainable AI</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="stat-grid">
+          <div class="stat-box"><b>98.7%</b><span>Decision confidence</span></div>
+          <div class="stat-box"><b>&lt;100ms</b><span>Edge latency</span></div>
+          <div class="stat-box"><b>16+</b><span>Camera inputs</span></div>
+          <div class="stat-box"><b>24/7</b><span>Integrity monitoring</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section" id="rx-problem" style="background:var(--bg-2)">
+      <div class="container">
+        <div class="layout-2col">
+          <div>
+            <span class="eyebrow">The challenge</span>
+            <h2>Modern football outpaced traditional officiating</h2>
+            <p class="lead">Matches are faster, cameras are everywhere, and fans expect instant fairness — yet VAR still relies on manual replay selection and single-angle review.</p>
+          </div>
+          <div class="grid grid-2">
+            <div class="card card__body"><div class="step__icon mb-2">⚠️</div><h3>Delayed decisions</h3><p class="small mb-0">Critical incidents reviewed minutes after play resumes</p></div>
+            <div class="card card__body"><div class="step__icon mb-2">📹</div><h3>Camera blind spots</h3><p class="small mb-0">Single-angle replay misses off-ball contact</p></div>
+            <div class="card card__body"><div class="step__icon mb-2">❓</div><h3>No explainability</h3><p class="small mb-0">Federations cannot audit why a recommendation was made</p></div>
+            <div class="card card__body"><div class="step__icon mb-2">📉</div><h3>Integrity risk</h3><p class="small mb-0">Inconsistent calls erode trust with fans</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="section" id="rx-solution">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">The solution</span>
+          <h2>Intelligent officiating from kickoff to final whistle</h2>
+          <p>RefereeX AI is Sportify's end-to-end platform — ingesting live video, maintaining a digital twin, and delivering explainable recommendations aligned with IFAB protocols.</p>
+        </div>
+        <div class="grid grid-4">
+          <div class="card card__body center"><div class="step__icon">🔮</div><h3>Digital twin</h3><p class="small mb-0">Synchronized match state for every player, ball, and official</p></div>
+          <div class="card card__body center"><div class="step__icon">📹</div><h3>Multi-camera fusion</h3><p class="small mb-0">Bayesian fusion across broadcast, tactical, and goal-line feeds</p></div>
+          <div class="card card__body center"><div class="step__icon">💡</div><h3>Explainable AI</h3><p class="small mb-0">Human-readable reasoning chains for every recommendation</p></div>
+          <div class="card card__body center"><div class="step__icon">🏛️</div><h3>Federation ready</h3><p class="small mb-0">Audit trails, dashboards, and API integration for VAR workflows</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="section" style="background:var(--bg-2)">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Architecture</span>
+          <h2>System pipeline</h2>
+        </div>
+        <div class="refereex-pipeline">
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">📹</div><div class="small fw-800">Camera ingest</div></div>
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">👁️</div><div class="small fw-800">Computer vision</div></div>
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">🎯</div><div class="small fw-800">Object tracking</div></div>
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">⚡</div><div class="small fw-800">Decision fusion</div></div>
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">🔮</div><div class="small fw-800">Digital twin</div></div>
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">💡</div><div class="small fw-800">Explainable AI</div></div>
+          <div class="card card__body refereex-pipeline__node"><div class="step__icon">🏁</div><div class="small fw-800">VAR support</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="rx-features">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Capabilities</span>
+          <h2>Platform features</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card card__body"><span class="step__icon">⚡</span><h3>Real-time alerts</h3><p class="small mb-0">Instant notifications for critical match events</p></div>
+          <div class="card card__body"><span class="step__icon">🔄</span><h3>Automatic replay</h3><p class="small mb-0">AI-triggered replay sequences on demand</p></div>
+          <div class="card card__body"><span class="step__icon">🛡️</span><h3>Integrity monitoring</h3><p class="small mb-0">Continuous match integrity scoring</p></div>
+          <div class="card card__body"><span class="step__icon">📋</span><h3>AI reports</h3><p class="small mb-0">Post-match analytical reports</p></div>
+          <div class="card card__body"><span class="step__icon">📊</span><h3>Referee analytics</h3><p class="small mb-0">Performance insights and trends</p></div>
+          <div class="card card__body"><span class="step__icon">🔌</span><h3>API integration</h3><p class="small mb-0">RESTful APIs for federation systems</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="rx-faq" style="background:var(--bg-2)">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">FAQ</span>
+          <h2>Frequently asked questions</h2>
+        </div>
+        <details class="panel refereex-faq__item mb-2">
+          <summary>Does RefereeX AI replace referees?</summary>
+          <p class="small mb-0 mt-2">No. RefereeX AI supports human officials with data, replays, and confidence scores. Final decisions remain with the referee and VAR team.</p>
+        </details>
+        <details class="panel refereex-faq__item mb-2">
+          <summary>How many cameras are supported?</summary>
+          <p class="small mb-0 mt-2">The platform supports 16+ synchronized camera inputs including broadcast, tactical, goal-line, and drone feeds.</p>
+        </details>
+        <details class="panel refereex-faq__item mb-2">
+          <summary>What is the latency?</summary>
+          <p class="small mb-0 mt-2">Edge deployments achieve sub-100ms incident detection. Cloud fusion adds typically 200–500ms for full multi-camera assessment.</p>
+        </details>
+        <details class="panel refereex-faq__item mb-2">
+          <summary>Can it integrate with existing VAR?</summary>
+          <p class="small mb-0 mt-2">Yes. RESTful APIs and standard video protocols enable integration with existing VAR infrastructure and broadcast systems.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--tight" id="rx-cta">
+      <div class="container">
+        <div class="cta-banner">
+          <h2>Ready to transform officiating?</h2>
+          <p class="muted">Join federations and leagues exploring the future of intelligent match officiating.</p>
+          <div class="hero__cta" style="justify-content:center">
+            <a href="https://sportifyplus.de/contact?subject=RefereeX%20Demo" class="btn btn-primary">Request a demo</a>
+            <a href="https://sportifyplus.de/contact?subject=RefereeX%20Pilot%20League" class="btn btn-ghost">Pilot your league</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img src="https://sportifyplus.de/assets/img/logo.png" alt="Sportify" class="brand-logo mb-2" width="150" height="42">
+          <p class="small muted">The football talent discovery platform. RefereeX AI brings the same data-driven intelligence to match officiating.</p>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <a href="https://sportifyplus.de/players">Players</a>
+          <a href="https://sportifyplus.de/fit-pass">FIT-Pass</a>
+          <a href="https://sportifyplus.de/live-sports">Live Sports</a>
+        </div>
+        <div>
+          <h4>RefereeX</h4>
+          <a href="https://sportifyplus.de/contact?subject=RefereeX">Contact</a>
+          <a href="https://sportifyplus.de/contact?subject=RefereeX%20Demo">Request demo</a>
+          <a href="https://sportifyplus.de/privacy">Privacy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Sportify. All rights reserved.</span>
+        <span>RefereeX page · deploy-marker:20260714-external-ghpages</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
