@@ -1,0 +1,32 @@
+<IfModule mod_lsapi.c>
+    php_value opcache.enable 0
+    php_value opcache.enable_cli 0
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Auth brand wrap (explicit file — bypasses stale front controller)
+    RewriteRule ^login/?$ login-brand-wrap-20260720.php [L,QSA]
+    RewriteRule ^register/?$ login-brand-wrap-20260720.php [L,QSA]
+    RewriteRule ^forgot-password/?$ login-brand-wrap-20260720.php [L,QSA]
+
+    # Google OAuth — dedicated start/callback scripts
+    RewriteRule ^auth/google/?$ oauth-google-start-20260720.php [L,QSA]
+    RewriteRule ^auth/google/callback/?$ oauth-google-callback-20260720.php [L,QSA]
+
+    # RefereeX AI — static HTML bridge
+    RewriteRule ^refereex-ai/?$ live-sports.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Front controller
+    RewriteRule ^ index-20260720-auth-brand-v1.php [L]
+</IfModule>
+
+Options -Indexes

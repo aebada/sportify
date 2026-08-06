@@ -1,0 +1,86 @@
+/* RefereeX AI — page-specific styles using Sportify design tokens only */
+
+.refereex-hero-panel {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.refereex-hero-panel__icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.refereex-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+}
+.refereex-pipeline__node {
+  flex: 1 1 120px;
+  max-width: 150px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.refereex-fusion__slider {
+  width: 100%;
+  margin-top: 12px;
+  accent-color: var(--green-2);
+}
+
+.refereex-twin-timeline {
+  display: flex;
+  gap: 6px;
+  height: 10px;
+}
+.refereex-twin-timeline__seg {
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  transition: background 0.3s, border-color 0.3s;
+}
+.refereex-twin-timeline__seg.is-synced {
+  background: linear-gradient(90deg, var(--green), var(--green-3));
+  border-color: var(--green-2);
+}
+
+.refereex-dashboard__wide {
+  grid-column: span 2;
+}
+
+.refereex-faq__item summary {
+  cursor: pointer;
+  list-style: none;
+}
+.refereex-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+.refereex-faq__item summary::after {
+  content: '+';
+  float: right;
+  color: var(--green-3);
+  font-weight: 800;
+}
+.refereex-faq__item[open] summary::after {
+  content: '−';
+}
+
+@media (max-width: 760px) {
+  .refereex-dashboard__wide {
+    grid-column: span 1;
+  }
+  .refereex-pipeline__node {
+    max-width: none;
+    flex: 1 1 calc(50% - 12px);
+  }
+}

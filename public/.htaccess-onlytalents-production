@@ -1,0 +1,17 @@
+# OnlyTalents subdomain — production (serve app at docroot, no redirect)
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^assets/ - [L]
+RewriteRule ^(deploy-check|opcache-purge|ot-opcache-flush-20260702|set-lang)\.php$ - [L]
+RewriteRule ^(app|config|database|storage|views|bootstrap)(/|$) - [F,L]
+RewriteRule ^lang/(en|de|ar)/messages\.php$ - [F,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+</IfModule>

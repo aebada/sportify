@@ -1,0 +1,27 @@
+<IfModule mod_lsapi.c>
+    php_value opcache.enable 0
+    php_value opcache.enable_cli 0
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Google OAuth — dedicated start/callback scripts (avoid empty 500 on /auth/google via front controller)
+    RewriteRule ^auth/google/?$ oauth-google-start-20260720.php [L,QSA]
+    RewriteRule ^auth/google/callback/?$ oauth-google-callback-20260720.php [L,QSA]
+
+    # RefereeX AI — static HTML bridge (bypasses frozen PHP OPcache)
+    RewriteRule ^refereex-ai/?$ live-sports.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Front controller
+    RewriteRule ^ index-20260704-refereex-v1.php [L]
+</IfModule>
+
+Options -Indexes

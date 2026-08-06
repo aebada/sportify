@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RefereeX AI — Intelligent Officiating Platform · Sportify</title>
+    <meta name="description" content="RefereeX AI delivers real-time officiating intelligence, multi-camera fusion, and digital twin technology for modern football.">
+    <meta property="og:title" content="FIT-Pass · Sportify">
+    <meta property="og:description" content="Sportify is the football talent discovery platform. Players showcase highlights, AI analyzes talent, and clubs find the right players faster using video, data and AI.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0c3020">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://img.youtube.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preload" href="/assets/img/logo.webp?v=1781980038" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/assets/css/app.css?v=1782018837" as="style">
+    <style>
+      body{margin:0;background:#050A12;color:#fff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .site-header{position:sticky;top:0;z-index:40;background:rgba(5,10,18,.92);backdrop-filter:blur(10px)}
+      .hero{position:relative;overflow:hidden;min-height:clamp(520px,78vh,760px)}
+      .hero__bg{position:absolute;inset:0;pointer-events:none}
+      .hero__crowd{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+      .brand-logo,.brand-logo-img{height:42px;width:auto;max-width:168px}
+      .hero-showcase__img{width:100%;height:auto;object-fit:cover;border-radius:var(--radius-lg,24px)}
+    </style>
+    <link rel="stylesheet" href="/assets/css/app.css?v=1782018837" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/app.css?v=1782018837"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"></noscript>
+    <link rel="icon" href="/assets/img/favicon.png?v=1782018842" type="image/png">
+    <meta property="og:image" content="https://sportifyplus.de/assets/img/logo.png?v=1782018841">
+    <link rel="stylesheet" href="/assets/css/refereex-ai.css">
+    <link rel="canonical" href="https://sportifyplus.de/refereex-ai">
+</head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT-Pass · Sportify</title>
+    <meta name="description" content="Sportify is the football talent discovery platform. Players showcase highlights, AI analyzes talent, and clubs find the right players faster using video, data and AI.">
+    <meta property="og:title" content="FIT-Pass · Sportify">
+    <meta property="og:description" content="Sportify is the football talent discovery platform. Players showcase highlights, AI analyzes talent, and clubs find the right players faster using video, data and AI.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0c3020">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="preconnect" href="https://img.youtube.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preload" href="/assets/img/logo.webp?v=1781980038" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/assets/css/app.css?v=1782018837" as="style">
+    <style>
+      body{margin:0;background:#050A12;color:#fff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+      .site-header{position:sticky;top:0;z-index:40;background:rgba(5,10,18,.92);backdrop-filter:blur(10px)}
+      .hero{position:relative;overflow:hidden;min-height:clamp(520px,78vh,760px)}
+      .hero__bg{position:absolute;inset:0;pointer-events:none}
+      .hero__crowd{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+      .brand-logo,.brand-logo-img{height:42px;width:auto;max-width:168px}
+      .hero-showcase__img{width:100%;height:auto;object-fit:cover;border-radius:var(--radius-lg,24px)}
+    </style>
+    <link rel="stylesheet" href="/assets/css/app.css?v=1782018837" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="/assets/css/app.css?v=1782018837"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"></noscript>
+    <link rel="icon" href="/assets/img/favicon.png?v=1782018842" type="image/png">
+    <meta property="og:image" content="https://sportifyplus.de/assets/img/logo.png?v=1782018841">
+</head>
+<body class="event--world-cup" style="--wc-primary:#1a5c32">
+<!-- deploy-marker:20260615-perf-v2 -->
+<!-- brand-asset:logo-png-stadium-v6 -->
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="site-topbar">
+    <div class="container site-topbar__inner">
+        <span class="live-pill"><span class="live-pill__dot"></span> LIVE</span>
+        <div class="news-ticker" data-ticker aria-label="Breaking football news">
+            <div class="news-ticker__track">
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/cjrgew3wv4xo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Who will win the World Cup? The view from the semi-finalists</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/cy7370x2yp7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Brighton sign Vuskovic from Spurs for club record £46m</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/clywep30z7jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Lamine Yamal v Mbappe: La Liga stars set for World Cup showdown</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/clyey5glv4ko?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Increased security for England and Argentina tie</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c77y2151e4go?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>A winner and true friend - ex-Wimbledon champion Bartoli on Deschamps</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c8e82462y7eo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Who am I? Guess World Cup star No 37</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c79y29l32gxo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Deschamps predicts spectacular France v Spain semi-final</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/cj9ggg2z0l4o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>London City&#039;s Asllani to sign one-year extension</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/videos/c23yj388pryo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>All the goals from France&#039;s run to semi-finals</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/videos/clye4yej26zo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Spain&#039;s road to semi-final - every goal so far</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c0qyxqw901wo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Everton close in on permament deal for Blundell</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sounds/play/p0ntld36?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Football Daily</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/cjrgew3wv4xo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Who will win the World Cup? The view from the semi-finalists</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/cy7370x2yp7o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Brighton sign Vuskovic from Spurs for club record £46m</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/clywep30z7jo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Lamine Yamal v Mbappe: La Liga stars set for World Cup showdown</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/clyey5glv4ko?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Increased security for England and Argentina tie</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c77y2151e4go?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>A winner and true friend - ex-Wimbledon champion Bartoli on Deschamps</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c8e82462y7eo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Who am I? Guess World Cup star No 37</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c79y29l32gxo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Deschamps predicts spectacular France v Spain semi-final</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/cj9ggg2z0l4o?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>London City&#039;s Asllani to sign one-year extension</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/videos/c23yj388pryo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>All the goals from France&#039;s run to semi-finals</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/videos/clye4yej26zo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Spain&#039;s road to semi-final - every goal so far</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sport/football/articles/c0qyxqw901wo?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Everton close in on permament deal for Blundell</span>
+                    </a>
+                                    <a href="https://www.bbc.co.uk/sounds/play/p0ntld36?at_medium=RSS&amp;at_campaign=rss" target="_blank" rel="noopener" class="news-ticker__item">
+                        <strong>BBC Sport</strong>
+                        <span>Football Daily</span>
+                    </a>
+                            </div>
+        </div>
+        <div class="topbar-sources desktop-only">
+                            <span>BBC Sport</span>
+                            <span>The Guardian</span>
+                            <span>Sky Sports</span>
+                            <span>90min</span>
+                    </div>
+    </div>
+</div>
+
+<div class="scores-ticker" aria-label="Live scores ticker" data-scores-ticker data-scores-api="/api/scores-ticker" data-empty-label="No live matches right now" data-updated-now="Just now" data-updated-min="Updated {n} min ago">
+    <div class="container scores-ticker__inner">
+        <span class="scores-ticker__label">
+                        ⚽ Scores            <span class="scores-ticker__updated" data-scores-updated aria-live="polite"></span>
+        </span>
+        <div class="scores-ticker__track">
+            <div class="scores-ticker__items" data-scores-items>
+                                                                                    <a href="/matches/1161" class="scores-ticker__item">
+                            <span class="scores-ticker__comp">FIFA World Cup 2026</span>
+                            <span class="scores-ticker__teams">France vs Spain</span>
+                                                            <span class="scores-ticker__time">19:00</span>
+                                                    </a>
+                                                                    <a href="/matches/1161" class="scores-ticker__item">
+                            <span class="scores-ticker__comp">FIFA World Cup 2026</span>
+                            <span class="scores-ticker__teams">France vs Spain</span>
+                                                            <span class="scores-ticker__time">19:00</span>
+                                                    </a>
+                                                </div>
+        </div>
+    </div>
+</div>
+
+<header class="site-header" data-site-header>
+    <div class="container">
+        <a href="/" class="brand" aria-label="Sportify home">
+            <!-- brand-asset:logo-png-stadium-v6 -->
+            <!-- brand-home-link:v1 -->
+            <picture><source type="image/webp" srcset="/assets/img/logo.webp?v=1781980038"><img src="/assets/img/logo.png?v=1782018841" alt="Sportify" class="brand-logo brand-logo-img" width="168" height="42" decoding="async" fetchpriority="high"></picture>        </a>
+
+        <form class="header-search desktop-only" action="/search" method="get" role="search">
+            <span class="header-search__icon" aria-hidden="true">⌕</span>
+            <input type="search" name="q" placeholder="Search players, positions, countries…" autocomplete="off">
+        </form>
+
+                <nav class="nav" aria-label="Primary navigation">
+            <div class="nav-dropdown desktop-only" data-nav-dropdown>
+                <button type="button" class="nav-dropdown__btn " data-nav-dropdown-btn aria-haspopup="true" aria-expanded="false" aria-controls="nav-explore-menu">
+                    Explore <span aria-hidden="true">▾</span>
+                </button>
+                <div class="nav-submenu" id="nav-explore-menu" data-nav-dropdown-menu hidden role="menu">
+                    <a href="/matches" class="" role="menuitem">Matches</a>
+                    <a href="/fixtures/calendar/2026-07-14" class="" role="menuitem">Fixtures</a>
+                    <a href="/tables" class="" role="menuitem">Tables</a>
+                    <a href="/players" class="" role="menuitem">Players</a>
+                    <a href="/videos" class="" role="menuitem">Videos</a>
+                    <a href="/only-talents" class="" role="menuitem">Only Talents</a>
+                    <a href="/highlights" class="" role="menuitem">Highlights</a>
+                    <a href="/live-streams" class="" role="menuitem">Live Streams</a>
+                                            <a href="/world-cup" class="" role="menuitem">🏆 World Cup</a>
+                                    </div>
+            </div>
+
+            <div class="nav-dropdown nav-dropdown--featured desktop-only" data-nav-dropdown>
+                <button type="button" class="nav-dropdown__btn " data-nav-dropdown-btn aria-haspopup="true" aria-expanded="false" aria-controls="nav-talent-hub-menu">
+                    Talent Hub <span aria-hidden="true">▾</span>
+                </button>
+                <div class="nav-submenu nav-submenu--wide" id="nav-talent-hub-menu" data-nav-dropdown-menu hidden role="menu">
+                    <a href="/trainers" class="" role="menuitem">Trainers</a>
+                    <a href="/only-talents" class="" role="menuitem">Scouts</a>
+                    <a href="/clubs/recommendations" class="" role="menuitem">Clubs</a>
+                    <span class="nav-submenu__label" role="presentation">Get started</span>
+                    <a href="/register?role=trainer" class="" role="menuitem">Register as Trainer</a>
+                    <a href="/register?role=scout" class="" role="menuitem">For Scouts</a>
+                    <a href="/clubs/recommendations" class="" role="menuitem">Club recommendations</a>
+                </div>
+            </div>
+
+            <div class="nav-dropdown desktop-only" data-nav-dropdown>
+                <button type="button" class="nav-dropdown__btn " data-nav-dropdown-btn aria-haspopup="true" aria-expanded="false" aria-controls="nav-news-menu">
+                    News & Transfers <span aria-hidden="true">▾</span>
+                </button>
+                <div class="nav-submenu" id="nav-news-menu" data-nav-dropdown-menu hidden role="menu">
+                    <a href="/news" class="" role="menuitem">News</a>
+                    <a href="/transfers" class="" role="menuitem">Transfers</a>
+                                    </div>
+            </div>
+
+            <div class="nav-dropdown desktop-only" data-nav-dropdown>
+                <button type="button" class="nav-dropdown__btn active" data-nav-dropdown-btn aria-haspopup="true" aria-expanded="false" aria-controls="nav-more-menu">
+                    More <span aria-hidden="true">▾</span>
+                </button>
+                <div class="nav-submenu" id="nav-more-menu" data-nav-dropdown-menu hidden role="menu">
+                    <a href="/fit-pass" class="active" role="menuitem">FIT-Pass</a>
+                    <a href="/competitions" class="" role="menuitem">Predictions</a>
+                    <a href="/tv" class="" role="menuitem">TV Schedule</a>
+                    <a href="/fixtures/calendar/2026-07-14" class="" role="menuitem">Fixtures</a>
+                    <a href="/stats/scorers" class="" role="menuitem">Stats</a>
+                    <a href="/tournaments" class="" role="menuitem">Tournaments</a>
+                    <a href="/providers" class="" role="menuitem">Providers</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-actions">
+            <div class="lang-switch desktop-only">
+                <button class="lang-btn" data-lang-btn aria-haspopup="true">
+                    <span>EN</span> ▾
+                </button>
+                <div class="lang-menu" data-lang-menu>
+                                            <a href="/set-lang.php?locale=en&amp;redirect=%2Ffit-pass" class="active">
+                            English                        </a>
+                                            <a href="/set-lang.php?locale=de&amp;redirect=%2Ffit-pass" class="">
+                            Deutsch                        </a>
+                                            <a href="/set-lang.php?locale=ar&amp;redirect=%2Ffit-pass" class="">
+                            العربية                        </a>
+                                    </div>
+            </div>
+
+                            <a href="/login" class="btn btn-ghost btn-sm desktop-only">Log in</a>
+                <a href="/register" class="btn btn-primary btn-sm">Join Free</a>
+            
+            <button class="nav-toggle mobile-only" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+                <span data-nav-icon>☰</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="nav-backdrop" data-nav-backdrop aria-hidden="true"></div>
+
+<nav class="mobile-nav" id="site-menu" data-mobile-nav aria-label="Primary navigation" aria-hidden="true">
+    <div class="mobile-nav__head">
+        <a href="/" class="brand brand--mobile-nav" aria-label="Sportify home">
+            <picture><source type="image/webp" srcset="/assets/img/logo.webp?v=1781980038"><img src="/assets/img/logo.png?v=1782018841" alt="Sportify" class="brand-logo brand-logo-img" width="136" height="34" decoding="async" fetchpriority="high"></picture>        </a>
+        <button type="button" class="mobile-nav__close" data-nav-close aria-label="Close menu">✕</button>
+    </div>
+    <form class="header-search header-search--mobile" action="/search" method="get" role="search">
+        <input type="search" name="q" placeholder="Search players…" aria-label="Search players…">
+        <button type="submit" class="btn btn-primary btn-sm">Go</button>
+    </form>
+
+    
+        <div class="mobile-nav__accordion" data-mobile-accordion>
+        <button type="button" class="mobile-nav__accordion-btn" data-mobile-accordion-btn aria-expanded="false" aria-controls="mobile-nav-explore">
+            Explore <span class="mobile-nav__chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mobile-nav__accordion-panel" id="mobile-nav-explore" data-mobile-accordion-panel hidden>
+            <a href="/matches" class="">Matches & Tables</a>
+            <a href="/players" class="">Players</a>
+            <span class="mobile-nav__subgroup">Watch</span>
+            <a href="/videos" class="mobile-nav__sub-link ">Videos</a>
+            <a href="/only-talents" class="mobile-nav__sub-link ">Only Talents</a>
+            <a href="/highlights" class="mobile-nav__sub-link ">Highlights</a>
+            <a href="/live-streams" class="mobile-nav__sub-link ">Live Streams</a>
+                            <a href="/world-cup" class="">🏆 World Cup</a>
+                    </div>
+    </div>
+
+    <div class="mobile-nav__accordion mobile-nav__accordion--featured" data-mobile-accordion>
+        <button type="button" class="mobile-nav__accordion-btn" data-mobile-accordion-btn aria-expanded="false" aria-controls="mobile-nav-talent-hub">
+            Talent Hub <span class="mobile-nav__chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mobile-nav__accordion-panel" id="mobile-nav-talent-hub" data-mobile-accordion-panel hidden>
+            <a href="/trainers" class="">Trainers</a>
+            <a href="/only-talents" class="">Scouts</a>
+            <a href="/clubs/recommendations" class="">Clubs</a>
+            <span class="mobile-nav__subgroup">Get started</span>
+            <a href="/register?role=trainer" class="mobile-nav__sub-link ">Register as Trainer</a>
+            <a href="/register?role=scout" class="mobile-nav__sub-link ">For Scouts</a>
+            <a href="/clubs/recommendations" class="mobile-nav__sub-link ">Club recommendations</a>
+        </div>
+    </div>
+
+    <div class="mobile-nav__accordion is-open" data-mobile-accordion>
+        <button type="button" class="mobile-nav__accordion-btn" data-mobile-accordion-btn aria-expanded="true" aria-controls="mobile-nav-more">
+            More <span class="mobile-nav__chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="mobile-nav__accordion-panel" id="mobile-nav-more" data-mobile-accordion-panel>
+            <a href="/news" class="">News</a>
+            <a href="/transfers" class="">Transfers</a>
+            <a href="/fit-pass" class="active">FIT-Pass</a>
+        </div>
+    </div>
+            <a href="/login">Log in</a>
+        <a href="/register" class="btn btn-primary btn-block">Join Free</a>
+        <div class="flex gap-1 mt-2">
+                    <a href="/set-lang.php?locale=en&amp;redirect=%2Ffit-pass" class="chip chip--green">EN</a>
+                    <a href="/set-lang.php?locale=de&amp;redirect=%2Ffit-pass" class="chip ">DE</a>
+                    <a href="/set-lang.php?locale=ar&amp;redirect=%2Ffit-pass" class="chip ">AR</a>
+            </div>
+</nav>
+
+<nav class="kooora-nav" aria-label="Live scores and standings">
+    <div class="container kooora-nav__inner">
+                    <a href="/tournaments/world-cup-2026" class="kooora-nav__link kooora-nav__link--wc ">🏆 World Cup</a>
+                <a href="/fixtures/calendar/2026-07-14" class="kooora-nav__link ">Fixtures</a>
+        <a href="/matches" class="kooora-nav__link ">Matches</a>
+        <a href="/tables" class="kooora-nav__link ">Tables</a>
+        <a href="/news" class="kooora-nav__link ">News</a>
+        <a href="/stats/scorers" class="kooora-nav__link ">Stats</a>
+        <a href="/rankings" class="kooora-nav__link ">Rankings</a>
+        <a href="/tournaments" class="kooora-nav__link ">Tournaments</a>
+        <a href="/tv" class="kooora-nav__link ">TV Schedule</a>
+    </div>
+</nav>
+
+<main id="main-content"
+<!-- deploy-marker:refereex-static-full-20260714 -->
+<div class="refereex-page" data-refereex-page>
+
+<!-- 1. Hero -->
+<section class="hero" id="rx-hero" aria-labelledby="rx-hero-title" style="padding:clamp(64px,10vw,96px) 0 clamp(48px,8vw,72px)">
+    <div class="container">
+        <div class="hero-grid">
+            <div>
+                <span class="eyebrow">Next-generation officiating intelligence</span>
+                <h1 id="rx-hero-title">RefereeX <span class="accent">AI</span></h1>
+                <p class="hero__sub">Real-time decision support for modern football</p>
+                <p class="lead">RefereeX AI fuses multi-camera feeds, computer vision, and digital twin technology to deliver explainable officiating intelligence for federations, leagues, and broadcasters.</p>
+                <div class="hero__cta">
+                    <a href="/contact?subject=RefereeX%20Demo" class="btn btn-primary">Request a demo</a>
+                    <a href="#rx-dashboard" class="btn btn-ghost">Watch overview</a>
+                    <a href="/contact?subject=RefereeX%20Pilot" class="btn btn-dark">Start a pilot</a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="panel refereex-hero-panel center" data-reveal>
+                    <div class="refereex-hero-panel__icon">📹</div>
+                    <p class="mb-0"><strong>Live officiating intelligence</strong></p>
+                    <p class="small muted mb-0">Multi-camera fusion · Digital twin · Explainable AI</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hero stats -->
+<section class="section section--tight" id="rx-stats" aria-label="Key metrics">
+    <div class="container">
+        <div class="stat-grid">
+                        <div class="stat-box accent" data-reveal>
+                <b class="counter"><span data-count="98.7" data-suffix="%">0</span></b>
+                <span>Decision confidence</span>
+            </div>
+                        <div class="stat-box accent" data-reveal>
+                <b class="counter"><<span data-count="100" data-suffix=" ms">0</span></b>
+                <span>Edge latency</span>
+            </div>
+                        <div class="stat-box accent" data-reveal>
+                <b class="counter"><span data-count="16" data-suffix="+">0</span></b>
+                <span>Camera inputs</span>
+            </div>
+                        <div class="stat-box accent" data-reveal>
+                <b class="counter"><span data-count="24" data-suffix="/7">0</span></b>
+                <span>Integrity monitoring</span>
+            </div>
+                    </div>
+    </div>
+</section>
+
+<!-- 2. Problem -->
+<section class="section" id="rx-problem" style="background:var(--bg-2)" aria-labelledby="rx-problem-head">
+    <div class="container">
+        <div class="layout-2col">
+            <div data-reveal>
+                <span class="eyebrow">The challenge</span>
+                <h2 id="rx-problem-head">Modern football outpaced traditional officiating</h2>
+                <p class="lead">Matches are faster, cameras are everywhere, and fans expect instant fairness — yet VAR still relies on manual replay selection and single-angle review.</p>
+            </div>
+            <div class="grid grid-2" data-reveal>
+                                <div class="card card__body">
+                    <div class="step__icon mb-2">⚠️</div>
+                    <h3>Delayed decisions</h3>
+                    <p class="small mb-0">Critical incidents reviewed minutes after play resumes</p>
+                </div>
+                                <div class="card card__body">
+                    <div class="step__icon mb-2">📹</div>
+                    <h3>Camera blind spots</h3>
+                    <p class="small mb-0">Single-angle replay misses off-ball contact and positioning</p>
+                </div>
+                                <div class="card card__body">
+                    <div class="step__icon mb-2">❓</div>
+                    <h3>No explainability</h3>
+                    <p class="small mb-0">Federations cannot audit why a recommendation was made</p>
+                </div>
+                                <div class="card card__body">
+                    <div class="step__icon mb-2">📉</div>
+                    <h3>Integrity risk</h3>
+                    <p class="small mb-0">Inconsistent calls erode trust with fans and broadcasters</p>
+                </div>
+                            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Solution -->
+<section class="section" id="rx-solution" aria-labelledby="rx-solution-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">The solution</span>
+            <h2 id="rx-solution-head">Intelligent officiating from kickoff to final whistle</h2>
+            <p>RefereeX AI is Sportify's end-to-end platform — ingesting live video, maintaining a digital twin, and delivering explainable recommendations aligned with IFAB protocols.</p>
+        </div>
+        <div class="grid grid-4">
+                        <div class="card card__body" data-reveal>
+                <div class="step__icon">🔮</div>
+                <h3>Digital twin</h3>
+                <p class="small mb-0">Synchronized match state for every player, ball, and official</p>
+            </div>
+                        <div class="card card__body" data-reveal>
+                <div class="step__icon">📹</div>
+                <h3>Multi-camera fusion</h3>
+                <p class="small mb-0">Bayesian fusion across broadcast, tactical, and goal-line feeds</p>
+            </div>
+                        <div class="card card__body" data-reveal>
+                <div class="step__icon">💡</div>
+                <h3>Explainable AI</h3>
+                <p class="small mb-0">Human-readable reasoning chains for every recommendation</p>
+            </div>
+                        <div class="card card__body" data-reveal>
+                <div class="step__icon">🏛️</div>
+                <h3>Federation ready</h3>
+                <p class="small mb-0">Audit trails, dashboards, and API integration for VAR workflows</p>
+            </div>
+                    </div>
+    </div>
+</section>
+
+<!-- 4. How It Works -->
+<section class="section" id="rx-how" style="background:var(--bg-2)" aria-labelledby="rx-how-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Process</span>
+            <h2 id="rx-how-head">How it works</h2>
+        </div>
+        <div class="grid grid-4">
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">1</div>
+                <h3>Cameras capture live match video</h3>
+                <p class="small mb-0">Broadcast, tactical, goal-line, and drone feeds synchronized</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">2</div>
+                <h3>AI detects players, ball, and incidents</h3>
+                <p class="small mb-0">YOLO detection and pose estimation at the edge</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">3</div>
+                <h3>Digital twin updates in real time</h3>
+                <p class="small mb-0">Every entity mapped to sub-centimeter coordinates</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">4</div>
+                <h3>Multi-camera fusion assesses incidents</h3>
+                <p class="small mb-0">Bayesian fusion merges per-camera confidence scores</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">5</div>
+                <h3>Explainable recommendations generated</h3>
+                <p class="small mb-0">Reasoning chains document camera contributions</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">6</div>
+                <h3>VAR team reviews with confidence scores</h3>
+                <p class="small mb-0">Workflow integrated with existing VAR infrastructure</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">7</div>
+                <h3>Federation dashboard logs all decisions</h3>
+                <p class="small mb-0">Full audit trail for integrity officers</p>
+            </div>
+                        <div class="card step card__body" data-reveal>
+                <div class="step__num">8</div>
+                <h3>Post-match analytics and reports</h3>
+                <p class="small mb-0">Referee performance and integrity scoring</p>
+            </div>
+                    </div>
+    </div>
+</section>
+
+<!-- 5. Architecture -->
+<section class="section" id="rx-architecture" aria-labelledby="rx-arch-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Architecture</span>
+            <h2 id="rx-arch-head">System architecture</h2>
+            <p>From stadium cameras to federation dashboards — a full-stack officiating intelligence pipeline.</p>
+        </div>
+        <div class="refereex-pipeline" data-reveal>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">📹</div>
+                <div class="small fw-800">Multi-camera ingest</div>
+            </div>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">👁️</div>
+                <div class="small fw-800">Computer vision</div>
+            </div>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">🎯</div>
+                <div class="small fw-800">Object tracking</div>
+            </div>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">⚡</div>
+                <div class="small fw-800">Decision fusion</div>
+            </div>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">🔮</div>
+                <div class="small fw-800">Digital twin</div>
+            </div>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">💡</div>
+                <div class="small fw-800">Explainable AI</div>
+            </div>
+                        <div class="refereex-pipeline__node card card__body center">
+                <div class="step__icon">🏁</div>
+                <div class="small fw-800">Officiating support</div>
+            </div>
+                    </div>
+    </div>
+</section>
+
+<!-- 6. Algorithm -->
+<section class="section" id="rx-algorithm" style="background:var(--bg-2)" aria-labelledby="rx-algo-head">
+    <div class="container">
+        <div class="layout-2col">
+            <div data-reveal>
+                <span class="eyebrow">Edge performance</span>
+                <h2 id="rx-algo-head">Lightweight algorithm stack</h2>
+                <p class="lead">RefereeX runs optimized YOLO-nano and custom tracking kernels on edge GPUs — achieving sub-100ms detection without cloud round-trips for initial incident flagging.</p>
+                <ul class="feature-list">
+                    <li><span class="tick">✓</span> YOLO-nano @ 60 FPS per camera stream</li>
+                    <li><span class="tick">✓</span> ByteTrack occlusion handling with camera handoff</li>
+                    <li><span class="tick">✓</span> Quantized inference — 4× smaller model footprint</li>
+                    <li><span class="tick">✓</span> Adaptive frame sampling during low-action periods</li>
+                </ul>
+            </div>
+            <div class="panel bar-chart" data-reveal>
+                <div class="bar-row"><span class="bar-row__label">Detection</span><div class="bar-row__track"><span class="bar-row__fill" data-w="92" style="--w:92%"></span></div><span class="bar-row__val">92 FPS</span></div>
+                <div class="bar-row"><span class="bar-row__label">Tracking</span><div class="bar-row__track"><span class="bar-row__fill" data-w="78" style="--w:78%"></span></div><span class="bar-row__val">78 FPS</span></div>
+                <div class="bar-row"><span class="bar-row__label">Fusion</span><div class="bar-row__track"><span class="bar-row__fill" data-w="95" style="--w:95%"></span></div><span class="bar-row__val">&lt;100ms</span></div>
+                <div class="bar-row"><span class="bar-row__label">Twin sync</span><div class="bar-row__track"><span class="bar-row__fill" data-w="88" style="--w:88%"></span></div><span class="bar-row__val">99%</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7. Fusion -->
+<section class="section" id="rx-fusion" aria-labelledby="rx-fusion-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Decision fusion</span>
+            <h2 id="rx-fusion-head">Adaptive multi-camera fusion</h2>
+            <p>Each camera contributes a confidence-weighted assessment. RefereeX adaptively weights feeds based on angle quality and occlusion.</p>
+        </div>
+        <div class="refereex-fusion" data-rx-fusion data-reveal>
+            <div class="refereex-fusion__inputs grid grid-3">
+                <div class="card card__body" data-rx-fusion-cam>
+                    <div class="small muted">Camera 1 — Main</div>
+                    <div class="fw-800">Penalty</div>
+                    <div class="text-green" data-rx-conf-display>92%</div>
+                    <input type="range" class="refereex-fusion__slider" data-rx-conf-slider min="0" max="100" value="92" aria-label="Camera 1 confidence">
+                </div>
+                <div class="card card__body" data-rx-fusion-cam>
+                    <div class="small muted">Camera 2 — Wide</div>
+                    <div class="fw-800">Penalty</div>
+                    <div class="text-green" data-rx-conf-display>89%</div>
+                    <input type="range" class="refereex-fusion__slider" data-rx-conf-slider min="0" max="100" value="89" aria-label="Camera 2 confidence">
+                </div>
+                <div class="card card__body" data-rx-fusion-cam>
+                    <div class="small muted">Camera 3 — Behind goal</div>
+                    <div class="fw-800">No penalty</div>
+                    <div class="text-green" data-rx-conf-display>43%</div>
+                    <input type="range" class="refereex-fusion__slider" data-rx-conf-slider min="0" max="100" value="43" aria-label="Camera 3 confidence">
+                </div>
+            </div>
+            <div class="refereex-fusion__result panel center mt-3">
+                <div class="small muted">Fused decision</div>
+                <div class="fw-800 text-green" data-rx-fusion-result>Penalty — 95%</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8. Digital Twin -->
+<section class="section" id="rx-twin" style="background:var(--bg-2)" aria-labelledby="rx-twin-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Digital twin</span>
+            <h2 id="rx-twin-head">Live digital twin</h2>
+            <p>Every player, the ball, and officials mapped to synchronized digital entities.</p>
+        </div>
+        <div class="panel" data-reveal>
+            <div class="chips wrap mb-2">
+                                <span class="chip chip--green">Player 1 Twin</span>
+                                <span class="chip chip--green">Player 2 Twin</span>
+                                <span class="chip chip--green">Player 3 Twin</span>
+                                <span class="chip chip--green">Player 4 Twin</span>
+                                <span class="chip chip--green">Player 5 Twin</span>
+                                <span class="chip chip--green">Player 6 Twin</span>
+                                <span class="chip chip--green">Player 7 Twin</span>
+                                <span class="chip chip--green">Player 8 Twin</span>
+                                <span class="chip chip--green">Ball Twin</span>
+                <span class="chip chip--green">Referee Twin</span>
+            </div>
+            <p class="small muted mb-1">Timeline synchronization</p>
+            <div class="refereex-twin-timeline" data-rx-twin-timeline>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                                <div class="refereex-twin-timeline__seg" data-rx-twin-seg></div>
+                            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9. Explainable AI -->
+<section class="section" id="rx-explain" aria-labelledby="rx-explain-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Transparency</span>
+            <h2 id="rx-explain-head">Explainable AI decisions</h2>
+        </div>
+        <div class="panel ai-rec" data-reveal>
+            <div class="ai-badge mb-2">Incident: Possible handball in the penalty area (67')</div>
+            <ul class="ai-rec__reasons">
+                <li>Camera 2 shows arm extension toward ball trajectory</li>
+                <li>Ball deflection angle consistent with hand contact</li>
+                <li>Player arm position above shoulder line at contact</li>
+                <li>No significant body position change from Camera 1</li>
+            </ul>
+            <p class="small text-green mb-0">94% confidence · 3 cameras · VAR review recommended</p>
+        </div>
+    </div>
+</section>
+
+<!-- 10. Dashboard -->
+<section class="section" id="rx-dashboard" style="background:var(--bg-2)" aria-labelledby="rx-dash-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Dashboard</span>
+            <h2 id="rx-dash-head">Federation command center</h2>
+        </div>
+        <div class="grid grid-4 refereex-dashboard" data-reveal>
+                        <div class="card card__body refereex-dashboard__wide">
+                <div class="small muted">Live Match</div>
+                <div class="fw-800">FC Bayern vs Dortmund</div>
+                                <div class="meter"><span style="width:85%"></span></div>
+                            </div>
+                        <div class="card card__body">
+                <div class="small muted">Incident Feed</div>
+                <div class="fw-800">3 active reviews</div>
+                            </div>
+                        <div class="card card__body">
+                <div class="small muted">Timeline</div>
+                <div class="fw-800">67&#039; Handball check</div>
+                            </div>
+                        <div class="card card__body">
+                <div class="small muted">Camera Views</div>
+                <div class="fw-800">5 streams live</div>
+                            </div>
+                        <div class="card card__body">
+                <div class="small muted">Digital Twin</div>
+                <div class="fw-800">99% synced</div>
+                                <div class="meter"><span style="width:99%"></span></div>
+                            </div>
+                        <div class="card card__body">
+                <div class="small muted">Confidence</div>
+                <div class="fw-800">94.2%</div>
+                                <div class="meter"><span style="width:94%"></span></div>
+                            </div>
+                        <div class="card card__body">
+                <div class="small muted">Replay</div>
+                <div class="fw-800">Ready</div>
+                            </div>
+                        <div class="card card__body refereex-dashboard__wide">
+                <div class="small muted">AI Recommendations</div>
+                <div class="fw-800">Review advised</div>
+                                <div class="meter"><span style="width:78%"></span></div>
+                            </div>
+                    </div>
+        <div class="center mt-3" data-reveal>
+            <a href="/contact?subject=RefereeX%20Dashboard" class="btn btn-primary">Explore the dashboard</a>
+        </div>
+    </div>
+</section>
+
+<!-- 11. Features -->
+<section class="section" id="rx-features" aria-labelledby="rx-features-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Capabilities</span>
+            <h2 id="rx-features-head">Platform features</h2>
+        </div>
+        <div class="grid grid-auto">
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">⚡</span>
+                <div><h3>Real-Time Alerts</h3><p class="small mb-0">Instant notifications for critical match events</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">🔄</span>
+                <div><h3>Automatic Replay</h3><p class="small mb-0">AI-triggered replay sequences on demand</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">🛡️</span>
+                <div><h3>Integrity Monitoring</h3><p class="small mb-0">Continuous match integrity scoring</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">📋</span>
+                <div><h3>AI Reports</h3><p class="small mb-0">Post-match analytical reports</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">📊</span>
+                <div><h3>Referee Analytics</h3><p class="small mb-0">Performance insights and trends</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">📍</span>
+                <div><h3>Player Tracking</h3><p class="small mb-0">Sub-centimeter positional accuracy</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">📄</span>
+                <div><h3>Match Reports</h3><p class="small mb-0">Comprehensive officiating documentation</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">🎬</span>
+                <div><h3>Video Intelligence</h3><p class="small mb-0">Deep video understanding pipeline</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">☁️</span>
+                <div><h3>Cloud Deployment</h3><p class="small mb-0">Scalable cloud infrastructure</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">⚡</span>
+                <div><h3>Edge AI</h3><p class="small mb-0">On-premise low-latency processing</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">🔌</span>
+                <div><h3>API Integration</h3><p class="small mb-0">RESTful APIs for federation systems</p></div>
+            </div>
+                        <div class="card card__body flex gap-1" data-reveal>
+                <span class="step__icon">🏛️</span>
+                <div><h3>Federation Dashboard</h3><p class="small mb-0">Multi-league oversight console</p></div>
+            </div>
+                    </div>
+    </div>
+</section>
+
+<!-- 12. Use Cases -->
+<section class="section" id="rx-usecases" style="background:var(--bg-2)" aria-labelledby="rx-use-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Use cases</span>
+            <h2 id="rx-use-head">Who uses RefereeX AI</h2>
+        </div>
+        <div class="grid grid-4">
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">⚽</div>
+                <h3>Professional Football</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">🏛️</div>
+                <h3>Federations</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">📺</div>
+                <h3>Broadcasters</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">🎥</div>
+                <h3>VAR Support</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">🏟️</div>
+                <h3>Regional Leagues</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">🎓</div>
+                <h3>Youth Academies</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">📊</div>
+                <h3>Sports Analytics</h3>
+            </div>
+                        <div class="card card__body center" data-reveal>
+                <div class="step__icon">🛡️</div>
+                <h3>Integrity Monitoring</h3>
+            </div>
+                    </div>
+    </div>
+</section>
+
+<!-- 13. Comparison -->
+<section class="section" id="rx-benefits" aria-labelledby="rx-benefits-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Comparison</span>
+            <h2 id="rx-benefits-head">Traditional VAR vs RefereeX AI</h2>
+        </div>
+        <div class="table-wrap" data-reveal>
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th scope="col">Capability</th>
+                        <th scope="col">Traditional VAR</th>
+                        <th scope="col">RefereeX AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                                        <tr>
+                        <th scope="row">Camera coverage</th>
+                        <td>1–2 angles</td>
+                        <td><span class="text-green">✓</span> 16+ synchronized feeds</td>
+                    </tr>
+                                        <tr>
+                        <th scope="row">Incident detection</th>
+                        <td>Manual operator</td>
+                        <td><span class="text-green">✓</span> AI auto-flagging &amp;lt;100ms</td>
+                    </tr>
+                                        <tr>
+                        <th scope="row">Decision support</th>
+                        <td>Replay only</td>
+                        <td><span class="text-green">✓</span> Confidence-scored recommendations</td>
+                    </tr>
+                                        <tr>
+                        <th scope="row">Explainability</th>
+                        <td>None</td>
+                        <td><span class="text-green">✓</span> Full reasoning chains</td>
+                    </tr>
+                                        <tr>
+                        <th scope="row">Match state</th>
+                        <td>Static replay</td>
+                        <td><span class="text-green">✓</span> Live digital twin</td>
+                    </tr>
+                                        <tr>
+                        <th scope="row">Audit trail</th>
+                        <td>Limited logs</td>
+                        <td><span class="text-green">✓</span> Federation-grade audit dashboard</td>
+                    </tr>
+                                        <tr>
+                        <th scope="row">Integration</th>
+                        <td>Proprietary</td>
+                        <td><span class="text-green">✓</span> RESTful APIs &amp; standard protocols</td>
+                    </tr>
+                                    </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- 14. Research -->
+<section class="section" id="rx-research" style="background:var(--bg-2)" aria-labelledby="rx-research-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">Research</span>
+            <h2 id="rx-research-head">Research foundations</h2>
+        </div>
+        <div class="chips wrap center" data-reveal>
+                        <span class="chip chip--green chip--sm">Computer Vision</span>
+                        <span class="chip chip--green chip--sm">Decision Fusion</span>
+                        <span class="chip chip--green chip--sm">Physical AI</span>
+                        <span class="chip chip--green chip--sm">Digital Twin</span>
+                        <span class="chip chip--green chip--sm">Explainable AI</span>
+                        <span class="chip chip--green chip--sm">Referee Intelligence</span>
+                    </div>
+    </div>
+</section>
+
+<!-- 15. Pilot -->
+<section class="section" id="rx-pilot" aria-labelledby="rx-pilot-head">
+    <div class="container">
+        <div class="layout-2col">
+            <div data-reveal>
+                <span class="eyebrow">Pilot program</span>
+                <h2 id="rx-pilot-head">Start your league pilot</h2>
+                <p class="lead">We partner with federations and leagues for structured pilot programs — from single-match trials to full-season deployments with dedicated support.</p>
+                <ul class="feature-list">
+                    <li><span class="tick">✓</span> <strong>Week 1–2</strong> — Stadium assessment & camera mapping</li>
+                    <li><span class="tick">✓</span> <strong>Week 3–4</strong> — Edge deployment & calibration</li>
+                    <li><span class="tick">✓</span> <strong>Week 5+</strong> — Live match integration with VAR team</li>
+                </ul>
+                <a href="/contact?subject=RefereeX%20Pilot%20League" class="btn btn-primary mt-2">Pilot your league</a>
+            </div>
+            <div class="panel" data-reveal>
+                <h3>Request pilot information</h3>
+                <form action="/contact" method="get">
+                    <input type="hidden" name="subject" value="RefereeX Pilot">
+                    <div class="form-group">
+                        <label for="rx-pilot-org">Organization</label>
+                        <input class="form-control" id="rx-pilot-org" name="organization" type="text" placeholder="Federation / League name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rx-pilot-email">Email</label>
+                        <input class="form-control" id="rx-pilot-email" name="email" type="email" placeholder="you@federation.org" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Get pilot details</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 16. FAQ -->
+<section class="section" id="rx-faq" style="background:var(--bg-2)" aria-labelledby="rx-faq-head">
+    <div class="container">
+        <div class="section-head center" data-reveal>
+            <span class="eyebrow">FAQ</span>
+            <h2 id="rx-faq-head">Frequently asked questions</h2>
+        </div>
+        <div class="refereex-faq" data-reveal>
+                        <details class="panel refereex-faq__item mb-2">
+                <summary class="fw-800">Does RefereeX AI replace referees?</summary>
+                <p class="small mb-0 mt-2">No. RefereeX AI supports human officials with data, replays, and confidence scores. Final decisions remain with the referee and VAR team.</p>
+            </details>
+                        <details class="panel refereex-faq__item mb-2">
+                <summary class="fw-800">How many cameras are supported?</summary>
+                <p class="small mb-0 mt-2">The platform supports 16+ synchronized camera inputs including broadcast, tactical, goal-line, and drone feeds.</p>
+            </details>
+                        <details class="panel refereex-faq__item mb-2">
+                <summary class="fw-800">What is the latency?</summary>
+                <p class="small mb-0 mt-2">Edge deployments achieve sub-100ms incident detection. Cloud fusion adds typically 200–500ms for full multi-camera assessment.</p>
+            </details>
+                        <details class="panel refereex-faq__item mb-2">
+                <summary class="fw-800">Is it IFAB compliant?</summary>
+                <p class="small mb-0 mt-2">Workflows are designed around IFAB protocols. Audit trails document every recommendation for federation review.</p>
+            </details>
+                        <details class="panel refereex-faq__item mb-2">
+                <summary class="fw-800">Can it integrate with existing VAR?</summary>
+                <p class="small mb-0 mt-2">Yes. RESTful APIs and standard video protocols enable integration with existing VAR infrastructure and broadcast systems.</p>
+            </details>
+                    </div>
+    </div>
+</section>
+
+<!-- 17. Final CTA -->
+<section class="section section--tight" id="rx-cta" aria-labelledby="rx-cta-head">
+    <div class="container">
+        <div class="cta-banner" data-reveal>
+            <h2 id="rx-cta-head">Ready to transform officiating?</h2>
+            <p>Join federations and leagues exploring the future of intelligent match officiating.</p>
+            <div class="hero__cta">
+                <a href="/contact?subject=RefereeX%20Demo" class="btn btn-primary">Request a demo</a>
+                <a href="/contact?subject=RefereeX%20Research%20Partner" class="btn btn-ghost">Research partnership</a>
+                <a href="/contact?subject=RefereeX%20Pilot%20League" class="btn btn-dark">Pilot your league</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+
+</main>
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/" class="brand">
+                    <picture><source type="image/webp" srcset="/assets/img/logo.webp?v=1781980038"><img src="/assets/img/logo.png?v=1782018841" alt="Sportify" class="brand-logo brand-logo-img" width="150" height="42" decoding="async" fetchpriority="high"></picture>                </a>
+                <p>The football talent discovery platform. Players showcase highlights, AI analyzes talent, and clubs sign smarter.</p>
+                <p class="footer-tagline-sub">AI scouting · Video highlights · Global talent network</p>
+            </div>
+            <div>
+                <h4>Platform</h4>
+                <a href="/players">Players</a>
+                <a href="/videos">Videos</a>
+                <a href="/search">Discover</a>
+                <a href="/highlights">Highlights</a>
+                <a href="/transfers">Transfers</a>
+                <a href="/news">News</a>
+                <a href="/clubs/recommendations">For Clubs</a>
+                <a href="/fit-pass">FIT-Pass</a>
+                <a href="/providers">Providers</a>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </div>
+            <div>
+                <h4>Account</h4>
+                <a href="/login">Log in</a>
+                <a href="/register">Register</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+                <a href="/data-deletion">Data Deletion</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Sportify. All rights reserved.</span>
+            <div class="footer-bottom-links">
+                <a href="/privacy">Privacy</a>
+                <span aria-hidden="true">·</span>
+                <a href="/terms">Terms</a>
+                <span aria-hidden="true">·</span>
+                <a href="/data-deletion">Data Deletion</a>
+                <span aria-hidden="true">·</span>
+                <a href="/contact">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="/assets/js/refereex-ai.js" defer></script>
+<script src="/assets/js/app.js?v=1782018838" defer></script>
+<script>
+(function(){
+  var obs='IntersectionObserver'in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-revealed');obs.unobserve(e.target);}});},{threshold:0.12}):null;
+  document.querySelectorAll('[data-reveal]').forEach(function(el){if(obs)obs.observe(el);else el.classList.add('is-revealed');});
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var target=parseFloat(el.getAttribute('data-count')||'0'),suffix=el.getAttribute('data-suffix')||'';
+    var start=0,dur=1200,t0=null;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=(start+(target-start)*p).toFixed(target%1?1:0)+suffix;if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  });
+})();
+</script>
+</body>
+</html>

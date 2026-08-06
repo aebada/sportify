@@ -1,0 +1,4 @@
+auto_prepend_file="/home/u234903558/domains/sportifyplus.de/public_html/site-prepend-20260720-auth-brand.php"
+opcache.validate_timestamps=1
+opcache.revalidate_freq=0
+; deploy 20260720 — auth brand top-left on login/register

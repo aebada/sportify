@@ -1,0 +1,31 @@
+<IfModule mod_lsapi.c>
+    php_value opcache.enable 0
+    php_value opcache.enable_cli 0
+    php_value auto_prepend_file "/home/u234903558/domains/sportifyplus.de/public_html/site-prepend-20260705-refereex-live.php"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} ^(talents|onlytalents)\.sportifyplus\.de$ [NC]
+    RewriteRule ^$ https://sportifyplus.de/only-talents [R=302,L]
+
+    # Canonical OnlyTalents shorts URL (no /home) — standalone PHP bypass
+    RewriteRule ^only-talents/home/?$ ot-canonical-redirect-20260707.php [L,QSA]
+    RewriteCond %{REQUEST_URI} ^/only-talents/home/?$ [NC]
+    RewriteRule ^ /only-talents [R=301,L,QSA]
+    RedirectMatch 301 (?i)^/only-talents/home/?$ /only-talents
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteRule ^refereex-ai/?$ refereex-ai.php [L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^ index-20260707-ot-canonical-v2.php [L]
+</IfModule>
+
+Options -Indexes

@@ -1,0 +1,3 @@
+<?php
+/** Sportify front controller — OT immersive v5 (2026-07-07). */
+require __DIR__ . '/index-20260707-ot-immersive-v1.php';

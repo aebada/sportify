@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(talents|onlytalents)\.sportifyplus\.de$ [NC]
+RewriteRule ^$ https://sportifyplus.de/only-talents/home [R=302,L]
+</IfModule>

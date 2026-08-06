@@ -1,0 +1,3 @@
+auto_prepend_file = "/home/u234903558/talents/ot-prepend-20260705.php"
+opcache.validate_timestamps=1
+opcache.revalidate_freq=0

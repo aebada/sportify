@@ -1,0 +1,34 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^refereex-ai/?$ https://aebada.github.io/sportify-refereex/ [R=302,L]
+
+    # Auth brand wrap (explicit)
+    RewriteRule ^login/?$ public/login-brand-wrap-20260720.php [L,QSA]
+    RewriteRule ^register/?$ public/login-brand-wrap-20260720.php [L,QSA]
+    RewriteRule ^forgot-password/?$ public/login-brand-wrap-20260720.php [L,QSA]
+
+    # Google OAuth dedicated handlers
+    RewriteRule ^auth/google/?$ public/oauth-google-start-20260720.php [L,QSA]
+    RewriteRule ^auth/google/return/?$ public/oauth-google-return-20260720.php [L,QSA]
+    RewriteRule ^auth/google/callback/?$ public/oauth-google-return-20260720.php [L,QSA]
+    RewriteRule ^oauth-google-start-20260720\.php$ public/oauth-google-start-20260720.php [L,QSA]
+    RewriteRule ^oauth-google-return-20260720\.php$ public/oauth-google-return-20260720.php [L,QSA]
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^ - [L]
+
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+    RewriteCond %{REQUEST_URI} ^/public/?(.*)$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L]
+
+    RewriteRule ^only-talents/home/?$ /only-talents [R=301,L,QSA]
+
+    RewriteRule ^(app|config|database|storage|views|bootstrap\.php)(/|$) - [F,L]
+    RewriteRule ^lang/(en|de|ar)/messages\.php$ - [F,L]
+    RewriteRule ^$ public/index.php [L]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.+)$ public/$1 [L]
+</IfModule>
+Options -Indexes

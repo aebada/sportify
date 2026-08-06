@@ -1,0 +1,4 @@
+# Patch: redirect legacy /talents path to OnlyTalents (insert before public/ rewrite)
+<IfModule mod_rewrite.c>
+    RewriteRule ^talents/?$ https://sportifyplus.de/only-talents/home [R=302,L]
+</IfModule>

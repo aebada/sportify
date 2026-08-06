@@ -1,0 +1,2015 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RefereeX AI — Intelligent Officiating Platform · Sportify</title>
+<meta name="description" content="RefereeX AI delivers real-time officiating intelligence for modern football.">
+<meta name="deploy-marker" content="refereex-live-sports-20260705-v1">
+<link rel="canonical" href="https://sportifyplus.de/live-sports.html">
+<style>
+/* RefereeX AI — flagship product landing page */
+.refereex-page {
+  --rx-bg: #050a12;
+  --rx-bg-2: #0a1220;
+  --rx-surface: rgba(17, 26, 43, 0.72);
+  --rx-border: rgba(148, 163, 184, 0.14);
+  --rx-text: #f8fafc;
+  --rx-muted: #94a3b8;
+  --rx-blue: #3b82f6;
+  --rx-blue-glow: rgba(59, 130, 246, 0.45);
+  --rx-cyan: #22d3ee;
+  --rx-green: #22c55e;
+  --rx-green-glow: rgba(34, 197, 94, 0.4);
+  --rx-radius: 18px;
+  --rx-radius-lg: 28px;
+  background: var(--rx-bg);
+  color: var(--rx-text);
+}
+
+.refereex-page.refereex-page--light {
+  --rx-bg: #f1f5f9;
+  --rx-bg-2: #e2e8f0;
+  --rx-surface: rgba(255, 255, 255, 0.85);
+  --rx-border: rgba(15, 23, 42, 0.1);
+  --rx-text: #0f172a;
+  --rx-muted: #475569;
+}
+
+.refereex-page .site-footer { margin-top: 0; }
+
+/* Theme toggle */
+.rx-theme-toggle {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--rx-border);
+  background: var(--rx-surface);
+  backdrop-filter: blur(12px);
+  color: var(--rx-text);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.rx-theme-toggle:hover { transform: scale(1.06); box-shadow: 0 0 24px var(--rx-blue-glow); }
+
+/* Layout helpers */
+.rx-wrap { max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
+.rx-section { padding: clamp(4rem, 8vw, 7rem) 0; position: relative; }
+.rx-section--tight { padding: clamp(2.5rem, 5vw, 4rem) 0; }
+.rx-section--dark { background: linear-gradient(180deg, transparent, var(--rx-bg-2) 20%, var(--rx-bg-2) 80%, transparent); }
+.rx-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rx-cyan);
+  margin-bottom: 1rem;
+}
+.rx-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rx-blue), var(--rx-cyan));
+  border-radius: 2px;
+}
+.rx-head { max-width: 720px; margin-bottom: 3rem; }
+.rx-head--center { text-align: center; margin-left: auto; margin-right: auto; }
+.rx-head h2 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+}
+.rx-head p { color: var(--rx-muted); font-size: 1.05rem; line-height: 1.65; margin: 0; }
+.rx-lead { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--rx-muted); line-height: 1.7; max-width: 640px; }
+
+/* Glass cards */
+.rx-glass {
+  background: var(--rx-surface);
+  border: 1px solid var(--rx-border);
+  border-radius: var(--rx-radius);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.35s, border-color 0.35s;
+}
+.rx-glass:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 40px var(--rx-blue-glow);
+  transform: translateY(-4px);
+}
+
+/* Buttons */
+.rx-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.rx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.rx-btn:hover { transform: translateY(-2px); }
+.rx-btn--primary {
+  background: linear-gradient(135deg, var(--rx-blue), #2563eb);
+  color: #fff;
+  box-shadow: 0 8px 32px var(--rx-blue-glow);
+}
+.rx-btn--primary:hover { box-shadow: 0 12px 40px var(--rx-blue-glow); }
+.rx-btn--ghost {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--rx-border);
+  color: var(--rx-text);
+}
+.rx-btn--ghost:hover { border-color: var(--rx-blue); color: var(--rx-blue); }
+.rx-btn--green {
+  background: linear-gradient(135deg, var(--rx-green), #16a34a);
+  color: #fff;
+  box-shadow: 0 8px 32px var(--rx-green-glow);
+}
+
+/* Hero */
+.rx-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(6rem, 12vh, 8rem) 0 clamp(4rem, 8vh, 6rem);
+}
+.rx-hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.rx-hero__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(34, 197, 94, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(59, 130, 246, 0.18), transparent 50%),
+    radial-gradient(ellipse 50% 30% at 10% 30%, rgba(34, 211, 238, 0.1), transparent 40%),
+    linear-gradient(180deg, #030712 0%, var(--rx-bg) 40%, #050a12 100%);
+}
+.rx-hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent);
+  animation: rx-grid-pulse 8s ease-in-out infinite;
+}
+.rx-hero__particles { position: absolute; inset: 0; }
+.rx-hero__lights {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 35%);
+  animation: rx-lights-drift 20s ease-in-out infinite alternate;
+}
+.rx-hero__cameras {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+}
+.rx-hero__camera {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  color: var(--rx-cyan);
+  animation: rx-camera-float 12s ease-in-out infinite;
+}
+.rx-hero__camera svg { width: 100%; height: 100%; filter: drop-shadow(0 0 8px var(--rx-blue-glow)); }
+.rx-hero__camera:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.rx-hero__camera:nth-child(2) { top: 25%; right: 15%; animation-delay: -3s; }
+.rx-hero__camera:nth-child(3) { bottom: 30%; left: 20%; animation-delay: -6s; }
+.rx-hero__camera:nth-child(4) { bottom: 20%; right: 10%; animation-delay: -9s; }
+.rx-hero__network {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+}
+.rx-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+.rx-hero__title {
+  font-size: clamp(2.75rem, 8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0 0 1.25rem;
+  background: linear-gradient(135deg, #fff 0%, #cbd5e1 50%, var(--rx-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: rx-fade-up 1s ease 0.2s forwards;
+}
+.refereex-page--light .rx-hero__title {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 50%, var(--rx-blue) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.rx-hero__sub {
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-weight: 600;
+  color: var(--rx-text);
+  line-height: 1.4;
+  margin: 0 0 1.25rem;
+  opacity: 0;
+  animation: rx-fade-up 1s ease 0.4s forwards;
+}
+.rx-hero__desc {
+  font-size: 1.05rem;
+  color: var(--rx-muted);
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 0 2rem;
+  opacity: 0;
+  animation: rx-fade-up 1s ease 0.55s forwards;
+}
+.rx-hero__btns {
+  opacity: 0;
+  animation: rx-fade-up 1s ease 0.7s forwards;
+}
+.rx-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--rx-green);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: rx-fade-up 1s ease 0.1s forwards;
+}
+.rx-hero__badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rx-green);
+  box-shadow: 0 0 12px var(--rx-green);
+  animation: rx-pulse 2s ease infinite;
+}
+
+/* Stats */
+.rx-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+.rx-stat {
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+}
+.rx-stat__value {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--rx-text), var(--rx-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.rx-stat__label {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--rx-muted);
+  font-weight: 500;
+}
+
+/* Split layout */
+.rx-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (max-width: 900px) { .rx-split { grid-template-columns: 1fr; } }
+
+.rx-stadium-viz {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: var(--rx-radius-lg);
+  overflow: hidden;
+  background: linear-gradient(180deg, #0f172a, #030712);
+  border: 1px solid var(--rx-border);
+}
+.rx-stadium-viz__pitch {
+  position: absolute;
+  bottom: 10%;
+  left: 8%;
+  right: 8%;
+  height: 55%;
+  border: 2px solid rgba(34, 197, 94, 0.4);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(22, 163, 74, 0.15), rgba(22, 163, 74, 0.05));
+}
+.rx-stadium-viz__pitch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(34, 197, 94, 0.3);
+}
+.rx-stadium-viz__twin {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rx-cyan);
+  box-shadow: 0 0 16px var(--rx-blue-glow);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.rx-stadium-viz.is-active .rx-stadium-viz__twin { opacity: 1; }
+.rx-stadium-viz__twin--ball {
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  animation: rx-ball-move 4s ease-in-out infinite;
+}
+.rx-stadium-viz__link {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rx-cyan), transparent);
+  transform-origin: left center;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.rx-stadium-viz.is-active .rx-stadium-viz__link { opacity: 0.5; }
+
+/* Architecture pipeline */
+.rx-pipeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.rx-pipeline__node {
+  position: relative;
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  cursor: default;
+}
+.rx-pipeline__node.is-active,
+.rx-pipeline__node:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 40px var(--rx-blue-glow);
+}
+.rx-pipeline__icon { font-size: 1.5rem; margin-bottom: 0.35rem; }
+.rx-pipeline__label { font-weight: 700; font-size: 0.95rem; }
+.rx-pipeline__arrow {
+  width: 2px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--rx-blue), var(--rx-cyan));
+  position: relative;
+}
+.rx-pipeline__arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--rx-cyan);
+}
+.rx-pipeline__tooltip {
+  position: absolute;
+  left: calc(100% + 1rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 220px;
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  color: var(--rx-muted);
+  background: var(--rx-bg-2);
+  border: 1px solid var(--rx-border);
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 5;
+  line-height: 1.5;
+}
+@media (max-width: 700px) {
+  .rx-pipeline__tooltip {
+    left: 50%;
+    top: calc(100% + 0.5rem);
+    transform: translateX(-50%);
+    width: 90%;
+  }
+}
+.rx-pipeline__node:hover .rx-pipeline__tooltip { opacity: 1; }
+
+/* Tech grid */
+.rx-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.rx-tech-card {
+  padding: 1.5rem;
+  text-align: center;
+}
+.rx-tech-card__icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(34, 211, 238, 0.1));
+  font-size: 1.4rem;
+  transition: transform 0.3s;
+}
+.rx-tech-card:hover .rx-tech-card__icon { transform: scale(1.1) rotate(5deg); }
+.rx-tech-card h3 { font-size: 0.95rem; margin: 0; font-weight: 700; }
+
+/* Timeline */
+.rx-timeline {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.rx-timeline::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--rx-blue), var(--rx-green));
+}
+.rx-timeline__step {
+  position: relative;
+  padding: 0 0 2rem 4rem;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+.rx-timeline__step.is-visible { opacity: 1; transform: none; }
+.rx-timeline__dot {
+  position: absolute;
+  left: 16px;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--rx-blue);
+  border: 3px solid var(--rx-bg);
+  box-shadow: 0 0 16px var(--rx-blue-glow);
+}
+.rx-timeline__step.is-visible .rx-timeline__dot { background: var(--rx-green); box-shadow: 0 0 16px var(--rx-green-glow); }
+.rx-timeline__step h3 { margin: 0 0 0.25rem; font-size: 1.05rem; }
+.rx-timeline__step p { margin: 0; font-size: 0.9rem; color: var(--rx-muted); }
+
+/* Interactive field */
+.rx-field-panel {
+  padding: 1.5rem;
+  border-radius: var(--rx-radius-lg);
+  background: var(--rx-bg-2);
+  border: 1px solid var(--rx-border);
+}
+.rx-field {
+  position: relative;
+  aspect-ratio: 16/10;
+  background: linear-gradient(180deg, #14532d 0%, #166534 50%, #15803d 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+.rx-field__lines {
+  position: absolute;
+  inset: 8%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+}
+.rx-field__lines::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.rx-field__player {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--rx-blue);
+  border: 2px solid #fff;
+  transition: transform 0.8s ease;
+}
+.rx-field__player--away { background: #ef4444; }
+.rx-field__ball {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  transition: left 0.8s ease, top 0.8s ease;
+}
+.rx-field__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 130, 246, 0.15);
+  border: 2px solid var(--rx-blue);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.rx-field__overlay.is-visible { opacity: 1; }
+.rx-field-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.rx-field-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--rx-border);
+  background: transparent;
+  color: var(--rx-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.rx-field-btn:hover,
+.rx-field-btn.is-active {
+  background: var(--rx-blue);
+  border-color: var(--rx-blue);
+  color: #fff;
+}
+.rx-field-output {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--rx-surface);
+  border: 1px solid var(--rx-border);
+  font-size: 0.85rem;
+  min-height: 80px;
+}
+.rx-field-output__conf {
+  color: var(--rx-green);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Multi-camera */
+.rx-camera-viz {
+  position: relative;
+  aspect-ratio: 16/10;
+  background: linear-gradient(180deg, #0f172a, #030712);
+  border-radius: var(--rx-radius);
+  overflow: hidden;
+  border: 1px solid var(--rx-border);
+}
+.rx-camera-viz__pitch {
+  position: absolute;
+  bottom: 15%;
+  left: 20%;
+  right: 20%;
+  height: 45%;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  background: rgba(22, 163, 74, 0.1);
+}
+.rx-cam-marker {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--rx-surface);
+  border: 2px solid var(--rx-blue);
+  display: grid;
+  place-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 2;
+}
+.rx-cam-marker:hover,
+.rx-cam-marker.is-active {
+  background: var(--rx-blue);
+  color: #fff;
+  box-shadow: 0 0 24px var(--rx-blue-glow);
+  transform: scale(1.15);
+}
+.rx-cam-cone {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.rx-cam-cone.is-visible { opacity: 0.25; }
+.rx-cam-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--rx-surface);
+  border: 1px solid var(--rx-border);
+  font-size: 0.9rem;
+}
+
+/* Decision fusion */
+.rx-fusion {
+  position: relative;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rx-fusion__inputs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.rx-fusion__cam {
+  padding: 1rem 1.25rem;
+  text-align: center;
+  min-width: 140px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.rx-fusion.is-animated .rx-fusion__cam { opacity: 1; transform: scale(1); }
+.rx-fusion__cam-decision { font-weight: 700; color: var(--rx-text); }
+.rx-fusion__cam-conf { color: var(--rx-green); font-size: 1.25rem; font-weight: 800; }
+.rx-fusion__center {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rx-blue), #1d4ed8);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 0 60px var(--rx-blue-glow);
+  margin: 0 auto 1.5rem;
+  position: relative;
+}
+.rx-fusion__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.rx-fusion__result {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  max-width: 320px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: all 0.6s 0.8s;
+}
+.rx-fusion.is-animated .rx-fusion__result { opacity: 1; transform: none; }
+.rx-fusion__result-label { font-size: 0.8rem; color: var(--rx-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.rx-fusion__result-value { font-size: 1.75rem; font-weight: 800; color: var(--rx-green); }
+
+/* Digital twin */
+.rx-twin-viz {
+  position: relative;
+  padding: 2rem;
+  border-radius: var(--rx-radius-lg);
+  background: var(--rx-bg-2);
+  border: 1px solid var(--rx-border);
+}
+.rx-twin-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 600px) { .rx-twin-grid { grid-template-columns: repeat(2, 1fr); } }
+.rx-twin-entity {
+  padding: 0.75rem;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--rx-surface);
+  border: 1px solid var(--rx-border);
+  font-size: 0.75rem;
+}
+.rx-twin-entity__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rx-green);
+  margin: 0 auto 0.35rem;
+  animation: rx-pulse 2s ease infinite;
+}
+.rx-twin-timeline {
+  display: flex;
+  gap: 4px;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+}
+.rx-twin-timeline__seg {
+  flex: 1;
+  background: var(--rx-blue);
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+.rx-twin-timeline__seg.is-synced { opacity: 1; background: var(--rx-green); }
+
+/* Explainable AI */
+.rx-explain {
+  padding: 2rem;
+  border-left: 4px solid var(--rx-blue);
+}
+.rx-explain__incident { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; }
+.rx-explain__list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.rx-explain__list li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--rx-muted);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.4s;
+}
+.rx-explain__list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--rx-cyan);
+}
+.rx-explain.is-animated .rx-explain__list li { opacity: 1; transform: none; }
+.rx-explain.is-animated .rx-explain__list li:nth-child(2) { transition-delay: 0.15s; }
+.rx-explain.is-animated .rx-explain__list li:nth-child(3) { transition-delay: 0.3s; }
+.rx-explain.is-animated .rx-explain__list li:nth-child(4) { transition-delay: 0.45s; }
+.rx-explain__conf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--rx-green);
+  font-weight: 700;
+}
+
+/* Dashboard preview */
+.rx-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-radius: var(--rx-radius-lg);
+}
+@media (max-width: 900px) { .rx-dashboard { grid-template-columns: repeat(2, 1fr); } }
+.rx-dash-widget {
+  padding: 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--rx-border);
+  min-height: 80px;
+}
+.rx-dash-widget--wide { grid-column: span 2; }
+.rx-dash-widget__label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--rx-muted); margin-bottom: 0.35rem; }
+.rx-dash-widget__value { font-weight: 700; font-size: 0.95rem; }
+.rx-dash-widget__bar {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+.rx-dash-widget__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rx-blue), var(--rx-green));
+  width: 0;
+  transition: width 1.2s ease;
+}
+.rx-dashboard.is-animated .rx-dash-widget__bar-fill { width: var(--w, 70%); }
+
+/* Features grid */
+.rx-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.rx-feature {
+  padding: 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.rx-feature__icon { font-size: 1.25rem; flex-shrink: 0; }
+.rx-feature h3 { margin: 0 0 0.25rem; font-size: 0.95rem; }
+.rx-feature p { margin: 0; font-size: 0.8rem; color: var(--rx-muted); }
+
+/* Benefits comparison */
+.rx-compare {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+  max-width: 800px;
+  margin: 0 auto;
+}
+@media (max-width: 700px) {
+  .rx-compare { grid-template-columns: 1fr; }
+  .rx-compare__vs { order: -1; }
+}
+.rx-compare__col { padding: 1.5rem; }
+.rx-compare__col--old { opacity: 0.7; }
+.rx-compare__col--new { border-color: rgba(34, 197, 94, 0.3); }
+.rx-compare__vs {
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--rx-muted);
+}
+.rx-compare__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rx-border);
+  font-size: 0.9rem;
+}
+.rx-compare__row:last-child { border-bottom: none; }
+
+/* Use cases */
+.rx-use-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.rx-use-card {
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+}
+.rx-use-card__icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.rx-use-card h3 { margin: 0; font-size: 0.95rem; }
+
+/* Video section */
+.rx-video-wrap {
+  position: relative;
+  border-radius: var(--rx-radius-lg);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  background: var(--rx-bg-2);
+  border: 1px solid var(--rx-border);
+}
+.rx-video-wrap iframe,
+.rx-video-wrap video { width: 100%; height: 100%; border: 0; }
+.rx-video-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.rx-video-play:hover { background: rgba(0, 0, 0, 0.35); }
+.rx-video-play__btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rx-blue), #2563eb);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  color: #fff;
+  box-shadow: 0 0 40px var(--rx-blue-glow);
+  animation: rx-pulse 3s ease infinite;
+}
+.rx-video-wrap.is-playing .rx-video-play { display: none; }
+
+/* Research timeline horizontal */
+.rx-research {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.rx-research__item {
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.rx-research__arrow { color: var(--rx-cyan); font-size: 1.25rem; }
+
+/* FAQ */
+.rx-faq { max-width: 720px; margin: 0 auto; }
+.rx-faq__item {
+  border-bottom: 1px solid var(--rx-border);
+}
+.rx-faq__btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+  background: none;
+  border: none;
+  color: var(--rx-text);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  gap: 1rem;
+}
+.rx-faq__btn:hover { color: var(--rx-blue); }
+.rx-faq__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--rx-border);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  transition: transform 0.3s, background 0.3s;
+}
+.rx-faq__item.is-open .rx-faq__icon { transform: rotate(45deg); background: var(--rx-blue); border-color: var(--rx-blue); color: #fff; }
+.rx-faq__panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s;
+}
+.rx-faq__item.is-open .rx-faq__panel { max-height: 200px; padding-bottom: 1.25rem; }
+.rx-faq__panel p { margin: 0; color: var(--rx-muted); line-height: 1.65; font-size: 0.95rem; }
+
+/* CTA */
+.rx-cta {
+  position: relative;
+  padding: clamp(4rem, 10vw, 7rem) 0;
+  overflow: hidden;
+  text-align: center;
+}
+.rx-cta__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(59, 130, 246, 0.2), transparent),
+    radial-gradient(ellipse 40% 30% at 20% 50%, rgba(34, 197, 94, 0.1), transparent);
+  animation: rx-lights-drift 15s ease-in-out infinite alternate;
+}
+.rx-cta__content { position: relative; z-index: 1; }
+.rx-cta h2 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+}
+.rx-cta p { color: var(--rx-muted); max-width: 560px; margin: 0 auto 2rem; font-size: 1.1rem; }
+
+/* Page footer */
+.rx-page-footer {
+  padding: 3rem 0;
+  background: var(--rx-bg-2);
+  border-top: 1px solid var(--rx-border);
+}
+.rx-page-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.rx-page-footer h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rx-muted); margin: 0 0 1rem; }
+.rx-page-footer a {
+  display: block;
+  color: var(--rx-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.25rem 0;
+  opacity: 0.85;
+  transition: color 0.2s, opacity 0.2s;
+}
+.rx-page-footer a:hover { color: var(--rx-blue); opacity: 1; }
+.rx-newsletter {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.rx-newsletter input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--rx-border);
+  background: var(--rx-surface);
+  color: var(--rx-text);
+  font-size: 0.9rem;
+}
+.rx-newsletter button {
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--rx-blue);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Homepage promo */
+.home-refereex-promo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg, 24px);
+  padding: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(135deg, #0a1220 0%, #111a2b 50%, #0c1a3a 100%);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+@media (max-width: 768px) { .home-refereex-promo { grid-template-columns: 1fr; } }
+.home-refereex-promo::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%);
+  pointer-events: none;
+}
+.home-refereex-promo__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.home-refereex-promo h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+.home-refereex-promo p { color: #94a3b8; margin: 0; max-width: 520px; line-height: 1.6; }
+.home-refereex-promo__visual {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(34, 211, 238, 0.2));
+  display: grid;
+  place-items: center;
+  font-size: 3rem;
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.3);
+  animation: rx-pulse 4s ease infinite;
+}
+
+/* Nav highlight */
+.nav-submenu__featured {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(34, 211, 238, 0.08)) !important;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  font-weight: 700 !important;
+}
+
+/* Animations */
+@keyframes rx-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rx-grid-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes rx-lights-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(2%, -2%); }
+}
+@keyframes rx-camera-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+}
+@keyframes rx-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes rx-ball-move {
+  0%, 100% { left: 45%; top: 50%; }
+  25% { left: 60%; top: 35%; }
+  50% { left: 55%; top: 65%; }
+  75% { left: 40%; top: 45%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rx-hero__title, .rx-hero__sub, .rx-hero__desc, .rx-hero__btns, .rx-hero__badge,
+  .rx-hero__grid, .rx-hero__lights, .rx-hero__camera,
+  .home-refereex-promo__visual, .rx-video-play__btn {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rx-glass:hover, .rx-btn:hover { transform: none; }
+  .rx-timeline__step { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body class="refereex-page">
+
+<button type="button" class="rx-theme-toggle" data-rx-theme-toggle aria-label="Toggle theme">☀️</button>
+
+<!-- Hero -->
+<section class="rx-hero" id="rx-hero" aria-labelledby="rx-hero-title">
+    <div class="rx-hero__bg" aria-hidden="true">
+        <div class="rx-hero__gradient"></div>
+        <div class="rx-hero__grid"></div>
+        <div class="rx-hero__lights"></div>
+        <canvas class="rx-hero__particles" data-rx-particles></canvas>
+        <div class="rx-hero__cameras">
+                        <div class="rx-hero__camera" style="animation-delay:0s">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h4l2-3h4l2 3h4v10H4V8z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div class="rx-hero__camera" style="animation-delay:-3s">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h4l2-3h4l2 3h4v10H4V8z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div class="rx-hero__camera" style="animation-delay:-6s">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h4l2-3h4l2 3h4v10H4V8z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+            <div class="rx-hero__camera" style="animation-delay:-9s">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h4l2-3h4l2 3h4v10H4V8z"/><circle cx="12" cy="13" r="3"/></svg>
+            </div>
+
+        </div>
+        <svg class="rx-hero__network" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="rx-net-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs>
+            <line x1="50" y1="50" x2="200" y2="150" stroke="url(#rx-net-grad)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="350" y1="80" x2="200" y2="150" stroke="url(#rx-net-grad)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="100" y1="250" x2="200" y2="150" stroke="url(#rx-net-grad)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="300" y1="220" x2="200" y2="150" stroke="url(#rx-net-grad)" stroke-width="0.5" opacity="0.4"/>
+            <circle cx="200" cy="150" r="6" fill="#3b82f6" opacity="0.6"/>
+        </svg>
+    </div>
+    <div class="rx-wrap">
+        <div class="rx-hero__content">
+            <div class="rx-hero__badge"><span class="rx-hero__badge-dot"></span> Next-Gen Officiating Intelligence</div>
+            <h1 class="rx-hero__title" id="rx-hero-title">RefereeX AI</h1>
+            <p class="rx-hero__sub">Real-time AI for modern football officiating</p>
+            <p class="rx-hero__desc">RefereeX AI fuses multi-camera vision, digital twin simulation, and explainable decision intelligence to support referees, leagues, and broadcasters with sub-100ms insights.</p>
+            <div class="rx-btns rx-hero__btns">
+                <a href="https://sportifyplus.de/contact?subject=RefereeX%20Demo" class="rx-btn rx-btn--primary">Request Demo</a>
+                <a href="#rx-video" class="rx-btn rx-btn--ghost">Watch Overview</a>
+                <a href="https://sportifyplus.de/contact?subject=RefereeX%20Pilot" class="rx-btn rx-btn--green">Start Pilot</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics -->
+<section class="rx-section rx-section--tight" id="rx-stats" aria-labelledby="rx-stats-head">
+    <div class="rx-wrap">
+        <div class="rx-stats">
+                        <div class="rx-stat rx-glass" data-reveal>
+                <div class="rx-stat__value"><span data-count="98.7" data-suffix="%">0</span></div>
+                <div class="rx-stat__label">Decision Confidence</div>
+            </div>
+            <div class="rx-stat rx-glass" data-reveal>
+                <div class="rx-stat__value">&lt;<span data-count="100" data-suffix=" ms">0</span></div>
+                <div class="rx-stat__label">Fusion Latency</div>
+            </div>
+            <div class="rx-stat rx-glass" data-reveal>
+                <div class="rx-stat__value"><span data-count="16" data-suffix="+">0</span></div>
+                <div class="rx-stat__label">Camera Feeds</div>
+            </div>
+            <div class="rx-stat rx-glass" data-reveal>
+                <div class="rx-stat__value"><span data-count="24" data-suffix="/7">0</span></div>
+                <div class="rx-stat__label">Live Monitoring</div>
+            </div>
+            <div class="rx-stat rx-glass" data-reveal>
+                <div class="rx-stat__value"><span data-count="99" data-suffix="%">0</span></div>
+                <div class="rx-stat__label">Twin Sync Accuracy</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- What is RefereeX AI -->
+<section class="rx-section" id="rx-what" aria-labelledby="rx-what-head">
+    <div class="rx-wrap">
+        <div class="rx-split">
+            <div class="rx-stadium-viz" data-rx-stadium-viz data-reveal>
+                <div class="rx-stadium-viz__pitch"></div>
+                <span class="rx-stadium-viz__twin" style="top:35%;left:25%"></span>
+                <span class="rx-stadium-viz__twin" style="top:45%;left:40%"></span>
+                <span class="rx-stadium-viz__twin" style="top:55%;left:60%"></span>
+                <span class="rx-stadium-viz__twin" style="top:40%;left:75%"></span>
+                <span class="rx-stadium-viz__twin rx-stadium-viz__twin--ball" style="top:50%;left:50%"></span>
+                <span class="rx-stadium-viz__link" style="top:35%;left:25%;width:80px;transform:rotate(25deg)"></span>
+                <span class="rx-stadium-viz__link" style="top:45%;left:40%;width:60px;transform:rotate(-15deg)"></span>
+            </div>
+            <div data-reveal>
+                <span class="rx-eyebrow">Platform</span>
+                <h2 id="rx-what-head">What is RefereeX AI?</h2>
+                <p class="rx-lead">RefereeX AI is an intelligent officiating platform that augments human referees with computer vision, sensor fusion, and digital twin technology.</p>
+                <p class="rx-lead mt-2">It processes multi-angle stadium feeds in real time, reconstructs match state, and delivers explainable decision support for offsides, fouls, and critical incidents.</p>
+                <p class="rx-lead mt-2">Built for leagues, federations, and broadcast partners who need precision, transparency, and scalable deployment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- System Architecture -->
+<section class="rx-section rx-section--dark" id="rx-architecture" aria-labelledby="rx-arch-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">Architecture</span>
+            <h2 id="rx-arch-head">System Architecture</h2>
+            <p>refereex.arch.sub</p>
+        </div>
+        <div class="rx-pipeline" data-reveal>
+            <div class="rx-pipeline__arrow" aria-hidden="true"></div>
+            <div class="rx-glass rx-pipeline__node" data-rx-pipeline-node tabindex="0">
+                <div class="rx-pipeline__icon"></div>
+                <div class="rx-pipeline__label"></div>
+                <div class="rx-pipeline__tooltip" role="tooltip"></div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Core Technologies -->
+<section class="rx-section" id="rx-tech" aria-labelledby="rx-tech-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">Technology</span>
+            <h2 id="rx-tech-head">Core Technologies</h2>
+        </div>
+        <div class="rx-tech-grid">
+            
+            <div class="rx-glass rx-tech-card" data-reveal>
+                <div class="rx-tech-card__icon"></div>
+                <h3></h3>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="rx-section rx-section--dark" id="rx-how" aria-labelledby="rx-how-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.how.eyebrow</span>
+            <h2 id="rx-how-head">refereex.how.title</h2>
+        </div>
+        <div class="rx-timeline">
+            
+            <div class="rx-timeline__step" data-rx-timeline-step>
+                <div class="rx-timeline__dot"></div>
+                <h3></h3>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Football Field -->
+<section class="rx-section" id="rx-field" aria-labelledby="rx-field-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.field.eyebrow</span>
+            <h2 id="rx-field-head">refereex.field.title</h2>
+            <p>refereex.field.sub</p>
+        </div>
+        <div class="rx-field-panel" data-rx-field data-reveal>
+            <div class="rx-field">
+                <div class="rx-field__lines"></div>
+                <span class="rx-field__player" style="left:30%;top:40%"></span>
+                <span class="rx-field__player" style="left:50%;top:35%"></span>
+                <span class="rx-field__player rx-field__player--away" style="left:65%;top:50%"></span>
+                <span class="rx-field__player rx-field__player--away" style="left:45%;top:60%"></span>
+                <span class="rx-field__ball" data-rx-ball style="left:50%;top:50%"></span>
+                <div class="rx-field__overlay" data-rx-field-overlay></div>
+            </div>
+            <div class="rx-field-controls" role="group" aria-label="refereex.field.controls">
+                
+                <button type="button" class="rx-field-btn" data-rx-incident=""></button>
+                
+            </div>
+            <div class="rx-field-output" data-rx-field-output aria-live="polite">refereex.field.prompt</div>
+        </div>
+    </div>
+</section>
+
+<!-- Multi-Camera Visualization -->
+<section class="rx-section rx-section--dark" id="rx-cameras" aria-labelledby="rx-cam-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.cams.eyebrow</span>
+            <h2 id="rx-cam-head">refereex.cams.title</h2>
+            <p>refereex.cams.sub</p>
+        </div>
+        <div data-reveal>
+            <div class="rx-camera-viz" data-rx-cameras>
+                <div class="rx-camera-viz__pitch"></div>
+                <button type="button" class="rx-cam-marker" data-rx-cam="cam1" style="top:10%;left:15%">C1</button>
+                <div class="rx-cam-cone" data-rx-cone="cam1" style="top:18%;left:18%;border-width:0 40px 120px 40px;border-color:transparent transparent rgba(59,130,246,0.3) transparent"></div>
+                <button type="button" class="rx-cam-marker" data-rx-cam="cam2" style="top:10%;right:15%">C2</button>
+                <div class="rx-cam-cone" data-rx-cone="cam2" style="top:18%;right:18%;border-width:0 40px 120px 40px;border-color:transparent transparent rgba(59,130,246,0.3) transparent"></div>
+                <button type="button" class="rx-cam-marker" data-rx-cam="goal" style="bottom:20%;left:5%">G</button>
+                <button type="button" class="rx-cam-marker" data-rx-cam="drone" style="top:5%;left:50%;transform:translateX(-50%)">D</button>
+                <button type="button" class="rx-cam-marker" data-rx-cam="broadcast" style="bottom:5%;right:10%">BC</button>
+            </div>
+            <div class="rx-cam-info" data-rx-cam-info>refereex.cams.prompt</div>
+        </div>
+    </div>
+</section>
+
+<!-- AI Decision Fusion -->
+<section class="rx-section" id="rx-fusion" aria-labelledby="rx-fusion-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.fusion.eyebrow</span>
+            <h2 id="rx-fusion-head">Decision Fusion Engine</h2>
+        </div>
+        <div class="rx-fusion" data-rx-fusion data-reveal>
+            <div class="rx-fusion__inputs">
+                <div class="rx-glass rx-fusion__cam">
+                    <div class="rx-fusion__cam-decision">Camera 1 — Penalty</div>
+                    <div class="rx-fusion__cam-conf">92%</div>
+                </div>
+                <div class="rx-glass rx-fusion__cam" style="transition-delay:0.15s">
+                    <div class="rx-fusion__cam-decision">Camera 2 — Penalty</div>
+                    <div class="rx-fusion__cam-conf">89%</div>
+                </div>
+                <div class="rx-glass rx-fusion__cam" style="transition-delay:0.3s">
+                    <div class="rx-fusion__cam-decision">Camera 3 — No Penalty</div>
+                    <div class="rx-fusion__cam-conf">43%</div>
+                </div>
+            </div>
+            <div class="rx-fusion__center">AI<br>Fusion</div>
+            <div class="rx-glass rx-fusion__result">
+                <div class="rx-fusion__result-label">refereex.fusion.final</div>
+                <div class="rx-fusion__result-value">Penalty — 95%</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Digital Twin -->
+<section class="rx-section rx-section--dark" id="rx-twin" aria-labelledby="rx-twin-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.twin.eyebrow</span>
+            <h2 id="rx-twin-head">Digital Twin Layer</h2>
+            <p>refereex.twin.sub</p>
+        </div>
+        <div class="rx-twin-viz" data-reveal>
+            <div class="rx-twin-grid">
+                
+                <div class="rx-twin-entity"><div class="rx-twin-entity__dot"></div>Player  Twin</div>
+                
+                <div class="rx-twin-entity"><div class="rx-twin-entity__dot"></div>Ball Twin</div>
+                <div class="rx-twin-entity"><div class="rx-twin-entity__dot"></div>Referee Twin</div>
+            </div>
+            <p class="small muted mb-1">refereex.twin.sync_label</p>
+            <div class="rx-twin-timeline" data-rx-twin-timeline>
+                
+                <div class="rx-twin-timeline__seg" data-rx-twin-seg></div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Explainable AI -->
+<section class="rx-section" id="rx-explain" aria-labelledby="rx-explain-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.explain.eyebrow</span>
+            <h2 id="rx-explain-head">refereex.explain.title</h2>
+        </div>
+        <div class="rx-glass rx-explain" data-rx-explain data-reveal>
+            <div class="rx-explain__incident">refereex.explain.incident</div>
+            <ul class="rx-explain__list">
+                <li>refereex.explain.r1</li>
+                <li>refereex.explain.r2</li>
+                <li>refereex.explain.r3</li>
+                <li>refereex.explain.r4</li>
+            </ul>
+            <div class="rx-explain__conf">94% refereex.explain.confidence · 3 refereex.explain.cameras · refereex.explain.review</div>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard Preview -->
+<section class="rx-section rx-section--dark" id="rx-dashboard" aria-labelledby="rx-dash-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.dash.eyebrow</span>
+            <h2 id="rx-dash-head">Referee Dashboard</h2>
+        </div>
+        <div class="rx-glass rx-dashboard" data-rx-dashboard data-reveal>
+            
+            <div class="rx-dash-widget">
+                <div class="rx-dash-widget__label"></div>
+                <div class="rx-dash-widget__value"></div>
+                
+                <div class="rx-dash-widget__bar"><div class="rx-dash-widget__bar-fill" style="--w:%"></div></div>
+                
+            </div>
+            
+        </div>
+        <div class="center mt-3" data-reveal>
+            <a href="https://sportifyplus.de/contact?subject=RefereeX%20Dashboard" class="rx-btn rx-btn--primary">refereex.dash.cta</a>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="rx-section" id="rx-features" aria-labelledby="rx-features-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.features.eyebrow</span>
+            <h2 id="rx-features-head">refereex.features.title</h2>
+        </div>
+        <div class="rx-features">
+            
+            <div class="rx-glass rx-feature" data-reveal>
+                <span class="rx-feature__icon"></span>
+                <div><h3></h3><p></p></div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Benefits -->
+<section class="rx-section rx-section--dark" id="rx-benefits" aria-labelledby="rx-benefits-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.benefits.eyebrow</span>
+            <h2 id="rx-benefits-head">refereex.benefits.title</h2>
+        </div>
+        <div class="rx-compare" data-reveal>
+            <div class="rx-glass rx-compare__col rx-compare__col--old">
+                <h3 class="center mb-2">refereex.benefits.traditional</h3>
+                
+                <div class="rx-compare__row"><span></span></div>
+                
+            </div>
+            <div class="rx-compare__vs">vs</div>
+            <div class="rx-glass rx-compare__col rx-compare__col--new">
+                <h3 class="center mb-2">RefereeX AI</h3>
+                
+                <div class="rx-compare__row"><span></span><span style="color:var(--rx-green)">✓</span></div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases -->
+<section class="rx-section" id="rx-usecases" aria-labelledby="rx-use-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.use.eyebrow</span>
+            <h2 id="rx-use-head">refereex.use.title</h2>
+        </div>
+        <div class="rx-use-grid">
+            
+            <div class="rx-glass rx-use-card" data-reveal>
+                <div class="rx-use-card__icon"></div>
+                <h3></h3>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Video -->
+<section class="rx-section rx-section--dark" id="rx-video" aria-labelledby="rx-video-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.video.eyebrow</span>
+            <h2 id="rx-video-head">refereex.video.title</h2>
+        </div>
+        <div class="rx-video-wrap" data-rx-video data-reveal>
+            <iframe title="refereex.video.title" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            <div class="rx-video-play" data-rx-video-play role="button" tabindex="0" aria-label="Watch Overview">
+                <div class="rx-video-play__btn">▶</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Research -->
+<section class="rx-section" id="rx-research" aria-labelledby="rx-research-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">refereex.research.eyebrow</span>
+            <h2 id="rx-research-head">Research Stack</h2>
+        </div>
+        <div class="rx-research" data-reveal>
+                        <div class="rx-glass rx-research__item">Computer Vision</div>
+            <span class="rx-research__arrow" aria-hidden="true">↓</span>
+            <div class="rx-glass rx-research__item">Decision Fusion</div>
+            <span class="rx-research__arrow" aria-hidden="true">↓</span>
+            <div class="rx-glass rx-research__item">Physical AI</div>
+            <span class="rx-research__arrow" aria-hidden="true">↓</span>
+            <div class="rx-glass rx-research__item">Digital Twin</div>
+            <span class="rx-research__arrow" aria-hidden="true">↓</span>
+            <div class="rx-glass rx-research__item">Explainable AI</div>
+            <span class="rx-research__arrow" aria-hidden="true">↓</span>
+            <div class="rx-glass rx-research__item">Referee Intelligence</div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="rx-section rx-section--dark" id="rx-faq" aria-labelledby="rx-faq-head">
+    <div class="rx-wrap">
+        <div class="rx-head rx-head--center" data-reveal>
+            <span class="rx-eyebrow">FAQ</span>
+            <h2 id="rx-faq-head">Frequently Asked Questions</h2>
+        </div>
+        <div class="rx-faq" data-reveal>
+                        <div class="rx-faq__item" data-rx-faq-item>
+                <button type="button" class="rx-faq__btn" data-rx-faq-btn aria-expanded="false">
+                    Does RefereeX replace human referees?
+                    <span class="rx-faq__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="rx-faq__panel"><p>No. RefereeX AI assists officials with real-time intelligence while preserving human authority on the pitch.</p></div>
+            </div>
+            <div class="rx-faq__item" data-rx-faq-item>
+                <button type="button" class="rx-faq__btn" data-rx-faq-btn aria-expanded="false">
+                    What latency can leagues expect?
+                    <span class="rx-faq__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="rx-faq__panel"><p>Fusion pipelines target sub-100ms decision support for live officiating workflows.</p></div>
+            </div>
+            <div class="rx-faq__item" data-rx-faq-item>
+                <button type="button" class="rx-faq__btn" data-rx-faq-btn aria-expanded="false">
+                    How many cameras are supported?
+                    <span class="rx-faq__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="rx-faq__panel"><p>The platform scales from 4 to 16+ calibrated camera feeds per venue.</p></div>
+            </div>
+            <div class="rx-faq__item" data-rx-faq-item>
+                <button type="button" class="rx-faq__btn" data-rx-faq-btn aria-expanded="false">
+                    Is it VAR-compatible?
+                    <span class="rx-faq__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="rx-faq__panel"><p>Yes. RefereeX integrates with VAR rooms and broadcast replay systems.</p></div>
+            </div>
+            <div class="rx-faq__item" data-rx-faq-item>
+                <button type="button" class="rx-faq__btn" data-rx-faq-btn aria-expanded="false">
+                    Can we run a pilot league?
+                    <span class="rx-faq__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="rx-faq__panel"><p>Pilot programs are available with deployment support and analytics dashboards.</p></div>
+            </div>
+            <div class="rx-faq__item" data-rx-faq-item>
+                <button type="button" class="rx-faq__btn" data-rx-faq-btn aria-expanded="false">
+                    Is decision logic explainable?
+                    <span class="rx-faq__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="rx-faq__panel"><p>Every recommendation includes visual evidence trails and confidence scoring.</p></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="rx-cta" id="rx-cta" aria-labelledby="rx-cta-head">
+    <div class="rx-cta__bg" aria-hidden="true"></div>
+    <div class="rx-wrap rx-cta__content">
+        <h2 id="rx-cta-head" data-reveal>Ready to transform officiating?</h2>
+        <p data-reveal>Partner with Sportify to deploy RefereeX AI in your league or broadcast stack.</p>
+        <div class="rx-btns" style="justify-content:center" data-reveal>
+            <a href="https://sportifyplus.de/contact?subject=RefereeX%20Demo" class="rx-btn rx-btn--primary">Request Demo</a>
+            <a href="https://sportifyplus.de/contact?subject=RefereeX%20Research%20Partner" class="rx-btn rx-btn--ghost">Research Partnership</a>
+            <a href="https://sportifyplus.de/contact?subject=RefereeX%20Pilot%20League" class="rx-btn rx-btn--green">Pilot League</a>
+            <a href="https://sportifyplus.de/contact" class="rx-btn rx-btn--ghost">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+<!-- Page Footer -->
+<footer class="rx-page-footer" aria-label="RefereeX footer">
+    <div class="rx-wrap">
+        <div class="rx-page-footer__grid">
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#rx-what">What is RefereeX AI?</a>
+                <a href="#rx-tech">Core Technologies</a>
+                <a href="#rx-dashboard">Referee Dashboard</a>
+                <a href="#rx-faq">Frequently Asked Questions</a>
+            </div>
+            <div>
+                <h4>Research</h4>
+                <a href="#rx-research">Research Stack</a>
+                <a href="#rx-architecture">System Architecture</a>
+            </div>
+            <div>
+                <h4>Technology</h4>
+                <a href="#rx-tech">Core Technologies</a>
+                <a href="#rx-fusion">Decision Fusion Engine</a>
+                <a href="#rx-twin">Digital Twin Layer</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="https://sportifyplus.de/contact">Contact</a>
+                <a href="https://linkedin.com/company/sportify" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/sportify" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://munich-tech-expo.com" target="_blank" rel="noopener">MunichTech EXPO</a>
+            </div>
+            <div>
+                <h4>Newsletter</h4>
+                <p class="small muted">Get RefereeX updates and research notes.</p>
+                <form class="rx-newsletter" data-rx-newsletter>
+                    <input type="email" placeholder="your@email.com" required aria-label="Email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <p class="small muted center">© 2026 Sportify · RefereeX AI</p>
+    </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  if (!document.body.classList.contains('refereex-page')) return;
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Theme toggle */
+  var themeBtn = document.querySelector('[data-rx-theme-toggle]');
+  var storedTheme = localStorage.getItem('refereex-theme');
+  if (storedTheme === 'light') {
+    document.body.classList.add('refereex-page--light');
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      document.body.classList.toggle('refereex-page--light');
+      var isLight = document.body.classList.contains('refereex-page--light');
+      localStorage.setItem('refereex-theme', isLight ? 'light' : 'dark');
+      themeBtn.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+      themeBtn.textContent = isLight ? '🌙' : '☀️';
+    });
+    themeBtn.textContent = document.body.classList.contains('refereex-page--light') ? '🌙' : '☀️';
+  }
+
+  /* Hero particles */
+  var canvas = document.querySelector('[data-rx-particles]');
+  if (canvas && !reducedMotion) {
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var count = 40;
+
+    function resizeCanvas() {
+      var parent = canvas.parentElement;
+      if (!parent) return;
+      canvas.width = parent.offsetWidth;
+      canvas.height = parent.offsetHeight;
+    }
+
+    function initParticles() {
+      particles = [];
+      for (var i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2 + 0.5,
+          dx: (Math.random() - 0.5) * 0.3,
+          dy: (Math.random() - 0.5) * 0.3,
+          o: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function drawParticles() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function (p) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(59, 130, 246, ' + p.o + ')';
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    initParticles();
+    drawParticles();
+    window.addEventListener('resize', function () { resizeCanvas(); initParticles(); }, { passive: true });
+  }
+
+  /* Stadium digital twin scroll reveal */
+  var stadiumViz = document.querySelector('[data-rx-stadium-viz]');
+  if (stadiumViz && 'IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-active');
+          so.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    so.observe(stadiumViz);
+  } else if (stadiumViz) {
+    stadiumViz.classList.add('is-active');
+  }
+
+  /* Timeline steps */
+  var timelineSteps = document.querySelectorAll('[data-rx-timeline-step]');
+  if (timelineSteps.length && 'IntersectionObserver' in window) {
+    var to = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-visible');
+          to.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    timelineSteps.forEach(function (el, i) {
+      if (!reducedMotion) el.style.transitionDelay = (i * 0.1) + 's';
+      to.observe(el);
+    });
+  } else {
+    timelineSteps.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* Interactive football field */
+  var fieldPanel = document.querySelector('[data-rx-field]');
+  if (fieldPanel) {
+    var fieldBtns = fieldPanel.querySelectorAll('[data-rx-incident]');
+    var fieldOutput = fieldPanel.querySelector('[data-rx-field-output]');
+    var fieldOverlay = fieldPanel.querySelector('[data-rx-field-overlay]');
+    var ball = fieldPanel.querySelector('[data-rx-ball]');
+
+    var scenarios = {
+      penalty: { label: 'Penalty', conf: '96%', camera: 'Goal Camera', twin: 'Updated', replay: 'Slow-motion arc to goal area' },
+      offside: { label: 'Offside', conf: '91%', camera: 'Camera 2 — Lineside', twin: 'Synchronized', replay: 'Offside line overlay active' },
+      handball: { label: 'Handball', conf: '94%', camera: 'Camera 2 — Highest visibility', twin: 'Updated', replay: 'Arm trajectory highlighted' },
+      goal: { label: 'Goal', conf: '99%', camera: 'Goal Camera + Broadcast', twin: 'Ball crossing confirmed', replay: 'Full goal-line replay' },
+      foul: { label: 'Foul', conf: '88%', camera: 'Camera 1 — Wide angle', twin: 'Contact event logged', replay: 'Challenge sequence replay' }
+    };
+
+    fieldBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-rx-incident');
+        var s = scenarios[key];
+        if (!s || !fieldOutput) return;
+
+        fieldBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+
+        if (fieldOverlay) {
+          fieldOverlay.classList.add('is-visible');
+          setTimeout(function () { fieldOverlay.classList.remove('is-visible'); }, 1200);
+        }
+        if (ball) {
+          var positions = { penalty: [70, 40], offside: [55, 30], handball: [48, 45], goal: [85, 50], foul: [42, 55] };
+          var pos = positions[key] || [50, 50];
+          ball.style.left = pos[0] + '%';
+          ball.style.top = pos[1] + '%';
+        }
+
+        fieldOutput.innerHTML =
+          '<strong>AI Detection:</strong> ' + s.label + '<br>' +
+          '<strong>Camera:</strong> ' + s.camera + '<br>' +
+          '<span class="rx-field-output__conf">Confidence: ' + s.conf + '</span><br>' +
+          '<strong>Digital Twin:</strong> ' + s.twin + '<br>' +
+          '<strong>Replay:</strong> ' + s.replay;
+      });
+    });
+  }
+
+  /* Multi-camera visualization */
+  var camViz = document.querySelector('[data-rx-cameras]');
+  if (camViz) {
+    var camMarkers = camViz.querySelectorAll('[data-rx-cam]');
+    var camInfo = document.querySelector('[data-rx-cam-info]');
+    var camData = {
+      cam1: { name: 'Camera 1', fov: 'Wide tactical view — full pitch coverage', angle: '45° elevated sideline' },
+      cam2: { name: 'Camera 2', fov: 'Mid-field close tracking — player focus', angle: '30° sideline' },
+      goal: { name: 'Goal Camera', fov: 'Goal-line technology view', angle: 'Behind goal, 15°' },
+      drone: { name: 'Drone', fov: 'Aerial overview — offside lines', angle: '90° top-down partial' },
+      broadcast: { name: 'Broadcast Camera', fov: 'Cinematic follow — incident context', angle: 'Variable PTZ' }
+    };
+
+    camMarkers.forEach(function (marker) {
+      marker.addEventListener('click', function () {
+        var id = marker.getAttribute('data-rx-cam');
+        var data = camData[id];
+        camMarkers.forEach(function (m) {
+          m.classList.remove('is-active');
+          var cone = m.parentElement.querySelector('[data-rx-cone="' + m.getAttribute('data-rx-cam') + '"]');
+          if (cone) cone.classList.remove('is-visible');
+        });
+        marker.classList.add('is-active');
+        var cone = camViz.querySelector('[data-rx-cone="' + id + '"]');
+        if (cone) cone.classList.add('is-visible');
+        if (camInfo && data) {
+          camInfo.innerHTML = '<strong>' + data.name + '</strong><br>FOV: ' + data.fov + '<br>Angle: ' + data.angle;
+        }
+      });
+    });
+  }
+
+  /* Decision fusion animation */
+  var fusion = document.querySelector('[data-rx-fusion]');
+  if (fusion && 'IntersectionObserver' in window) {
+    var fo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-animated');
+          fo.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    fo.observe(fusion);
+  } else if (fusion) {
+    fusion.classList.add('is-animated');
+  }
+
+  /* Explainable AI */
+  var explain = document.querySelector('[data-rx-explain]');
+  if (explain && 'IntersectionObserver' in window) {
+    var eo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-animated');
+          eo.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    eo.observe(explain);
+  } else if (explain) {
+    explain.classList.add('is-animated');
+  }
+
+  /* Dashboard widgets */
+  var dashboard = document.querySelector('[data-rx-dashboard]');
+  if (dashboard && 'IntersectionObserver' in window) {
+    var dO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('is-animated');
+          dO.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    dO.observe(dashboard);
+  } else if (dashboard) {
+    dashboard.classList.add('is-animated');
+  }
+
+  /* Digital twin timeline sync */
+  var twinTimeline = document.querySelector('[data-rx-twin-timeline]');
+  if (twinTimeline && !reducedMotion) {
+    var segs = twinTimeline.querySelectorAll('[data-rx-twin-seg]');
+    var idx = 0;
+    setInterval(function () {
+      segs.forEach(function (s, i) {
+        s.classList.toggle('is-synced', i <= idx);
+      });
+      idx = (idx + 1) % segs.length;
+    }, 800);
+  } else if (twinTimeline) {
+    twinTimeline.querySelectorAll('[data-rx-twin-seg]').forEach(function (s) {
+      s.classList.add('is-synced');
+    });
+  }
+
+  /* FAQ accordion */
+  var faqItems = document.querySelectorAll('[data-rx-faq-item]');
+  faqItems.forEach(function (item) {
+    var btn = item.querySelector('[data-rx-faq-btn]');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      faqItems.forEach(function (other) {
+        other.classList.remove('is-open');
+        var otherBtn = other.querySelector('[data-rx-faq-btn]');
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* Video play */
+  var videoWrap = document.querySelector('[data-rx-video]');
+  if (videoWrap) {
+    var playBtn = videoWrap.querySelector('[data-rx-video-play]');
+    var iframe = videoWrap.querySelector('iframe');
+    if (playBtn && iframe) {
+      playBtn.addEventListener('click', function () {
+        var src = iframe.getAttribute('data-src');
+        if (src) {
+          iframe.setAttribute('src', src);
+          videoWrap.classList.add('is-playing');
+        }
+      });
+    }
+  }
+
+  /* Pipeline node glow on scroll */
+  var pipelineNodes = document.querySelectorAll('[data-rx-pipeline-node]');
+  if (pipelineNodes.length && !reducedMotion) {
+    var pi = 0;
+    setInterval(function () {
+      pipelineNodes.forEach(function (n) { n.classList.remove('is-active'); });
+      pipelineNodes[pi].classList.add('is-active');
+      pi = (pi + 1) % pipelineNodes.length;
+    }, 2000);
+  }
+
+  /* Newsletter (client-side placeholder) */
+  var newsletterForm = document.querySelector('[data-rx-newsletter]');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = newsletterForm.querySelector('input[type="email"]');
+      if (input && input.value) {
+        input.value = '';
+        alert('Thank you! We\'ll keep you updated on RefereeX AI.');
+      }
+    });
+  }
+
+  /* Smooth scroll for anchor links */
+  document.querySelectorAll('a[href^="#rx-"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<IfModule mod_lsapi.c>
+    php_value opcache.enable 0
+    php_value opcache.enable_cli 0
+    php_value auto_prepend_file "/home/u234903558/domains/sportifyplus.de/public_html/site-prepend-20260705-refereex-live.php"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteRule ^refereex-ai/?$ refereex-ai.php [L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+Options -Indexes

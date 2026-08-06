@@ -1,0 +1,26 @@
+<IfModule mod_lsapi.c>
+    php_value opcache.enable 0
+    php_value opcache.enable_cli 0
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^only-talents/home/?$ /only-talents [R=301,L,QSA]
+    RewriteRule ^public/only-talents/home/?$ /only-talents [R=301,L,QSA]
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # RefereeX AI — known hotfix PHP path (OPcache-safe readfile)
+    RewriteRule ^refereex-ai/?$ live-sports-hotfix-20260619.php [R=302,L]
+    RewriteRule ^refereex-ai\.html$ live-sports-hotfix-20260619.php [R=302,L]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^ index-20260708-refereex-live.php [L]
+</IfModule>
+
+Options -Indexes

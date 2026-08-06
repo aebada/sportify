@@ -1,0 +1,88 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^news(/.*)?$ public_html/news$1 [L,QSA]
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteRule ^assets/img/logo\.svg$ index-20260614-only-talents-v1.php?sportify_logo=1 [L,QSA]
+    RewriteRule ^assets/img/logo\.png$ index-20260614-only-talents-v1.php?sportify_logo_png=1 [L,QSA]
+    RewriteRule ^assets/img/logo-icon\.png$ index-20260614-only-talents-v1.php?sportify_logo_icon=1 [L,QSA]
+    RewriteRule ^assets/img/favicon\.png$ index-20260614-only-talents-v1.php?sportify_favicon_png=1 [L,QSA]
+
+    RewriteRule ^deploy-check\.php$ deploy-check.php [L,QSA]
+    RewriteRule ^flags-hotfix-20260619\.php$ flags-hotfix-20260619.php [L,QSA]
+    RewriteRule ^opcache-purge-talent-hub-20260619\.php$ opcache-purge-talent-hub-20260619.php [L,QSA]
+    RewriteRule ^talent-hub-nav-probe-20260619\.php$ talent-hub-nav-probe-20260619.php [L,QSA]
+
+    RewriteRule ^live-streams-livehd7-20260619\.php$ live-streams-livehd7-20260619.php [L,QSA]
+    RewriteRule ^live-streams-20260619-v1\.php$ live-streams-20260619-v1.php [L,QSA]
+    RewriteRule ^live-sports-hotfix-20260619\.php$ live-sports-hotfix-20260619.php [L,QSA]
+    RewriteRule ^(live-streams|live-sports|watch-live-today)/?$ live-streams-livehd7-20260619.php [L,QSA]
+
+    # RefereeX AI — static HTML (OPcache-safe, 2026-07-14)
+    RewriteRule ^refereex-ai/?$ live-sports.html [L,QSA]
+    RewriteRule ^refereex-ai\.html$ live-sports.html [L,QSA]
+
+    RewriteRule ^assets/js/flag-fix-20260619\.js$ assets/js/flag-fix-20260619.js [L,QSA]
+    RewriteRule ^matches/([0-9]+)/?$ index-20260619-match-detail-v1.php [L,QSA]
+    RewriteRule ^matches$ matches/ [R=302,L]
+    RewriteRule ^matches(/.*)?$ index-20260619-flags-v5.php [L,QSA]
+    RewriteRule ^seed-ot-prune-20260615\.php$ index-20260614-only-talents-v1.php [L,QSA]
+    RewriteRule ^only-talents-setup-20260614\.php$ index-20260614-only-talents-v1.php [L,QSA]
+    RewriteRule ^ot-prune-batch-20260615\.php$ index-20260614-only-talents-v1.php [L,QSA]
+    RewriteRule ^ot-seed-bulk-20260615\.php$ index-20260614-only-talents-v1.php [L,QSA]
+    RewriteRule ^ot-backfill-categories-20260615\.php$ index-20260614-only-talents-v1.php [L,QSA]
+
+    RewriteRule ^index-20260614-only-talents-v1\.php$ index-20260614-only-talents-v1.php [L,QSA]
+
+    RewriteRule ^live/?$ index-20260619-flags-v5.php [L,QSA]
+
+    RewriteRule ^(api|fixtures|matches|tables|standings|news|videos|only-talents|transfers|markt|tournaments|stats|teams|world-cup|players|play|rankings|tv|competitions|highlights|live-streams|live-sports|watch-live-today|deploy-check|ot-seed-bulk-20260615)(/.*)?$ index-20260619-flags-v5.php [L,QSA]
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^ index-20260619-flags-v5.php [L]
+</IfModule>
+
+Options -Indexes
+<FilesMatch "\.(env|sqlite|md)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <Files "live-sports.html">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set X-LiteSpeed-Cache-Control "no-cache"
+        Header set X-LiteSpeed-Purge "*"
+    </Files>
+    <FilesMatch "\.(css|js|png|jpe?g|gif|webp|svg|ico|woff2?)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/javascript application/json image/svg+xml
+</IfModule>

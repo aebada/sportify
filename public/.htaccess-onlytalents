@@ -1,0 +1,15 @@
+# OnlyTalents — shared hosting safe (no php_value / AddHandler; avoids LiteSpeed 500)
+DirectoryIndex index.html index-20260705.php
+
+RedirectMatch 302 (?i)^/$ https://sportifyplus.de/only-talents/home
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteRule ^index-20260705\.php$ - [L]
+RewriteRule ^deploy-marker-20260705\.txt$ - [L]
+RewriteRule ^(deploy-check|opcache-purge|ot-opcache-flush-20260702|ot-fatal-probe-20260705|push-ot-talents-live-20260701)\.php$ - [L]
+RewriteRule ^$ index.html [L]
+RewriteRule ^(.+)$ https://sportifyplus.de/only-talents/$1 [R=302,L]
+</IfModule>

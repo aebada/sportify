@@ -1,0 +1,36 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+!**/.env*.example
+config/.env
+config/.env.*
+!config/.env*.example
+
+# Local / IDE
+.cursor/
+.DS_Store
+*.swp
+*.swo
+
+# Deploy probes, FTP mirrors, temporary fetch artifacts
+.deploy-artifacts/
+.deploy-tmp/
+.ftp-deploy/
+.ftp-download/
+.ftp-live/
+.ftp-probe/
+.ftp-probe-live/
+.ftp-prod-core/
+.oauth-fetch/
+.oauth-fetch-prod/
+.tmp-*
+.tmp-*.php
+
+# Runtime storage (SQLite, cache, uploads, logs)
+/storage/
+!/storage/.gitkeep
+
+# Composer (not used for Socialite; ignore if present)
+/vendor/
+composer.lock

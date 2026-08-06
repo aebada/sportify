@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^$ https://sportifyplus.de/only-talents/home [R=302,L]
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^(.+)$ https://sportifyplus.de/only-talents/$1 [R=302,L]
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteRule ^refereex-ai/?$ index.php [L]
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_lsapi.c>
+    php_value opcache.enable 0
+    php_value opcache.validate_timestamps 1
+    php_value opcache.revalidate_freq 0
+</IfModule>
+
+Options -Indexes

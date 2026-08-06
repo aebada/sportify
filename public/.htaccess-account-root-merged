@@ -1,0 +1,33 @@
+# Root .htaccess for Hostinger shared hosting (account FTP root = talents subdomain docroot).
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} talents\.sportifyplus\.de [NC]
+    RewriteRule .* https://sportifyplus.de/only-talents/home [R=302,L]
+
+    # OnlyTalents subdomain — Apache 302 before PHP (shared hosting / OPcache-safe)
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^(index\.html|index-20260705\.php|index-onlytalents-redirect\.php|deploy-marker-20260705\.txt)$ - [L]
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^(deploy-check|ot-opcache-flush-20260702|ot-fatal-probe-20260705|push-ot-talents-live-20260701)\.php$ - [L]
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^$ https://sportifyplus.de/only-talents/home [R=302,L]
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^(.+)$ https://sportifyplus.de/only-talents/$1 [R=302,L]
+
+    # Main site (sportifyplus.de)
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+    RewriteCond %{REQUEST_URI} ^/public/?(.*)$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L]
+    RewriteRule ^(app|config|database|storage|views|bootstrap\.php)(/|$) - [F,L]
+    RewriteRule ^lang/(en|de|ar)/messages\.php$ - [F,L]
+    RewriteRule ^$ public/index.php [L]
+    RewriteRule ^refereex-ai/?$ /live-sports.html [R=302,L]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.+)$ public/$1 [L]
+</IfModule>
+Options -Indexes

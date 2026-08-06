@@ -1,0 +1,22 @@
+# Root .htaccess — RefereeX static deploy 20260705
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # OnlyTalents subdomain — serve full app from /talents/ (no PHP redirect gateway)
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteCond %{REQUEST_URI} !^/talents/
+    RewriteRule ^(.*)$ /talents/$1 [L]
+
+    # Main site (sportifyplus.de)
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+    RewriteCond %{REQUEST_URI} ^/public/?(.*)$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L]
+    RewriteRule ^(app|config|database|storage|views|bootstrap\.php)(/|$) - [F,L]
+    RewriteRule ^lang/(en|de|ar)/messages\.php$ - [F,L]
+    RewriteRule ^$ public/index.php [L]
+    RewriteRule ^refereex-ai/?$ public/live-sports.html [L]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.+)$ public/$1 [L]
+</IfModule>
+Options -Indexes

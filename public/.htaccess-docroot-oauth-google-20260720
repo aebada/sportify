@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # RefereeX AI — redirect to live GitHub Pages (Hostinger CDN blocks static updates)
+    RewriteRule ^refereex-ai/?$ https://aebada.github.io/sportify-refereex/ [R=302,L]
+
+    # Google OAuth — serve dedicated scripts before front-controller rewrite
+    RewriteRule ^auth/google/?$ public/oauth-google-start-20260720.php [L,QSA]
+    RewriteRule ^auth/google/callback/?$ public/oauth-google-callback-20260720.php [L,QSA]
+    RewriteRule ^oauth-google-start-20260720\.php$ public/oauth-google-start-20260720.php [L,QSA]
+    RewriteRule ^oauth-google-callback-20260720\.php$ public/oauth-google-callback-20260720.php [L,QSA]
+    RewriteRule ^oauth-google-diag-20260720\.php$ public/oauth-google-diag-20260720.php [L,QSA]
+
+    RewriteCond %{HTTP_HOST} ^(www\.)?talents\.sportifyplus\.de$ [NC]
+    RewriteRule ^ - [L]
+
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+    RewriteCond %{REQUEST_URI} ^/public/?(.*)$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L]
+
+    RewriteRule ^only-talents/home/?$ /only-talents [R=301,L,QSA]
+
+    RewriteRule ^(app|config|database|storage|views|bootstrap\.php)(/|$) - [F,L]
+    RewriteRule ^lang/(en|de|ar)/messages\.php$ - [F,L]
+    RewriteRule ^$ public/index.php [L]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.+)$ public/$1 [L]
+</IfModule>
+Options -Indexes

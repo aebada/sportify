@@ -1,0 +1,18 @@
+DirectoryIndex index-20260705-ot-live.php index.php index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(deploy-check|opcache-purge|ot-opcache-flush-20260702|push-ot-talents-live-20260701|index-20260705-ot-live)\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index-20260705-ot-live.php [L,QSA]
+</IfModule>
+
+<IfModule mod_php.c>
+php_flag opcache.enable Off
+</IfModule>
+
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php
+</IfModule>

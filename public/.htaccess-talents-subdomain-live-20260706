@@ -1,0 +1,16 @@
+# talents.sportifyplus.de — Apache gateway (no PHP front controller)
+DirectoryIndex index.html
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^index\.html$ - [L]
+RewriteRule ^(deploy-check|opcache-purge)\.php$ - [L]
+
+RewriteRule ^$ https://sportifyplus.de/only-talents [R=302,L]
+RewriteRule ^(login|register)(/.*)?$ https://sportifyplus.de/$1 [R=302,L,QSA]
+RewriteRule ^(discover|categories|locations|videos|upload|communities|profile)(/.*)?$ https://sportifyplus.de/only-talents/$1$2 [R=302,L,QSA]
+RewriteRule ^(.*)$ https://sportifyplus.de/only-talents/$1 [R=302,L,QSA]
+</IfModule>
