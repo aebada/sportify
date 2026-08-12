@@ -168,12 +168,36 @@
     "source_url": "https://fsb-spielerberatung.de/en/"
   },
   {
+    "name": "Gestifute",
+    "type": "agency",
+    "country": "PT",
+    "website": "https://www.gestifute.com/",
+    "email": "gestifute@gestifute.com",
+    "source_url": "https://www.gestifute.com/"
+  },
+  {
+    "name": "Gestifute Media",
+    "type": "agency",
+    "country": "PT",
+    "website": "https://www.gestifute.com/",
+    "email": "media@gestifute.com",
+    "source_url": "https://www.gestifute.com/"
+  },
+  {
     "name": "Graner Bonomi Europe",
     "type": "agency",
     "country": "DE",
     "website": "https://www.graner-bonomi.com/",
     "email": "europe@graner-bonomi.com",
     "source_url": "https://www.graner-bonomi.com/playersagents/"
+  },
+  {
+    "name": "Polaris Sports",
+    "type": "agency",
+    "country": "PT",
+    "website": "https://www.gestifute.com/",
+    "email": "info@polarissports.pt",
+    "source_url": "https://www.gestifute.com/"
   },
   {
     "name": "The Football Agents / Graner Bonomi",
@@ -510,91 +534,5 @@
     "website": "https://www.vfl-wolfsburg.de/",
     "email": "service@vfl-wolfsburg.de",
     "source_url": "https://www.vfl-wolfsburg.de/impressum"
-  },
-  {
-    "name": "Sportschau Podcast / ARD",
-    "type": "community",
-    "subtype": "podcast",
-    "country": "DE",
-    "city": "",
-    "league": "",
-    "website": "https://www.sportschau.de",
-    "email": "fragen@sportschau.de",
-    "email_confidence": "verified",
-    "source_url": "https://www.sportschau.de/impressum",
-    "invite_status": "queued",
-    "notes": "",
-    "tags": [
-      "podcast"
-    ]
-  },
-  {
-    "name": "11FREUNDE Podcast",
-    "type": "community",
-    "subtype": "podcast",
-    "country": "DE",
-    "city": "",
-    "league": "",
-    "website": "https://www.11freunde.de",
-    "email": "redaktion@11freunde.de",
-    "email_confidence": "verified",
-    "source_url": "https://www.11freunde.de/impressum",
-    "invite_status": "queued",
-    "notes": "",
-    "tags": [
-      "podcast"
-    ]
-  },
-  {
-    "name": "kicker Podcast",
-    "type": "community",
-    "subtype": "podcast",
-    "country": "DE",
-    "city": "",
-    "league": "",
-    "website": "https://www.kicker.de",
-    "email": "redaktion@kicker.de",
-    "email_confidence": "verified",
-    "source_url": "https://www.kicker.de/impressum-316443/artikel",
-    "invite_status": "queued",
-    "notes": "",
-    "tags": [
-      "podcast"
-    ]
-  },
-  {
-    "name": "DAZN YouTube DE",
-    "type": "community",
-    "subtype": "creator_channel",
-    "country": "DE",
-    "city": "",
-    "league": "",
-    "website": "https://www.youtube.com/@DAZNFussball",
-    "email": "pr-dach@dazn.com",
-    "email_confidence": "verified",
-    "source_url": "https://dazngroup.com/contact/",
-    "invite_status": "queued",
-    "notes": "",
-    "tags": [
-      "creator",
-      "streaming"
-    ]
-  },
-  {
-    "name": "Bundesliga Official YouTube",
-    "type": "community",
-    "subtype": "creator_channel",
-    "country": "DE",
-    "city": "",
-    "league": "",
-    "website": "https://www.youtube.com/@bundesliga",
-    "email": null,
-    "email_confidence": "needs_research",
-    "source_url": "https://www.bundesliga.com",
-    "invite_status": "pending",
-    "notes": "Use DFL press for partnerships.",
-    "tags": [
-      "creator"
-    ]
   }
 ]
