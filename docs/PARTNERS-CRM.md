@@ -71,6 +71,7 @@ Never commit real passwords. Without mail config, invites stay **queued**.
 ## Ethics
 
 - Public press / partnership / impressum emails only  
+- Accepted public media locals include `presse@`, `media@`, `pressoffice@`, `kommunikation@`, German `medien@` (Bundesliga standard), and language equivalents such as `prensa@` / `premsa@` when published on official club pages  
 - Each row should include `source_url` when possible  
 - `email_confidence`: `verified` | `needs_research` | `unverified`  
 - Invite-all defaults to **verified only**

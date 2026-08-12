@@ -25,14 +25,16 @@
     "city": "Leverkusen",
     "league": "Bundesliga",
     "website": "https://www.bayer04.de",
-    "email": "presse@bayer04.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.bayer04.de",
+    "email": "medien@bayer04.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.bayer04.de/en-us/page/media",
     "invite_status": "pending",
-    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
     "tags": [
       "bundesliga",
-      "club"
+      "club",
+      "medien_ok",
+      "verified_research"
     ]
   },
   {
@@ -97,14 +99,16 @@
     "city": "Frankfurt",
     "league": "Bundesliga",
     "website": "https://www.eintracht.de",
-    "email": "presse@eintracht.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.eintracht.de",
+    "email": "medien@eintrachtfrankfurt.de",
+    "email_confidence": "verified",
+    "source_url": "https://media.eintracht.de/image/upload/v1755876361/ef_mediaguide_deutsch-17a9.pdf",
     "invite_status": "pending",
-    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
     "tags": [
       "bundesliga",
-      "club"
+      "club",
+      "medien_ok",
+      "verified_research"
     ]
   },
   {
@@ -115,14 +119,15 @@
     "city": "Freiburg",
     "league": "Bundesliga",
     "website": "https://www.scfreiburg.com",
-    "email": "presse@scfreiburg.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.scfreiburg.com",
+    "email": "presse@scfreiburg.com",
+    "email_confidence": "verified",
+    "source_url": "https://www.scfreiburg.com/impressum",
     "invite_status": "pending",
-    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "bundesliga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -234,21 +239,23 @@
     ]
   },
   {
-    "name": "Werder Bremen",
+    "name": "SV Werder Bremen",
     "type": "club",
     "subtype": "first_team",
     "country": "DE",
     "city": "Bremen",
     "league": "Bundesliga",
     "website": "https://www.werder.de",
-    "email": "presse@werder.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.werder.de",
+    "email": "medien@werder.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.werder.de/der-svw/medienservice/akkreditierung",
     "invite_status": "pending",
-    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
     "tags": [
       "bundesliga",
-      "club"
+      "club",
+      "medien_ok",
+      "verified_research"
     ]
   },
   {
@@ -293,16 +300,17 @@
     "subtype": "first_team",
     "country": "DE",
     "city": "Kiel",
-    "league": "Bundesliga",
+    "league": "2. Bundesliga",
     "website": "https://www.holstein-kiel.de",
     "email": "presse@holstein-kiel.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.holstein-kiel.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.holstein-kiel.de/medien/presse/presse-und-interviewanfragen/",
     "invite_status": "pending",
-    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "bundesliga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -346,17 +354,19 @@
     "type": "club",
     "subtype": "first_team",
     "country": "DE",
-    "city": "Köln",
-    "league": "2. Bundesliga",
+    "city": "Cologne",
+    "league": "Bundesliga",
     "website": "https://fc.de",
-    "email": "presse@fc.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://fc.de",
+    "email": "medien@fc-koeln.de",
+    "email_confidence": "verified",
+    "source_url": "https://fc.de/medien",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
     "tags": [
       "2-bundesliga",
-      "club"
+      "club",
+      "medien_ok",
+      "verified_research"
     ]
   },
   {
@@ -401,16 +411,18 @@
     "subtype": "first_team",
     "country": "DE",
     "city": "Gelsenkirchen",
-    "league": "2. Bundesliga",
+    "league": "Bundesliga",
     "website": "https://schalke04.de",
-    "email": "presse@schalke04.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://schalke04.de",
+    "email": "medien@schalke04.de",
+    "email_confidence": "verified",
+    "source_url": "https://schalke04.de/impressum/",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
     "tags": [
       "2-bundesliga",
-      "club"
+      "club",
+      "medien_ok",
+      "verified_research"
     ]
   },
   {
@@ -421,14 +433,16 @@
     "city": "Düsseldorf",
     "league": "2. Bundesliga",
     "website": "https://www.f95.de",
-    "email": "presse@f95.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.f95.de",
+    "email": "medien@f95.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.f95.de/presse",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
     "tags": [
       "2-bundesliga",
-      "club"
+      "club",
+      "medien_ok",
+      "verified_research"
     ]
   },
   {
@@ -454,17 +468,18 @@
     "type": "club",
     "subtype": "first_team",
     "country": "DE",
-    "city": "Nürnberg",
+    "city": "Nuremberg",
     "league": "2. Bundesliga",
     "website": "https://www.fcn.de",
     "email": "presse@fcn.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.fcn.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.fcn.de/club/medien/",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "2-bundesliga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -540,21 +555,22 @@
     ]
   },
   {
-    "name": "Magdeburg",
+    "name": "1. FC Magdeburg",
     "type": "club",
     "subtype": "first_team",
     "country": "DE",
     "city": "Magdeburg",
     "league": "2. Bundesliga",
-    "website": "https://www.1.fc-magdeburg.de",
-    "email": "presse@1.fc-magdeburg.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.1.fc-magdeburg.de",
+    "website": "https://www.fc-magdeburg.de",
+    "email": "presse@fc-magdeburg.de",
+    "email_confidence": "verified",
+    "source_url": "https://1fcm.de/club/medien/ansprechpartner",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "2-bundesliga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -648,21 +664,22 @@
     ]
   },
   {
-    "name": "Dynamo Dresden",
+    "name": "SG Dynamo Dresden",
     "type": "club",
     "subtype": "first_team",
     "country": "DE",
     "city": "Dresden",
-    "league": "3. Liga",
+    "league": "2. Bundesliga",
     "website": "https://www.dynamo-dresden.de",
-    "email": "presse@dynamo-dresden.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.dynamo-dresden.de",
+    "email": "kommunikation@dynamo-dresden.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.dynamo-dresden.de/verein/presse/akkreditierung/",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "3-liga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -673,14 +690,15 @@
     "city": "Ingolstadt",
     "league": "3. Liga",
     "website": "https://www.fcingolstadt.de",
-    "email": "presse@fcingolstadt.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.fcingolstadt.de",
+    "email": "media@fcingolstadt.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.fcingolstadt.de/presse/",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "3-liga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -710,13 +728,14 @@
     "league": "3. Liga",
     "website": "https://www.alemannia-aachen.de",
     "email": "presse@alemannia-aachen.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.alemannia-aachen.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.alemannia-aachen.de/kontakt/",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "3-liga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -780,15 +799,16 @@
     "country": "DE",
     "city": "Wiesbaden",
     "league": "3. Liga",
-    "website": "https://www.svww.de",
+    "website": "https://svww.de",
     "email": "presse@svww.de",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.svww.de",
+    "email_confidence": "verified",
+    "source_url": "https://svww.de/medien",
     "invite_status": "pending",
-    "notes": "Verify presse@ on club website before invite.",
+    "notes": "Verified public media/press inbox from official club page.",
     "tags": [
       "3-liga",
-      "club"
+      "club",
+      "verified_research"
     ]
   },
   {
@@ -968,15 +988,17 @@
     "city": "Barcelona",
     "league": "La Liga",
     "website": "https://www.fcbarcelona.com",
-    "email": "media@fcbarcelona.cat",
-    "email_confidence": "needs_research",
-    "source_url": "https://www.fcbarcelona.com",
+    "email": "premsa@fcbarcelona.cat",
+    "email_confidence": "verified",
+    "source_url": "https://www.fcbarcelona.com/en/club/press/contact",
     "invite_status": "pending",
-    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "notes": "Verified Catalan premsa@ public press inbox (ES/CA local; added after research allow-list expansion).",
     "tags": [
-      "europe",
       "club",
-      "ucl"
+      "europe",
+      "premsa_ok",
+      "ucl",
+      "verified_research"
     ]
   },
   {
@@ -1186,6 +1208,84 @@
       "europe",
       "club",
       "ucl"
+    ]
+  },
+  {
+    "name": "VfL Osnabrück",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Osnabrück",
+    "league": "2. Bundesliga",
+    "website": "https://www.vfl.de",
+    "email": "medien@vfl.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.vfl.de/rechtliches/medienservice",
+    "invite_status": "pending",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard).",
+    "tags": [
+      "2_bundesliga",
+      "club",
+      "verified_research",
+      "medien_ok"
+    ]
+  },
+  {
+    "name": "MSV Duisburg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Duisburg",
+    "league": "3. Liga",
+    "website": "https://www.msv-duisburg.de",
+    "email": "presse@msv-duisburg.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.msv-duisburg.de/presse/",
+    "invite_status": "pending",
+    "notes": "Verified public media/press inbox from official club page.",
+    "tags": [
+      "3_liga",
+      "club",
+      "verified_research"
+    ]
+  },
+  {
+    "name": "SpVgg Unterhaching",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Unterhaching",
+    "league": "Regionalliga Bayern",
+    "website": "https://www.spvggunterhaching.de",
+    "email": "presse@spvggunterhaching.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.spvggunterhaching.de/verein/werkstudenten-oder-pflichtpraktikanten-m-w-d-medien-kommunikation-mit-schwerpunkt-social-media-creation/",
+    "invite_status": "pending",
+    "notes": "Verified public media/press inbox from official club page.",
+    "tags": [
+      "regionalliga",
+      "club",
+      "verified_research"
+    ]
+  },
+  {
+    "name": "Villarreal CF",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "ES",
+    "city": "Villarreal",
+    "league": "La Liga",
+    "website": "https://www.villarrealcf.es",
+    "email": "prensa@villarrealcf.es",
+    "email_confidence": "verified",
+    "source_url": "https://panel.villarrealcf.es/en/normativa-de-prensa/",
+    "invite_status": "pending",
+    "notes": "Verified Spanish prensa@ public press inbox (added after research allow-list expansion).",
+    "tags": [
+      "la_liga",
+      "club",
+      "verified_research",
+      "prensa_ok"
     ]
   }
 ]
