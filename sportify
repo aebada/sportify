@@ -1,0 +1,3140 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Sportify console — a tiny artisan-style CLI (no Composer needed).
+ *
+ *   php sportify migrate        Create database tables
+ *   php sportify seed           Insert canonical content (idempotent)
+ *   php sportify fresh          Migrate + seed in one go
+ *   php sportify livehd7-sync   Fetch today's LiveHD7 match stream links
+ *   php sportify matches        Refresh today's live match fixtures
+ *   php sportify fixtures       Refresh live fixtures from ESPN / football-data.org
+ *   php sportify admin <email> <password> [name]   Create/promote an admin user
+ *   php sportify super-admin <email> <password> [name]   Create/promote a super admin
+ *   php sportify serve [port]   Start the PHP dev server on /public
+ */
+
+$config = require __DIR__ . '/bootstrap.php';
+
+use App\Core\Database;
+use App\Core\Lang;
+
+$argv = $_SERVER['argv'];
+$cmd = $argv[1] ?? 'help';
+
+function out(string $msg): void { fwrite(STDOUT, $msg . PHP_EOL); }
+function err(string $msg): void { fwrite(STDERR, "\033[31m" . $msg . "\033[0m" . PHP_EOL); }
+function ok(string $msg): void  { out("\033[32m✓\033[0m " . $msg); }
+
+function migrate(): void
+{
+    $pdo = Database::connection();
+    if (!$pdo) {
+        err('Could not connect to the database. Check your .env settings.');
+        exit(1);
+    }
+    $schema = require __DIR__ . '/database/schema.php';
+    $isSqlite = Database::isSqlite();
+    $auto = $isSqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT AUTO_INCREMENT PRIMARY KEY';
+    $json = $isSqlite ? 'TEXT' : 'JSON';
+
+    foreach ($schema as $table => $sql) {
+        $sql = str_replace(['{{AUTO}}', '{{JSON}}'], [$auto, $json], $sql);
+        $pdo->exec($sql);
+        ok("migrated table: {$table}");
+    }
+    patchBillingSchema($pdo, $isSqlite);
+    patchNewsSchema($pdo, $isSqlite);
+    patchTalentShortsSchema($pdo, $isSqlite);
+    patchFixturesSchema($pdo, $isSqlite);
+    patchPlayersSchema($pdo, $isSqlite);
+    patchScoutGdprSchema($pdo, $isSqlite);
+    syncPlayerCareerTargets($pdo);
+    patchTrainerSchema($pdo, $isSqlite);
+    syncTrainerProfiles($pdo);
+    patchMarktSchema($pdo, $isSqlite);
+    patchTransferBureauSchema($pdo, $isSqlite);
+    syncFitpassPlans($pdo);
+    syncProviders($pdo);
+    syncCompetitions($pdo);
+    syncMatchHub($pdo);
+    syncKoooraSeed($pdo);
+    syncChatGroups($pdo);
+    syncCrmDemo($pdo);
+    syncMarketplace($pdo);
+    syncProCoaches($pdo);
+    syncFansAndBookings($pdo);
+    syncOnlyTalents($pdo);
+    syncOtShortsBulk($pdo);
+    syncTalentCategories($pdo);
+    syncOtCommunities($pdo);
+    syncTransferBureau($pdo);
+    syncTransfermarkt($pdo);
+    syncMembershipPlans($pdo);
+    backfillFreeMemberships($pdo);
+    backfillReferralCodes();
+    syncRbacUsers($pdo);
+    syncCommunityFeed($pdo);
+    syncFeedShares($pdo);
+    syncShortsFeed($pdo);
+    syncNewsFeed($pdo);
+    out('Migration complete.');
+}
+
+/** Ensure at least one super_admin exists; seed dev test accounts if missing. */
+function syncRbacUsers(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'users')) {
+        return;
+    }
+
+    $now = date('Y-m-d H:i:s');
+    $devPassword = 'Sportify!2026';
+
+    $legacy = $pdo->exec("UPDATE users SET role = 'provider' WHERE role = 'trainer' AND email LIKE '%@provider.%'");
+    if ($legacy) {
+        ok("mapped {$legacy} legacy provider-alias trainer user(s) → provider");
+    }
+
+    if (!\App\Models\User::hasSuperAdmin()) {
+        $pdo->prepare(
+            'INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)'
+        )->execute([
+            'Super Admin',
+            'super@test.local',
+            password_hash($devPassword, PASSWORD_DEFAULT),
+            'super_admin',
+            $now,
+        ]);
+        ok('seeded super_admin: super@test.local (password: ' . $devPassword . ')');
+    }
+
+    $devUsers = [
+        ['Admin User', 'admin@test.local', 'admin'],
+        ['Marketing User', 'marketing@test.local', 'marketing'],
+        ['Test Scout', 'scout@test.local', 'scout'],
+        ['Test Club', 'club@test.local', 'club'],
+        ['Test Player', 'player@test.local', 'player'],
+        ['Test Trainer', 'trainer@test.local', 'trainer'],
+        ['Test Provider', 'provider@test.local', 'provider'],
+        ['Test Fan', 'fan@test.local', 'fan'],
+    ];
+    $added = 0;
+    foreach ($devUsers as [$name, $email, $role]) {
+        if (\App\Models\User::findByEmail($email)) {
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)'
+        )->execute([$name, $email, password_hash($devPassword, PASSWORD_DEFAULT), $role, $now]);
+        $added++;
+    }
+    if ($added > 0) {
+        ok("seeded {$added} dev RBAC test user(s) (password: {$devPassword})");
+    }
+}
+
+/** Seed community feed posts when the feed has fewer than 15 entries. */
+function syncCommunityFeed(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'posts') || !tableExists($pdo, 'users')) {
+        return;
+    }
+
+    $seedFile = __DIR__ . '/database/seeds/community_feed.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+
+    $existing = (int) $pdo->query('SELECT COUNT(*) FROM posts')->fetchColumn();
+    if ($existing >= 15) {
+        out('• community feed: already has ' . $existing . ' posts, skipping seed.');
+        return;
+    }
+
+    $data = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $hash = password_hash('Sportify!2026', PASSWORD_DEFAULT);
+
+    $userIds = [];
+    foreach ($data['members'] ?? [] as $m) {
+        $email = strtolower($m['email']);
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([$email]);
+        $uid = (int) ($stmt->fetchColumn() ?: 0);
+        if (!$uid) {
+            $pdo->prepare('INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)')
+                ->execute([$m['name'], $email, $hash, $m['role'] ?? 'fan', $now]);
+            $uid = (int) $pdo->lastInsertId();
+        }
+
+        if (tableExists($pdo, 'member_profiles')) {
+            $stmt = $pdo->prepare('SELECT id FROM member_profiles WHERE user_id = ? LIMIT 1');
+            $stmt->execute([$uid]);
+            if (!$stmt->fetch()) {
+                $pdo->prepare(
+                    'INSERT INTO member_profiles (user_id, username, headline, social, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)'
+                )->execute([
+                    $uid,
+                    $m['username'],
+                    $m['headline'] ?? null,
+                    json_encode([]),
+                    $now,
+                    $now,
+                ]);
+            }
+        }
+
+        $userIds[$m['username']] = $uid;
+    }
+
+    $insert = $pdo->prepare(
+        'INSERT INTO posts (user_id, body, media_type, media_path, video_url, created_at) VALUES (?, ?, ?, ?, ?, ?)'
+    );
+
+    $added = 0;
+    foreach ($data['posts'] ?? [] as $post) {
+        $username = $post['author'] ?? '';
+        $userId = $userIds[$username] ?? 0;
+        if (!$userId) {
+            continue;
+        }
+
+        $body = trim((string) ($post['body'] ?? ''));
+        $videoUrl = trim((string) ($post['video_url'] ?? ''));
+        $imageUrl = trim((string) ($post['image_url'] ?? ''));
+        $daysAgo = (int) ($post['days_ago'] ?? 0);
+        $createdAt = date('Y-m-d H:i:s', strtotime("-{$daysAgo} days"));
+
+        $mediaType = 'none';
+        $mediaPath = null;
+        if ($imageUrl !== '') {
+            $mediaType = 'image';
+            $mediaPath = $imageUrl;
+        } elseif ($videoUrl !== '') {
+            $mediaType = 'video';
+        }
+
+        if ($body === '' && !$mediaPath && $videoUrl === '') {
+            continue;
+        }
+
+        $insert->execute([$userId, $body, $mediaType, $mediaPath, $videoUrl ?: null, $createdAt]);
+        $added++;
+    }
+
+    if ($added > 0) {
+        ok("seeded community feed: {$added} posts from " . count($userIds) . ' members');
+    }
+
+    syncFeedSharesFromSeed($pdo, $data, $userIds);
+}
+
+/** Seed feed_shares from community_feed.php when table is sparse. */
+function syncFeedShares(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'feed_shares') || !tableExists($pdo, 'users')) {
+        return;
+    }
+
+    $existing = (int) $pdo->query('SELECT COUNT(*) FROM feed_shares')->fetchColumn();
+    if ($existing >= 3) {
+        out('• feed shares: already has ' . $existing . ' entries, skipping seed.');
+        return;
+    }
+
+    $seedFile = __DIR__ . '/database/seeds/community_feed.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+
+    $data = require $seedFile;
+    $userIds = [];
+    foreach ($data['members'] ?? [] as $m) {
+        $email = strtolower($m['email']);
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([$email]);
+        $uid = (int) ($stmt->fetchColumn() ?: 0);
+        if ($uid) {
+            $userIds[$m['username']] = $uid;
+        }
+    }
+
+    syncFeedSharesFromSeed($pdo, $data, $userIds);
+}
+
+/** @param array<string,int> $userIds */
+function syncFeedSharesFromSeed(PDO $pdo, array $data, array $userIds): void
+{
+    if (!tableExists($pdo, 'feed_shares') || empty($data['shares'])) {
+        return;
+    }
+
+    $insert = $pdo->prepare(
+        'INSERT INTO feed_shares (user_id, share_type, target_id, target_url, title, excerpt, thumbnail, comment, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    );
+
+    $postLookup = $pdo->prepare(
+        'SELECT p.id FROM posts p
+         JOIN member_profiles mp ON mp.user_id = p.user_id
+         WHERE mp.username = ? ORDER BY p.created_at DESC LIMIT 1'
+    );
+
+    $fixtureLookup = $pdo->prepare(
+        "SELECT id FROM fixtures WHERE status = 'finished' ORDER BY kickoff_at DESC LIMIT 1"
+    );
+    $fixtureId = 0;
+    if (tableExists($pdo, 'fixtures')) {
+        $fixtureLookup->execute();
+        $fixtureId = (int) ($fixtureLookup->fetchColumn() ?: 0);
+    }
+
+    $added = 0;
+    foreach ($data['shares'] as $share) {
+        $username = $share['author'] ?? '';
+        $userId = $userIds[$username] ?? 0;
+        if (!$userId) {
+            continue;
+        }
+
+        $shareType = (string) ($share['share_type'] ?? 'article');
+        $daysAgo = (int) ($share['days_ago'] ?? 0);
+        $createdAt = date('Y-m-d H:i:s', strtotime("-{$daysAgo} days"));
+
+        $targetId = null;
+        if ($shareType === 'post' && !empty($share['target_post_author'])) {
+            $postLookup->execute([$share['target_post_author']]);
+            $targetId = (int) ($postLookup->fetchColumn() ?: 0) ?: null;
+        } elseif ($shareType === 'match' && $fixtureId > 0) {
+            $targetId = $fixtureId;
+        }
+
+        $insert->execute([
+            $userId,
+            $shareType,
+            $targetId,
+            $share['target_url'] ?? null,
+            $share['title'] ?? null,
+            $share['excerpt'] ?? null,
+            $share['thumbnail'] ?? null,
+            $share['comment'] ?? null,
+            $createdAt,
+        ]);
+        $added++;
+    }
+
+    if ($added > 0) {
+        ok("seeded feed shares: {$added} shared items");
+    }
+}
+
+function tableExists(PDO $pdo, string $table): bool
+{
+    if (Database::isSqlite()) {
+        $stmt = $pdo->prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?");
+        $stmt->execute([$table]);
+        return (bool) $stmt->fetch();
+    }
+    $stmt = $pdo->prepare('SHOW TABLES LIKE ?');
+    $stmt->execute([$table]);
+    return (bool) $stmt->fetch();
+}
+
+function patchTalentShortsSchema(PDO $pdo, bool $isSqlite): void
+{
+    if (!tableExists($pdo, 'talent_shorts')) {
+        return;
+    }
+    $patches = [
+        'talent_shorts' => [
+            'category_slug' => 'VARCHAR(80) NULL',
+            'tags'          => 'VARCHAR(255) NULL',
+            'is_available'  => $isSqlite ? 'INTEGER NULL DEFAULT 1' : 'TINYINT NULL DEFAULT 1',
+        ],
+    ];
+    foreach ($patches as $table => $cols) {
+        foreach ($cols as $col => $def) {
+            if (columnExists($pdo, $table, $col, $isSqlite)) {
+                continue;
+            }
+            $pdo->exec("ALTER TABLE {$table} ADD COLUMN {$col} {$def}");
+            ok("patched {$table}.{$col}");
+        }
+    }
+    if (!indexExists($pdo, 'idx_talent_shorts_category', $isSqlite, 'talent_shorts')) {
+        $pdo->exec('CREATE INDEX idx_talent_shorts_category ON talent_shorts(category_slug)');
+        ok('patched talent_shorts.idx_talent_shorts_category');
+    }
+}
+
+function patchNewsSchema(PDO $pdo, bool $isSqlite): void
+{
+    if (!tableExists($pdo, 'news')) {
+        return;
+    }
+    $patches = [
+        'news' => [
+            'source'           => 'VARCHAR(120) NULL',
+            'source_url'       => 'VARCHAR(500) NULL',
+            'image'            => 'VARCHAR(500) NULL',
+            'external'         => $isSqlite ? 'INTEGER NOT NULL DEFAULT 0' : 'TINYINT NOT NULL DEFAULT 0',
+            'published_at'     => 'DATETIME NULL',
+            'youtube_id'       => 'VARCHAR(20) NULL',
+            'updated_at'       => 'DATETIME NULL',
+            'title_ar'         => 'VARCHAR(255) NULL',
+            'excerpt_ar'       => 'TEXT NULL',
+            'body_ar'          => 'TEXT NULL',
+            'ar_translated_at' => 'DATETIME NULL',
+        ],
+    ];
+    foreach ($patches as $table => $cols) {
+        foreach ($cols as $col => $def) {
+            if (columnExists($pdo, $table, $col, $isSqlite)) {
+                continue;
+            }
+            $pdo->exec("ALTER TABLE {$table} ADD COLUMN {$col} {$def}");
+            ok("patched {$table}.{$col}");
+        }
+    }
+}
+
+function patchBillingSchema(PDO $pdo, bool $isSqlite): void
+{
+    $patches = [
+        'fitpass_plans' => [
+            'amount_monthly' => $isSqlite ? 'INTEGER DEFAULT 0' : 'INT DEFAULT 0',
+            'amount_yearly'  => $isSqlite ? 'INTEGER DEFAULT 0' : 'INT DEFAULT 0',
+            'currency'       => "VARCHAR(8) DEFAULT 'EUR'",
+        ],
+    ];
+    foreach ($patches as $table => $cols) {
+        foreach ($cols as $col => $def) {
+            if (columnExists($pdo, $table, $col, $isSqlite)) {
+                continue;
+            }
+            $pdo->exec("ALTER TABLE {$table} ADD COLUMN {$col} {$def}");
+            ok("patched {$table}.{$col}");
+        }
+    }
+}
+
+function columnExists(PDO $pdo, string $table, string $col, bool $isSqlite): bool
+{
+    if ($isSqlite) {
+        $rows = $pdo->query("PRAGMA table_info({$table})")->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rows as $r) {
+            if (($r['name'] ?? '') === $col) {
+                return true;
+            }
+        }
+        return false;
+    }
+    $stmt = $pdo->prepare("SHOW COLUMNS FROM {$table} LIKE ?");
+    $stmt->execute([$col]);
+    return (bool) $stmt->fetch();
+}
+
+/** Insert any FIT-Pass plans missing from the database (safe to re-run). */
+function syncFitpassPlans(PDO $pdo): void
+{
+    $fit = require __DIR__ . '/database/seeds/fitpass.php';
+    $now = date('Y-m-d H:i:s');
+    $added = 0;
+    foreach ($fit['plans'] as $p) {
+        $stmt = $pdo->prepare('SELECT id FROM fitpass_plans WHERE tier = ? LIMIT 1');
+        $stmt->execute([$p['tier']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+        $ins = $pdo->prepare(
+            'INSERT INTO fitpass_plans (name, price, period, tier, popular, tagline, features, amount_monthly, amount_yearly, currency, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        );
+        $ins->execute([
+            $p['name'], $p['price'], $p['period'], $p['tier'], !empty($p['popular']) ? 1 : 0,
+            $p['tagline'], json_encode($p['features']),
+            $p['amount_monthly'] ?? 0, $p['amount_yearly'] ?? 0, 'EUR', $now,
+        ]);
+        $added++;
+    }
+    if ($added > 0) {
+        ok("synced fitpass_plans: {$added} new plan(s)");
+    }
+}
+
+function syncProviders(PDO $pdo): void
+{
+    $items = require __DIR__ . '/database/seeds/providers.php';
+    $now = date('Y-m-d H:i:s');
+    $added = 0;
+    foreach ($items as $p) {
+        $stmt = $pdo->prepare('SELECT id FROM providers WHERE slug = ? LIMIT 1');
+        $stmt->execute([$p['slug']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+        $ins = $pdo->prepare(
+            'INSERT INTO providers (slug, type, name, tagline, description, address, city, country, country_code, phone, email, website, status, data, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        );
+        $ins->execute([
+            $p['slug'], $p['type'], $p['name'], $p['tagline'] ?? '', $p['description'] ?? '',
+            $p['address'] ?? '', $p['city'] ?? '', $p['country'] ?? '', $p['country_code'] ?? '',
+            $p['phone'] ?? '', $p['email'] ?? '', $p['website'] ?? '', 'active',
+            json_encode($p['data'] ?? []), $now,
+        ]);
+        $providerId = (int) $pdo->lastInsertId();
+        foreach ($p['plans'] ?? [] as $pl) {
+            $pdo->prepare(
+                'INSERT INTO provider_plans (provider_id, slug, name, tagline, billing_interval, amount_cents, currency, visit_credits, features, active, popular, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)'
+            )->execute([
+                $providerId, $pl['slug'], $pl['name'], $pl['tagline'] ?? '',
+                $pl['billing_interval'] ?? 'monthly', $pl['amount_cents'] ?? 0, 'EUR',
+                $pl['visit_credits'] ?? null, json_encode($pl['features'] ?? []),
+                !empty($pl['popular']) ? 1 : 0, $now,
+            ]);
+        }
+        $added++;
+    }
+    if ($added > 0) {
+        ok("synced providers: {$added} new provider(s)");
+    }
+}
+
+function patchScoutGdprSchema(PDO $pdo, bool $isSqlite): void
+{
+    if (tableExists($pdo, 'scout_gdpr_consent')) {
+        return;
+    }
+    $auto = $isSqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT AUTO_INCREMENT PRIMARY KEY';
+    $pdo->exec("CREATE TABLE IF NOT EXISTS scout_gdpr_consent (
+        id {$auto},
+        user_id INT NOT NULL UNIQUE,
+        accepted_at DATETIME NOT NULL,
+        ip_address VARCHAR(45) NULL,
+        user_agent VARCHAR(255) NULL
+    )");
+    ok('patched table: scout_gdpr_consent');
+}
+
+function patchPlayersSchema(PDO $pdo, bool $isSqlite): void
+{
+    $int = $isSqlite ? 'INTEGER NULL' : 'INT NULL';
+    $patches = [
+        'players' => [
+            'scout_user_id' => $int,
+            'market_value_eur' => $int,
+            'preferred_foot' => 'VARCHAR(12) NULL',
+            'height_cm' => $int,
+            'contract_expires' => 'DATE NULL',
+            'agent_name' => 'VARCHAR(120) NULL',
+            'national_team' => 'VARCHAR(80) NULL',
+            'target_club' => 'VARCHAR(160) NULL',
+            'target_league' => 'VARCHAR(120) NULL',
+            'next_move_preference' => 'VARCHAR(30) NULL',
+            'next_move_notes' => 'VARCHAR(200) NULL',
+        ],
+    ];
+    foreach ($patches as $table => $cols) {
+        foreach ($cols as $col => $def) {
+            if (columnExists($pdo, $table, $col, $isSqlite)) {
+                continue;
+            }
+            $pdo->exec("ALTER TABLE {$table} ADD COLUMN {$col} {$def}");
+            ok("patched {$table}.{$col}");
+        }
+    }
+    if (tableExists($pdo, 'players') && !indexExists($pdo, 'idx_players_scout_user', $isSqlite)) {
+        $pdo->exec('CREATE INDEX idx_players_scout_user ON players(scout_user_id)');
+        ok('patched players.idx_players_scout_user');
+    }
+    if (tableExists($pdo, 'player_target_clubs') && !indexExists($pdo, 'idx_player_target_clubs_player', $isSqlite, 'player_target_clubs')) {
+        $pdo->exec('CREATE INDEX idx_player_target_clubs_player ON player_target_clubs(player_id)');
+        ok('patched player_target_clubs.idx_player_target_clubs_player');
+    }
+}
+
+function indexExists(PDO $pdo, string $name, bool $isSqlite, string $table = 'players'): bool
+{
+    if ($isSqlite) {
+        $rows = $pdo->query("PRAGMA index_list('{$table}')")->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rows as $r) {
+            if (($r['name'] ?? '') === $name) {
+                return true;
+            }
+        }
+        return false;
+    }
+    $stmt = $pdo->prepare("SHOW INDEX FROM {$table} WHERE Key_name = ?");
+    $stmt->execute([$name]);
+    return (bool) $stmt->fetch();
+}
+
+/** Seed demo career targets on featured catalogue players (idempotent). */
+function syncPlayerCareerTargets(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'players') || !columnExists($pdo, 'players', 'target_club', Database::isSqlite())) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/player_career_targets.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $targets = require $seedFile;
+    $updated = 0;
+    $clubsUpdated = 0;
+    $hasTargetClubs = tableExists($pdo, 'player_target_clubs');
+    foreach ($targets as $slug => $t) {
+        $stmt = $pdo->prepare('SELECT id, target_club, target_league, next_move_preference, next_move_notes FROM players WHERE slug = ? LIMIT 1');
+        $stmt->execute([$slug]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            continue;
+        }
+        $playerId = (int) $row['id'];
+
+        if (empty($row['target_club'])) {
+            $pdo->prepare(
+                'UPDATE players SET target_club = ?, target_league = ?, next_move_preference = ?, next_move_notes = ? WHERE id = ?'
+            )->execute([
+                $t['target_club'] ?? null,
+                $t['target_league'] ?? null,
+                $t['next_move_preference'] ?? null,
+                $t['next_move_notes'] ?? null,
+                $playerId,
+            ]);
+            $updated++;
+            $row = array_merge($row, [
+                'target_club' => $t['target_club'] ?? null,
+                'target_league' => $t['target_league'] ?? null,
+                'next_move_preference' => $t['next_move_preference'] ?? null,
+                'next_move_notes' => $t['next_move_notes'] ?? null,
+            ]);
+        }
+
+        if (!$hasTargetClubs) {
+            continue;
+        }
+
+        $countStmt = $pdo->prepare('SELECT COUNT(*) AS c FROM player_target_clubs WHERE player_id = ?');
+        $countStmt->execute([$playerId]);
+        $existing = (int) ($countStmt->fetch(PDO::FETCH_ASSOC)['c'] ?? 0);
+
+        if ($existing === 0 && !empty($t['target_clubs']) && is_array($t['target_clubs'])) {
+            syncPlayerTargetClubRows($pdo, $playerId, $t['target_clubs']);
+            $clubsUpdated++;
+            continue;
+        }
+
+        if ($existing === 0 && !empty($row['target_club'])) {
+            syncPlayerTargetClubRows($pdo, $playerId, [[
+                'club_name' => $row['target_club'],
+                'club_slug' => null,
+                'type' => 'dream',
+                'note' => $row['next_move_notes'] ?? '',
+            ]]);
+            $clubsUpdated++;
+        }
+    }
+    if ($updated > 0) {
+        ok("synced player career targets: {$updated} player(s)");
+    }
+    if ($clubsUpdated > 0) {
+        ok("synced player target clubs: {$clubsUpdated} player(s)");
+    }
+}
+
+/** @param array<int,array<string,mixed>> $items */
+function syncPlayerTargetClubRows(PDO $pdo, int $playerId, array $items): void
+{
+    $allowed = ['favourite', 'possible', 'dream'];
+    $now = date('Y-m-d H:i:s');
+    $sort = 0;
+    foreach ($items as $item) {
+        if ($sort >= 5) {
+            break;
+        }
+        $name = trim((string) ($item['club_name'] ?? ''));
+        if ($name === '') {
+            continue;
+        }
+        $type = trim((string) ($item['type'] ?? 'possible'));
+        if (!in_array($type, $allowed, true)) {
+            $type = 'possible';
+        }
+        $slug = trim((string) ($item['club_slug'] ?? ''));
+        $note = mb_substr(trim((string) ($item['note'] ?? '')), 0, 200);
+        $pdo->prepare(
+            'INSERT INTO player_target_clubs (player_id, club_name, club_slug, type, sort_order, note, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $playerId,
+            mb_substr($name, 0, 160),
+            $slug !== '' ? $slug : null,
+            $type,
+            $sort,
+            $note !== '' ? $note : null,
+            $now,
+        ]);
+        $sort++;
+    }
+}
+
+function patchTrainerSchema(PDO $pdo, bool $isSqlite): void
+{
+    if (tableExists($pdo, 'trainer_target_clubs') && !indexExists($pdo, 'idx_trainer_target_clubs_trainer', $isSqlite, 'trainer_target_clubs')) {
+        $pdo->exec('CREATE INDEX idx_trainer_target_clubs_trainer ON trainer_target_clubs(trainer_id)');
+        ok('patched trainer_target_clubs.idx_trainer_target_clubs_trainer');
+    }
+}
+
+/** Seed demo trainer profiles and favourite clubs (idempotent). */
+function syncTrainerProfiles(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'trainer_profiles') || !tableExists($pdo, 'users')) {
+        return;
+    }
+
+    $seedFile = __DIR__ . '/database/seeds/trainer_favourite_clubs.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+
+    $targets = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $hash = password_hash('Sportify!2026', PASSWORD_DEFAULT);
+    $demoUsers = [
+        ['Marco Silva', 'marco.silva@sportify.demo', 'marco-silva'],
+        ['Lena Hoffmann', 'lena.hoffmann@sportify.demo', 'lena-hoffmann'],
+        ['Youssef Amr', 'youssef.amr@sportify.demo', 'youssef-amr'],
+        ['Sophie Martin', 'sophie.martin@sportify.demo', 'sophie-martin'],
+    ];
+
+    foreach ($demoUsers as [$name, $email, $username]) {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([$email]);
+        $uid = (int) ($stmt->fetchColumn() ?: 0);
+        if (!$uid) {
+            $pdo->prepare('INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)')
+                ->execute([$name, $email, $hash, 'trainer', $now]);
+            $uid = (int) $pdo->lastInsertId();
+        } else {
+            $pdo->prepare("UPDATE users SET role = 'trainer' WHERE id = ? AND role NOT IN ('super_admin','admin')")
+                ->execute([$uid]);
+        }
+
+        if (tableExists($pdo, 'member_profiles')) {
+            $mp = $pdo->prepare('SELECT id FROM member_profiles WHERE user_id = ? LIMIT 1');
+            $mp->execute([$uid]);
+            if (!$mp->fetchColumn()) {
+                $pdo->prepare('INSERT INTO member_profiles (user_id, username, headline, created_at, updated_at) VALUES (?, ?, ?, ?, ?)')
+                    ->execute([$uid, $username, 'Coach · open to clubs', $now, $now]);
+            }
+        }
+
+        if (!isset($targets[$email])) {
+            continue;
+        }
+        syncTrainerProfileRow($pdo, $uid, $targets[$email], $now);
+    }
+
+    foreach ($targets as $email => $data) {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([$email]);
+        $uid = (int) ($stmt->fetchColumn() ?: 0);
+        if ($uid > 0) {
+            syncTrainerProfileRow($pdo, $uid, $data, $now);
+        }
+    }
+}
+
+/** @param array<string,mixed> $data */
+function syncTrainerProfileRow(PDO $pdo, int $userId, array $data, string $now): void
+{
+    $check = $pdo->prepare('SELECT id FROM trainer_profiles WHERE user_id = ? LIMIT 1');
+    $check->execute([$userId]);
+    $specialties = json_encode($data['specialties'] ?? []);
+    if (!$check->fetchColumn()) {
+        $pdo->prepare(
+            'INSERT INTO trainer_profiles (user_id, coaching_license, specialties, years_experience, current_club, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $userId,
+            $data['coaching_license'] ?? null,
+            $specialties,
+            $data['years_experience'] ?? null,
+            $data['current_club'] ?? null,
+            $now,
+            $now,
+        ]);
+    } else {
+        $pdo->prepare(
+            'UPDATE trainer_profiles SET coaching_license = COALESCE(coaching_license, ?), specialties = COALESCE(specialties, ?),
+             years_experience = COALESCE(years_experience, ?), current_club = COALESCE(current_club, ?), updated_at = ? WHERE user_id = ?'
+        )->execute([
+            $data['coaching_license'] ?? null,
+            $specialties,
+            $data['years_experience'] ?? null,
+            $data['current_club'] ?? null,
+            $now,
+            $userId,
+        ]);
+    }
+
+    if (!tableExists($pdo, 'trainer_target_clubs') || empty($data['target_clubs'])) {
+        return;
+    }
+
+    $countStmt = $pdo->prepare('SELECT COUNT(*) FROM trainer_target_clubs WHERE trainer_id = ?');
+    $countStmt->execute([$userId]);
+    if ((int) $countStmt->fetchColumn() > 0) {
+        return;
+    }
+
+    syncTrainerTargetClubRows($pdo, $userId, $data['target_clubs']);
+    ok("synced trainer favourite clubs for user #{$userId}");
+}
+
+/** @param array<int,array<string,mixed>> $items */
+function syncTrainerTargetClubRows(PDO $pdo, int $trainerId, array $items): void
+{
+    $allowed = ['favourite', 'preferred', 'open_to'];
+    $now = date('Y-m-d H:i:s');
+    $sort = 0;
+    foreach ($items as $item) {
+        if ($sort >= 5) {
+            break;
+        }
+        $name = trim((string) ($item['club_name'] ?? ''));
+        if ($name === '') {
+            continue;
+        }
+        $type = trim((string) ($item['type'] ?? 'favourite'));
+        if (!in_array($type, $allowed, true)) {
+            $type = 'favourite';
+        }
+        $slug = trim((string) ($item['club_slug'] ?? ''));
+        $note = mb_substr(trim((string) ($item['note'] ?? '')), 0, 200);
+        $pdo->prepare(
+            'INSERT INTO trainer_target_clubs (trainer_id, club_name, club_slug, type, sort_order, note, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $trainerId,
+            mb_substr($name, 0, 160),
+            $slug !== '' ? $slug : null,
+            $type,
+            $sort,
+            $note !== '' ? $note : null,
+            $now,
+        ]);
+        $sort++;
+    }
+}
+
+function patchFixturesSchema(PDO $pdo, bool $isSqlite): void
+{
+    $patches = [
+        'fixtures' => [
+            'competition_name' => 'VARCHAR(160) NULL',
+            'venue'            => 'VARCHAR(160) NULL',
+            'minute'           => $isSqlite ? 'INTEGER NULL' : 'INT NULL',
+            'home_team_logo'   => 'VARCHAR(255) NULL',
+            'away_team_logo'   => 'VARCHAR(255) NULL',
+            'events'           => $isSqlite ? 'TEXT NULL' : 'JSON NULL',
+            'ai_prediction'    => $isSqlite ? 'TEXT NULL' : 'JSON NULL',
+            'match_type'       => "VARCHAR(20) NOT NULL DEFAULT 'competition'",
+            'sport'            => "VARCHAR(20) NOT NULL DEFAULT 'football'",
+            'home_team_id'     => $isSqlite ? 'INTEGER NULL' : 'INT NULL',
+            'away_team_id'     => $isSqlite ? 'INTEGER NULL' : 'INT NULL',
+            'lineups'          => $isSqlite ? 'TEXT NULL' : 'JSON NULL',
+            'match_stats'      => $isSqlite ? 'TEXT NULL' : 'JSON NULL',
+        ],
+    ];
+    foreach ($patches as $table => $cols) {
+        foreach ($cols as $col => $def) {
+            if (columnExists($pdo, $table, $col, $isSqlite)) {
+                continue;
+            }
+            $pdo->exec("ALTER TABLE {$table} ADD COLUMN {$col} {$def}");
+            ok("patched {$table}.{$col}");
+        }
+    }
+}
+
+function syncMatchHub(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'fixtures')) {
+        return;
+    }
+    $synced = \App\Services\MatchHubSyncService::syncForToday();
+    if ($synced > 0) {
+        ok("synced match hub: {$synced} today fixture(s)");
+    } else {
+        ok('synced match hub (today fixtures refreshed)');
+    }
+}
+
+function syncLiveHd7(): void
+{
+    $result = \App\Services\LiveHd7SyncService::refresh();
+    $count = (int) ($result['match_count'] ?? count($result['matches'] ?? []));
+    $withLinks = 0;
+    foreach ($result['matches'] ?? [] as $match) {
+        if (!empty($match['stream_url'])) {
+            $withLinks++;
+        }
+    }
+    if (!empty($result['error'])) {
+        err('LiveHD7 fetch failed — kept previous cache if available.');
+        exit(1);
+    }
+    ok("LiveHD7 sync — {$count} match(es), {$withLinks} with stream link(s) from " . \App\Services\LiveHd7SyncService::SOURCE_URL);
+}
+
+function syncMatches(): void
+{
+    $pdo = Database::connection();
+    if (!$pdo) {
+        err('Could not connect to the database. Check your .env settings.');
+        exit(1);
+    }
+    if (!tableExists($pdo, 'fixtures')) {
+        err('fixtures table missing — run php sportify migrate first.');
+        exit(1);
+    }
+    if (\App\Support\Environment::allowDemoFixtures()) {
+        $synced = \App\Services\MatchHubSyncService::syncForToday();
+        ok("Refreshed today's demo match hub: {$synced} fixture(s) synced.");
+        return;
+    }
+    $synced = \App\Services\LiveFixtureFeedService::refresh();
+    $reconciled = \App\Services\LiveFixtureFeedService::reconcileStaleLiveStatus();
+    ok(
+        "Refreshed live scores: {$synced} fixture(s) from "
+        . \App\Services\LiveFixtureFeedService::sourceLabel()
+        . ($reconciled > 0 ? " (cleared {$reconciled} stale live badge(s))" : '') . '.'
+    );
+}
+
+function syncFixtures(): void
+{
+    $pdo = Database::connection();
+    if (!$pdo) {
+        err('Could not connect to the database. Check your .env settings.');
+        exit(1);
+    }
+    if (!tableExists($pdo, 'fixtures')) {
+        err('fixtures table missing — run php sportify migrate first.');
+        exit(1);
+    }
+    $date = $GLOBALS['argv'][2] ?? date('Y-m-d');
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+        $date = date('Y-m-d');
+    }
+    $synced = \App\Services\LiveFixtureFeedService::refresh($date);
+    ok("Refreshed fixtures for {$date}: {$synced} fixture(s) synced from " . \App\Services\LiveFixtureFeedService::sourceLabel() . '.');
+}
+
+function syncKoooraSeed(PDO $pdo): void
+{
+    $seedFile = __DIR__ . '/database/seeds/kooora.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $seed = \App\Support\Seed::load('kooora');
+    $now = date('Y-m-d H:i:s');
+    $isSqlite = Database::isSqlite();
+
+    // Teams
+    if (tableExists($pdo, 'teams')) {
+        foreach ($seed['teams'] ?? [] as $t) {
+            $stmt = $pdo->prepare('SELECT id FROM teams WHERE slug = ? LIMIT 1');
+            $stmt->execute([$t['slug']]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO teams (slug, name, short_name, country, stadium, league_slug, logo, data, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $t['slug'], $t['name'], $t['short_name'] ?? null, $t['country'] ?? null,
+                $t['stadium'] ?? null, $t['league_slug'] ?? null, $t['logo'] ?? null,
+                json_encode(['squad' => $t['squad'] ?? []]), $now,
+            ]);
+            ok('synced team: ' . $t['name']);
+        }
+    }
+
+    $teamIds = [];
+    if (tableExists($pdo, 'teams')) {
+        foreach ($pdo->query('SELECT id, name FROM teams')->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $teamIds[$row['name']] = (int) $row['id'];
+        }
+    }
+
+    // Standings
+    if (tableExists($pdo, 'standings')) {
+        foreach ($seed['standings'] ?? [] as $s) {
+            $stmt = $pdo->prepare(
+                'SELECT id FROM standings WHERE competition_slug = ? AND team_name = ? AND split_type = ? LIMIT 1'
+            );
+            $stmt->execute([$s['competition_slug'], $s['team_name'], $s['split_type'] ?? 'overall']);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO standings (competition_slug, team_id, team_name, split_type, position, played, won, drawn, lost, goals_for, goals_against, goal_diff, points, form, group_name, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $s['competition_slug'], $teamIds[$s['team_name']] ?? null, $s['team_name'],
+                $s['split_type'] ?? 'overall', $s['position'], $s['played'], $s['won'], $s['drawn'], $s['lost'],
+                $s['goals_for'], $s['goals_against'], $s['goal_diff'], $s['points'], $s['form'] ?? null,
+                $s['group_name'] ?? null, $now,
+            ]);
+        }
+        ok('synced standings');
+    }
+
+    // Scorers
+    if (tableExists($pdo, 'scorers')) {
+        foreach ($seed['scorers'] ?? [] as $sc) {
+            $stmt = $pdo->prepare(
+                'SELECT id FROM scorers WHERE competition_slug = ? AND player_name = ? LIMIT 1'
+            );
+            $stmt->execute([$sc['competition_slug'], $sc['player_name']]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO scorers (competition_slug, player_name, team_name, goals, assists, matches, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $sc['competition_slug'], $sc['player_name'], $sc['team_name'],
+                $sc['goals'], $sc['assists'], $sc['matches'], $now,
+            ]);
+        }
+        ok('synced scorers');
+    }
+
+    // Transfer deals
+    if (tableExists($pdo, 'transfer_deals')) {
+        foreach ($seed['transfers'] ?? [] as $tr) {
+            $stmt = $pdo->prepare(
+                'SELECT id FROM transfer_deals WHERE player_name = ? AND to_club = ? AND deal_date = ? LIMIT 1'
+            );
+            $stmt->execute([$tr['player_name'], $tr['to_club'], $tr['deal_date']]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO transfer_deals (deal_date, player_name, player_slug, from_club, to_club, fee, fee_cents, status, league, deal_type, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $tr['deal_date'], $tr['player_name'], $tr['player_slug'] ?? null,
+                $tr['from_club'], $tr['to_club'], $tr['fee'] ?? null, $tr['fee_cents'] ?? 0,
+                $tr['status'], $tr['league'] ?? null, $tr['deal_type'] ?? null, $now,
+            ]);
+        }
+        ok('synced transfer deals');
+    }
+
+    // Rankings
+    if (tableExists($pdo, 'rankings')) {
+        foreach ($seed['fifa_rankings'] ?? [] as $r) {
+            $stmt = $pdo->prepare('SELECT id FROM rankings WHERE ranking_type = ? AND rank = ? LIMIT 1');
+            $stmt->execute(['fifa', $r['rank']]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO rankings (ranking_type, rank, name, country_code, points, movement, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+            )->execute(['fifa', $r['rank'], $r['name'], $r['country_code'], $r['points'], $r['movement'], $now]);
+        }
+        foreach ($seed['club_rankings'] ?? [] as $r) {
+            $stmt = $pdo->prepare('SELECT id FROM rankings WHERE ranking_type = ? AND rank = ? LIMIT 1');
+            $stmt->execute(['club', $r['rank']]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO rankings (ranking_type, rank, name, country_code, points, movement, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+            )->execute(['club', $r['rank'], $r['name'], $r['country_code'], $r['points'], $r['movement'], $now]);
+        }
+        ok('synced rankings');
+    }
+
+    // Extra league competition + fixtures
+    foreach ($seed['league_fixtures'] ?? [] as $lc) {
+        $stmt = $pdo->prepare('SELECT id FROM competitions WHERE slug = ? LIMIT 1');
+        $stmt->execute([$lc['competition_slug']]);
+        $comp = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$comp) {
+            $pdo->prepare(
+                'INSERT INTO competitions (slug, name, description, status, created_at) VALUES (?, ?, ?, ?, ?)'
+            )->execute([$lc['competition_slug'], $lc['name'], 'Domestic league fixtures', 'active', $now]);
+            $compId = (int) $pdo->lastInsertId();
+        } else {
+            $compId = (int) $comp['id'];
+        }
+
+        foreach ($lc['fixtures'] ?? [] as $f) {
+            $kickoff = $f['kickoff'];
+            if (str_starts_with($kickoff, 'DYNAMIC_TODAY_')) {
+                $hour = (int) substr($kickoff, 14);
+                $kickoff = date('Y-m-d') . sprintf(' %02d:00:00', $hour);
+            } elseif ($kickoff === 'DYNAMIC_YESTERDAY') {
+                $kickoff = date('Y-m-d H:i:s', strtotime('-1 day 16:00:00'));
+            }
+
+            $check = $pdo->prepare(
+                'SELECT id FROM fixtures WHERE competition_id = ? AND home_team = ? AND away_team = ? LIMIT 1'
+            );
+            $check->execute([$compId, $f['home'], $f['away']]);
+            if ($check->fetch()) {
+                continue;
+            }
+
+            $cols = ['competition_id', 'home_team', 'away_team', 'kickoff_at', 'status', 'home_score', 'away_score', 'stage', 'created_at'];
+            $vals = [$compId, $f['home'], $f['away'], $kickoff, $f['status'] ?? 'scheduled', $f['home_score'] ?? null, $f['away_score'] ?? null, $f['stage'] ?? null, $now];
+            if (columnExists($pdo, 'fixtures', 'competition_name', $isSqlite)) {
+                $cols[] = 'competition_name';
+                $vals[] = $lc['name'];
+            }
+            if (columnExists($pdo, 'fixtures', 'venue', $isSqlite) && !empty($f['venue'])) {
+                $cols[] = 'venue';
+                $vals[] = $f['venue'];
+            }
+            if (columnExists($pdo, 'fixtures', 'sport', $isSqlite)) {
+                $cols[] = 'sport';
+                $vals[] = 'football';
+            }
+            $ph = implode(',', array_fill(0, count($vals), '?'));
+            $pdo->prepare('INSERT INTO fixtures (' . implode(',', $cols) . ') VALUES (' . $ph . ')')->execute($vals);
+        }
+    }
+
+    // H2H historical fixtures
+    foreach ($seed['h2h_fixtures'] ?? [] as $f) {
+        $compSlug = $f['competition_slug'] ?? 'ucl-2025-26';
+        $stmt = $pdo->prepare('SELECT id, name FROM competitions WHERE slug = ? LIMIT 1');
+        $stmt->execute([$compSlug]);
+        $comp = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$comp) {
+            continue;
+        }
+        $compId = (int) $comp['id'];
+        $check = $pdo->prepare(
+            'SELECT id FROM fixtures WHERE competition_id = ? AND home_team = ? AND away_team = ? AND kickoff_at = ? LIMIT 1'
+        );
+        $check->execute([$compId, $f['home'], $f['away'], $f['kickoff']]);
+        if ($check->fetch()) {
+            continue;
+        }
+        $cols = ['competition_id', 'home_team', 'away_team', 'kickoff_at', 'status', 'home_score', 'away_score', 'stage', 'created_at'];
+        $vals = [$compId, $f['home'], $f['away'], $f['kickoff'], $f['status'], $f['home_score'], $f['away_score'], $f['stage'] ?? null, $now];
+        if (columnExists($pdo, 'fixtures', 'competition_name', $isSqlite)) {
+            $cols[] = 'competition_name';
+            $vals[] = $comp['name'];
+        }
+        $ph = implode(',', array_fill(0, count($vals), '?'));
+        $pdo->prepare('INSERT INTO fixtures (' . implode(',', $cols) . ') VALUES (' . $ph . ')')->execute($vals);
+    }
+
+    // Fixture enrichment (lineups, stats)
+    foreach ($seed['fixture_enrichment'] ?? [] as $key => $data) {
+        [$home, $away] = explode('|', $key, 2);
+        $sets = [];
+        $params = [];
+        if (columnExists($pdo, 'fixtures', 'lineups', $isSqlite) && !empty($data['lineups'])) {
+            $sets[] = 'lineups = ?';
+            $params[] = json_encode($data['lineups']);
+        }
+        if (columnExists($pdo, 'fixtures', 'match_stats', $isSqlite) && !empty($data['match_stats'])) {
+            $sets[] = 'match_stats = ?';
+            $params[] = json_encode($data['match_stats']);
+        }
+        if (empty($sets)) {
+            continue;
+        }
+        $params[] = $home;
+        $params[] = $away;
+        $pdo->prepare(
+            'UPDATE fixtures SET ' . implode(', ', $sets) . ' WHERE home_team = ? AND away_team = ?'
+        )->execute($params);
+    }
+
+    // TV broadcasts from today's fixtures
+    if (tableExists($pdo, 'tv_broadcasts')) {
+        $channels = ['beIN Sports 1', 'beIN Sports 2', 'Sky Sports', 'ESPN', 'DAZN', 'BBC One'];
+        $allFixtures = $pdo->query('SELECT f.id, f.home_team, f.away_team, f.kickoff_at, f.competition_name FROM fixtures f ORDER BY f.kickoff_at DESC LIMIT 50')->fetchAll(PDO::FETCH_ASSOC);
+        $today = date('Y-m-d');
+        $i = 0;
+        foreach ($allFixtures as $fx) {
+            if (date('Y-m-d', strtotime($fx['kickoff_at'])) !== $today) {
+                continue;
+            }
+            $label = $fx['home_team'] . ' vs ' . $fx['away_team'];
+            $stmt = $pdo->prepare('SELECT id FROM tv_broadcasts WHERE match_label = ? AND DATE(kickoff_at) = ? LIMIT 1');
+            $stmt->execute([$label, $today]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO tv_broadcasts (fixture_id, match_label, competition_name, channel, kickoff_at, sport, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $fx['id'], $label, $fx['competition_name'] ?? 'Football',
+                $channels[$i % count($channels)], $fx['kickoff_at'], 'football', $now,
+            ]);
+            $i++;
+        }
+        if ($i > 0) {
+            ok("synced tv_broadcasts: {$i} broadcast(s)");
+        }
+    }
+
+    ok('synced kooora seed');
+}
+
+function syncCompetitions(PDO $pdo): void
+{
+    $raw = require __DIR__ . '/database/seeds/competitions.php';
+    $items = isset($raw['competitions']) && is_array($raw['competitions']) ? $raw['competitions'] : $raw;
+    $now = date('Y-m-d H:i:s');
+    $added = 0;
+
+    foreach ($items as $c) {
+        if (!is_array($c) || empty($c['slug'])) {
+            continue;
+        }
+        $stmt = $pdo->prepare('SELECT id FROM competitions WHERE slug = ? LIMIT 1');
+        $stmt->execute([$c['slug']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+
+        $pdo->prepare(
+            'INSERT INTO competitions (slug, name, description, status, starts_at, ends_at, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $c['slug'], $c['name'], $c['description'] ?? '', $c['status'] ?? 'upcoming',
+            $c['starts_at'] ?? null, $c['ends_at'] ?? null, $now,
+        ]);
+        $compId = (int) $pdo->lastInsertId();
+
+        foreach ($c['fixtures'] ?? [] as $f) {
+            $cols = ['competition_id', 'home_team', 'away_team', 'kickoff_at', 'status', 'home_score', 'away_score', 'stage', 'created_at'];
+            $vals = [
+                $compId,
+                $f['home'], $f['away'], $f['kickoff'],
+                $f['status'] ?? 'scheduled',
+                $f['home_score'] ?? null, $f['away_score'] ?? null,
+                $f['stage'] ?? $f['round'] ?? null, $now,
+            ];
+            if (columnExists($pdo, 'fixtures', 'competition_name', Database::isSqlite())) {
+                $cols[] = 'competition_name';
+                $vals[] = $c['name'];
+            }
+            if (columnExists($pdo, 'fixtures', 'venue', Database::isSqlite()) && !empty($f['venue'])) {
+                $cols[] = 'venue';
+                $vals[] = $f['venue'];
+            }
+            if (columnExists($pdo, 'fixtures', 'events', Database::isSqlite()) && !empty($f['events'])) {
+                $cols[] = 'events';
+                $vals[] = json_encode($f['events']);
+            }
+            $ph = implode(',', array_fill(0, count($vals), '?'));
+            $pdo->prepare('INSERT INTO fixtures (' . implode(',', $cols) . ') VALUES (' . $ph . ')')->execute($vals);
+        }
+        $added++;
+    }
+
+    if ($added > 0) {
+        ok("synced competitions: {$added} new competition(s)");
+    }
+}
+
+function syncCrmDemo(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'crm_campaigns')) {
+        return;
+    }
+    $seed = __DIR__ . '/database/seeds/crm.php';
+    if (!is_file($seed)) {
+        return;
+    }
+    $data = require $seed;
+    $now = date('Y-m-d H:i:s');
+
+    foreach ($data['campaigns'] ?? [] as $c) {
+        $stmt = $pdo->prepare('SELECT id FROM crm_campaigns WHERE name = ? LIMIT 1');
+        $stmt->execute([$c['name']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO crm_campaigns (name, type, status, start_date, end_date, utm_source, utm_medium, utm_campaign, budget_cents, notes, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $c['name'], $c['type'], $c['status'], $c['start_date'] ?? null, $c['end_date'] ?? null,
+            $c['utm_source'] ?? null, $c['utm_medium'] ?? null, $c['utm_campaign'] ?? null,
+            $c['budget_cents'] ?? null, $c['notes'] ?? null, $now, $now,
+        ]);
+        ok('synced crm campaign: ' . $c['name']);
+    }
+
+    $campaignIds = [];
+    foreach ($pdo->query('SELECT id, name FROM crm_campaigns')->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        $campaignIds[$row['name']] = (int) $row['id'];
+    }
+
+    foreach ($data['contacts'] ?? [] as $contact) {
+        if (!empty($contact['email'])) {
+            $stmt = $pdo->prepare('SELECT id FROM crm_contacts WHERE email = ? LIMIT 1');
+            $stmt->execute([strtolower($contact['email'])]);
+            if ($stmt->fetch()) {
+                continue;
+            }
+        }
+        $campId = null;
+        if (!empty($contact['campaign'])) {
+            $campId = $campaignIds[$contact['campaign']] ?? null;
+        }
+        $pdo->prepare(
+            'INSERT INTO crm_contacts (name, email, phone, source, status, notes, campaign_id, referral_code, tags, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $contact['name'], strtolower($contact['email'] ?? ''), $contact['phone'] ?? null,
+            $contact['source'] ?? 'website', $contact['status'] ?? 'new', $contact['notes'] ?? null,
+            $campId, $contact['referral_code'] ?? null, json_encode($contact['tags'] ?? []), $now, $now,
+        ]);
+    }
+    ok('synced crm demo contacts');
+}
+
+function syncChatGroups(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'chat_groups')) {
+        return;
+    }
+
+    $seed = require __DIR__ . '/database/seeds/chat_groups.php';
+    $now = date('Y-m-d H:i:s');
+    $added = 0;
+
+    foreach ($seed['team_fans'] ?? [] as $g) {
+        $stmt = $pdo->prepare('SELECT id FROM chat_groups WHERE slug = ? LIMIT 1');
+        $stmt->execute([$g['slug']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO chat_groups (slug, name, team_name, team_slug, type, description, cover_color, member_count, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $g['slug'], $g['name'], $g['team_name'], $g['team_slug'], 'team_fan',
+            'Fan chat for ' . $g['team_name'] . ' supporters — discuss matches, tactics, and transfers.',
+            $g['cover_color'] ?? '#22c55e', rand(120, 2400), $now,
+        ]);
+        $added++;
+    }
+
+    foreach ($seed['match_threads'] ?? [] as $mt) {
+        $stmt = $pdo->prepare('SELECT id FROM chat_groups WHERE slug = ? LIMIT 1');
+        $stmt->execute([$mt['slug']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+
+        $fixtureId = null;
+        if (tableExists($pdo, 'fixtures')) {
+            $fstmt = $pdo->prepare(
+                'SELECT id FROM fixtures WHERE home_team = ? AND away_team = ? ORDER BY kickoff_at ASC LIMIT 1'
+            );
+            $fstmt->execute([$mt['home'], $mt['away']]);
+            $fixtureId = (int) ($fstmt->fetchColumn() ?: 0) ?: null;
+        }
+
+        $pdo->prepare(
+            'INSERT INTO chat_groups (slug, name, team_name, team_slug, type, fixture_id, description, cover_color, member_count, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $mt['slug'], $mt['name'], null, null, 'match_thread', $fixtureId,
+            'Match discussion thread — share predictions, live reactions, and post-match analysis.',
+            '#22c55e', rand(80, 900), $now,
+        ]);
+        $groupId = (int) $pdo->lastInsertId();
+
+        foreach ($seed['default_topics'] ?? [] as $t) {
+            $pdo->prepare(
+                'INSERT INTO chat_group_topics (group_id, slug, label, sort_order, created_at) VALUES (?, ?, ?, ?, ?)'
+            )->execute([$groupId, $t['slug'], $t['slug'], $t['sort'] ?? 0, $now]);
+        }
+        $added++;
+    }
+
+    $roomTypes = $seed['fan_room_types'] ?? [];
+    foreach ($seed['fan_rooms'] ?? [] as $team) {
+        $teamSlug = $team['team_slug'];
+        $teamName = $team['team_name'];
+        $baseColor = $team['cover_color'] ?? '#22c55e';
+
+        foreach ($roomTypes as $roomKey => $roomMeta) {
+            $type = $roomMeta['type'];
+            $exists = $pdo->prepare('SELECT id FROM chat_groups WHERE team_slug = ? AND type = ? LIMIT 1');
+            $exists->execute([$teamSlug, $type]);
+            if ($exists->fetch()) {
+                continue;
+            }
+
+            $slug = $teamSlug . '-fans-' . $roomKey;
+            $slugCheck = $pdo->prepare('SELECT id FROM chat_groups WHERE slug = ? LIMIT 1');
+            $slugCheck->execute([$slug]);
+            if ($slugCheck->fetch()) {
+                continue;
+            }
+
+            $labels = [
+                'general'   => 'General Lounge',
+                'matchday'  => 'Matchday Chat',
+                'transfers' => 'Transfer Talk',
+            ];
+            $name = $teamName . ' · ' . ($labels[$roomKey] ?? ucfirst($roomKey));
+            $desc = match ($roomKey) {
+                'matchday'  => 'Live matchday discussion for ' . $teamName . ' fans.',
+                'transfers' => 'Rumours, signings, and squad talk for ' . $teamName . ' supporters.',
+                default     => 'General fan lounge for ' . $teamName . ' supporters.',
+            };
+
+            $pdo->prepare(
+                'INSERT INTO chat_groups (slug, name, team_name, team_slug, type, description, cover_color, member_count, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $slug, $name, $teamName, $teamSlug, $type, $desc,
+                $roomMeta['color'] ?? $baseColor, rand(80, 1200), $now,
+            ]);
+            $added++;
+        }
+    }
+
+    $msgsAdded = syncFanChatDemoMessages($pdo, $seed['demo_messages'] ?? []);
+    if ($msgsAdded > 0) {
+        ok("seeded fan chat demo messages: {$msgsAdded}");
+    }
+
+    if ($added > 0) {
+        ok("synced chat_groups: {$added} new group(s)");
+    }
+}
+
+function syncFanChatDemoMessages(PDO $pdo, array $demoByTeam): int
+{
+    if (!tableExists($pdo, 'chat_group_messages') || $demoByTeam === []) {
+        return 0;
+    }
+
+    $userCache = [];
+    $added = 0;
+    $now = date('Y-m-d H:i:s');
+
+    foreach ($demoByTeam as $teamSlug => $rooms) {
+        foreach ($rooms as $roomKey => $messages) {
+            $type = match ($roomKey) {
+                'matchday'  => 'fan_matchday',
+                'transfers' => 'fan_transfer',
+                default     => 'fan_general',
+            };
+
+            $gstmt = $pdo->prepare('SELECT id FROM chat_groups WHERE team_slug = ? AND type = ? LIMIT 1');
+            $gstmt->execute([$teamSlug, $type]);
+            $groupId = (int) ($gstmt->fetchColumn() ?: 0);
+            if (!$groupId) {
+                continue;
+            }
+
+            $countStmt = $pdo->prepare('SELECT COUNT(*) FROM chat_group_messages WHERE group_id = ?');
+            $countStmt->execute([$groupId]);
+            if ((int) $countStmt->fetchColumn() > 0) {
+                continue;
+            }
+
+            foreach ($messages as $msg) {
+                $email = $msg['user'] ?? 'fan@test.local';
+                if (!isset($userCache[$email])) {
+                    $ustmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+                    $ustmt->execute([$email]);
+                    $userCache[$email] = (int) ($ustmt->fetchColumn() ?: 0) ?: null;
+                }
+                $userId = $userCache[$email];
+                if (!$userId) {
+                    continue;
+                }
+
+                $pdo->prepare(
+                    'INSERT INTO chat_group_messages (group_id, user_id, body, created_at) VALUES (?, ?, ?, ?)'
+                )->execute([$groupId, $userId, $msg['body'], $now]);
+                $added++;
+            }
+        }
+    }
+
+    return $added;
+}
+
+function backfillReferralCodes(): void
+{
+    if (!Database::tableExists('referral_codes') || !Database::tableExists('users')) {
+        return;
+    }
+    $added = \App\Models\ReferralCodeRepository::backfillAll();
+    if ($added > 0) {
+        ok("backfilled referral_codes: {$added} user(s)");
+    }
+}
+
+function seedTable(string $table, array $rows, callable $map): void
+{
+    $pdo = Database::connection();
+    $existing = (int) $pdo->query("SELECT COUNT(*) FROM {$table}")->fetchColumn();
+    if ($existing > 0) {
+        out("• {$table}: already has {$existing} rows, skipping.");
+        return;
+    }
+    foreach ($rows as $row) {
+        [$cols, $vals] = $map($row);
+        $placeholders = implode(',', array_fill(0, count($vals), '?'));
+        $colSql = implode(',', $cols);
+        $stmt = $pdo->prepare("INSERT INTO {$table} ({$colSql}) VALUES ({$placeholders})");
+        $stmt->execute($vals);
+    }
+    ok("seeded {$table}: " . count($rows) . ' rows');
+}
+
+function seed(): void
+{
+    $pdo = Database::connection();
+    if (!$pdo) { err('No database connection.'); exit(1); }
+
+    $seedsDir = __DIR__ . '/database/seeds';
+    $now = date('Y-m-d H:i:s');
+
+    // Players
+    $players = require "{$seedsDir}/players.php";
+    seedTable('players', $players, function ($p) use ($now) {
+        $data = json_encode([
+            'tags' => $p['tags'], 'stats' => $p['stats'],
+            'career' => $p['career'], 'highlights' => $p['highlights'],
+        ]);
+        return [
+            ['slug','name','number','position','position_short','age','nationality','nationality_code','foot','height','weight','club','availability','level','rating','fit','video','market_value','bio','photo','data','created_at'],
+            [$p['slug'],$p['name'],$p['number'],$p['position'],$p['position_short'],$p['age'],$p['nationality'],$p['nationality_code'],$p['foot'],$p['height'],$p['weight'],$p['club'],$p['availability'],$p['level'],$p['rating'],$p['fit'],$p['video']?1:0,$p['market_value'],$p['bio'],'',$data,$now],
+        ];
+    });
+
+    // Clubs
+    $clubs = require "{$seedsDir}/clubs.php";
+    seedTable('clubs', $clubs, function ($c) use ($now) {
+        $data = json_encode(['needs' => $c['needs'], 'shortlist' => $c['shortlist']]);
+        return [
+            ['slug','name','country','country_code','league','founded','level','about','budget','data','created_at'],
+            [$c['slug'],$c['name'],$c['country'],$c['country_code'],$c['league'],$c['founded'],$c['level'],$c['about'],$c['budget'],$data,$now],
+        ];
+    });
+
+    // News
+    $news = require "{$seedsDir}/news.php";
+    seedTable('news', $news, fn($n) => [
+        ['slug','category','title','excerpt','body','date','author','tag','created_at'],
+        [$n['slug'],$n['category'],$n['title'],$n['excerpt'],$n['body'],$n['date'],$n['author'],$n['tag'],$now],
+    ]);
+
+    // Highlights
+    $highlights = require "{$seedsDir}/highlights.php";
+    seedTable('highlights', $highlights, fn($h) => [
+        ['player_slug','caption','duration','views','video','created_at'],
+        [$h['player_slug'],$h['caption'],$h['duration'],$h['views'],$h['video'],$now],
+    ]);
+
+    // Recommendations
+    $recs = require "{$seedsDir}/recommendations.php";
+    seedTable('recommendations', $recs, fn($r) => [
+        ['player_slug','fit','need','availability','confidence','reasons','created_at'],
+        [$r['player_slug'],$r['fit'],$r['need'],$r['availability'],$r['confidence'],json_encode($r['reasons']),$now],
+    ]);
+
+    // FIT-Pass plans
+    $fit = require "{$seedsDir}/fitpass.php";
+    seedTable('fitpass_plans', $fit['plans'], fn($p) => [
+        ['name','price','period','tier','popular','tagline','features','amount_monthly','amount_yearly','currency','created_at'],
+        [$p['name'],$p['price'],$p['period'],$p['tier'],$p['popular']?1:0,$p['tagline'],json_encode($p['features']),$p['amount_monthly']??0,$p['amount_yearly']??0,'EUR',$now],
+    ]);
+
+    seedPlayerAnalysis($pdo);
+
+    syncCommunityFeed($pdo);
+
+    syncMarketplace($pdo);
+    syncTransfermarkt($pdo);
+
+    out('Seeding complete.');
+}
+
+function syncProCoaches(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'creator_profiles')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/pro_coaches.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $data = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $hash = password_hash('demo1234', PASSWORD_DEFAULT);
+
+    $ensureUser = static function (PDO $pdo, string $email, string $name, string $role) use ($hash, $now): int {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([strtolower($email)]);
+        $id = (int) ($stmt->fetchColumn() ?: 0);
+        if ($id) {
+            return $id;
+        }
+        $pdo->prepare('INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)')
+            ->execute([$name, strtolower($email), $hash, $role, $now]);
+        return (int) $pdo->lastInsertId();
+    };
+
+    $creatorIds = [];
+    foreach ($data['creators'] as $c) {
+        $stmt = $pdo->prepare('SELECT id FROM creator_profiles WHERE slug = ? LIMIT 1');
+        $stmt->execute([$c['slug']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+
+        $userId = $ensureUser($pdo, $c['email'], $c['name'], 'provider');
+        $pdo->prepare(
+            'INSERT INTO creator_profiles (user_id, slug, display_name, bio, cover_url, avatar_url, city, country, country_code, radius_km, categories, is_active, is_approved, is_featured, rating_avg, review_count, subscriber_count, created_at, updated_at)
+             VALUES (?, ?, ?, ?, NULL, NULL, ?, ?, ?, 25, ?, 1, 1, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $userId,
+            $c['slug'],
+            $c['display_name'],
+            $c['bio'],
+            $c['city'],
+            $c['country'],
+            $c['country_code'],
+            json_encode($c['categories']),
+            !empty($c['featured']) ? 1 : 0,
+            $c['rating'] ?? 4.5,
+            $c['reviews'] ?? 0,
+            $c['subscribers'] ?? 0,
+            $now,
+            $now,
+        ]);
+        $creatorId = (int) $pdo->lastInsertId();
+        $creatorIds[$c['slug']] = $creatorId;
+
+        foreach ($data['tier_templates'] as $i => $tier) {
+            $pdo->prepare(
+                'INSERT INTO creator_tiers (creator_id, name, price_monthly, description, perks, sort_order, is_active, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, 1, ?)'
+            )->execute([
+                $creatorId,
+                $tier['name'],
+                $tier['price'],
+                $tier['description'],
+                json_encode($tier['perks']),
+                $i,
+                $now,
+            ]);
+        }
+
+        foreach ($data['post_templates'] as $post) {
+            $pdo->prepare(
+                'INSERT INTO creator_posts (creator_id, title, body, media_urls, visibility, moderation_flag, is_hidden, created_at)
+                 VALUES (?, ?, ?, ?, ?, 0, 0, ?)'
+            )->execute([
+                $creatorId,
+                $post['title'],
+                $post['body'],
+                json_encode(['https://www.youtube.com/watch?v=demo']),
+                $post['visibility'],
+                $now,
+            ]);
+        }
+
+        foreach ($data['offerings'] as $i => $off) {
+            $pdo->prepare(
+                'INSERT INTO session_offerings (creator_id, type, title, duration_min, price, description, location_address, sort_order, is_active, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?)'
+            )->execute([
+                $creatorId,
+                $off['type'],
+                $off['title'],
+                $off['duration'],
+                $off['price'],
+                $off['description'],
+                $off['address'] ?? null,
+                $i,
+                $now,
+            ]);
+        }
+
+        // 2 availability slots per creator
+        for ($d = 1; $d <= 2; $d++) {
+            $date = date('Y-m-d', strtotime("+{$d} days"));
+            $starts = $date . ' 10:00:00';
+            $ends = $date . ' 11:00:00';
+            $chk = $pdo->prepare('SELECT id FROM booking_availability WHERE user_id = ? AND starts_at = ? LIMIT 1');
+            $chk->execute([$userId, $starts]);
+            if (!$chk->fetch()) {
+                $pdo->prepare(
+                    'INSERT INTO booking_availability (user_id, starts_at, ends_at, is_booked, created_at) VALUES (?, ?, ?, 0, ?)'
+                )->execute([$userId, $starts, $ends, $now]);
+            }
+        }
+
+        ok('synced pro coach: ' . $c['display_name']);
+    }
+
+    if (!empty($creatorIds)) {
+        ok('synced pro_coaches: ' . count($creatorIds) . ' creator(s)');
+    }
+}
+
+function seedPlayerAnalysis(PDO $pdo): void
+{
+    if ((int) $pdo->query('SELECT COUNT(*) FROM ai_analyses')->fetchColumn() > 0) {
+        out('• player_analysis: already seeded, skipping.');
+        return;
+    }
+
+    $demo = require __DIR__ . '/database/seeds/player_analysis.php';
+    $now = date('Y-m-d H:i:s');
+    $healthAdded = 0;
+    $analysisAdded = 0;
+
+    foreach ($demo['health_records'] as $slug => $records) {
+        $stmt = $pdo->prepare('SELECT id FROM players WHERE slug = ? LIMIT 1');
+        $stmt->execute([$slug]);
+        $playerId = (int) ($stmt->fetchColumn() ?: 0);
+        if (!$playerId) {
+            continue;
+        }
+
+        foreach ($records as $rec) {
+            $pdo->prepare(
+                'INSERT INTO player_health_records
+                 (player_id, record_date, status, injury_type, body_part, severity, notes, expected_return, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $playerId,
+                $rec['record_date'],
+                $rec['status'],
+                $rec['injury_type'] ?? null,
+                $rec['body_part'] ?? null,
+                $rec['severity'] ?? null,
+                $rec['notes'] ?? null,
+                $rec['expected_return'] ?? null,
+                $now,
+            ]);
+            $healthAdded++;
+        }
+
+        $player = \App\Models\PlayerRepository::find($slug);
+        if ($player) {
+            $report = \App\Services\PlayerAnalysisService::fullAnalysis($player);
+            $pdo->prepare(
+                'INSERT INTO ai_analyses
+                 (player_id, type, summary, scores, risk_percent, factors, generated_at, model_version)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $playerId,
+                'full',
+                $report['summary'] ?? '',
+                json_encode([
+                    'performance' => $report['performance_score'] ?? 0,
+                    'health'      => $report['health']['fitness_score'] ?? 0,
+                    'metrics'     => $report['performance']['metrics'] ?? [],
+                ]),
+                $report['risk_percent'] ?? 0,
+                json_encode($report['factors'] ?? []),
+                $now,
+                $report['model_version'] ?? 'heuristic-v1',
+            ]);
+            $analysisAdded++;
+        }
+    }
+
+    if ($healthAdded > 0 || $analysisAdded > 0) {
+        ok("seeded player_analysis: {$healthAdded} health record(s), {$analysisAdded} AI analysis(es)");
+    }
+}
+
+function syncMarketplace(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'vendors')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/marketplace.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $data = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $hash = password_hash('demo1234', PASSWORD_DEFAULT);
+
+    $ensureUser = static function (PDO $pdo, string $email, string $name, string $role) use ($hash, $now): int {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([strtolower($email)]);
+        $id = (int) ($stmt->fetchColumn() ?: 0);
+        if ($id) {
+            return $id;
+        }
+        $pdo->prepare('INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)')
+            ->execute([$name, strtolower($email), $hash, $role, $now]);
+        return (int) $pdo->lastInsertId();
+    };
+
+    $vendorIds = [];
+    foreach ($data['vendors'] as $i => $v) {
+        $stmt = $pdo->prepare('SELECT id FROM vendors WHERE slug = ? LIMIT 1');
+        $stmt->execute([$v['slug']]);
+        $existing = (int) ($stmt->fetchColumn() ?: 0);
+        if ($existing) {
+            $vendorIds[$i] = $existing;
+            continue;
+        }
+        $userId = $ensureUser($pdo, $v['email'], $v['shop_name'] . ' Owner', 'player');
+        $pdo->prepare(
+            'INSERT INTO vendors (user_id, shop_name, slug, description, logo_url, status, rating_avg, created_at)
+             VALUES (?, ?, ?, ?, NULL, ?, 0, ?)'
+        )->execute([$userId, $v['shop_name'], $v['slug'], $v['description'], 'active', $now]);
+        $vendorIds[$i] = (int) $pdo->lastInsertId();
+        ok('synced vendor: ' . $v['shop_name']);
+    }
+
+    $listingAdded = 0;
+    foreach ($data['listings'] as $l) {
+        $stmt = $pdo->prepare('SELECT id FROM marketplace_listings WHERE slug = ? LIMIT 1');
+        $stmt->execute([$l['slug']]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+        $vendorId = $vendorIds[$l['vendor']] ?? null;
+        if (!$vendorId) {
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO marketplace_listings
+             (vendor_id, title, slug, description, price, currency, condition, category, sport, images, stock_qty, status, shipping_info, location_city, location_country, featured, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $vendorId,
+            $l['title'],
+            $l['slug'],
+            $l['title'] . ' — demo listing on Sportify Marketplace.',
+            $l['price'],
+            'EUR',
+            $l['condition'],
+            $l['category'],
+            $l['sport'],
+            '[]',
+            $l['stock_qty'],
+            'active',
+            'Ships within 3–5 business days across Germany.',
+            $l['city'],
+            $l['country'],
+            !empty($l['featured']) ? 1 : 0,
+            $now,
+            $now,
+        ]);
+        $listingAdded++;
+    }
+    if ($listingAdded > 0) {
+        ok("synced marketplace_listings: {$listingAdded} row(s)");
+    }
+
+    $buyerId = $ensureUser($pdo, 'demo.buyer@sportify.demo', 'Demo Buyer', 'fan');
+    $orderAdded = 0;
+    foreach ($data['orders'] as $o) {
+        $stmt = $pdo->prepare('SELECT id, vendor_id, price FROM marketplace_listings WHERE slug = ? LIMIT 1');
+        $stmt->execute([$o['listing_slug']]);
+        $listing = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$listing) {
+            continue;
+        }
+        $vendorId = (int) ($vendorIds[$o['vendor_index']] ?? $listing['vendor_id']);
+        $qty = (int) ($o['qty'] ?? 1);
+        $unit = (int) $listing['price'];
+        $chk = $pdo->prepare(
+            'SELECT id FROM marketplace_orders WHERE buyer_id = ? AND listing_id = ? LIMIT 1'
+        );
+        $chk->execute([$buyerId, $listing['id']]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO marketplace_orders
+             (buyer_id, vendor_id, listing_id, qty, unit_price, total, currency, status, payment_method, shipping_address, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $buyerId,
+            $vendorId,
+            $listing['id'],
+            $qty,
+            $unit,
+            $unit * $qty,
+            'EUR',
+            $o['status'],
+            $o['payment_method'],
+            json_encode(['name' => 'Demo Buyer', 'city' => 'Berlin', 'country' => 'Germany']),
+            $now,
+        ]);
+        $orderAdded++;
+    }
+    if ($orderAdded > 0) {
+        ok("synced marketplace_orders: {$orderAdded} row(s)");
+    }
+}
+
+function syncFansAndBookings(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'fan_pages')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/fans_bookings.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $data = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $hash = password_hash('demo1234', PASSWORD_DEFAULT);
+
+    $ensureUser = static function (PDO $pdo, string $email, string $name, string $role) use ($hash, $now): int {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([strtolower($email)]);
+        $id = (int) ($stmt->fetchColumn() ?: 0);
+        if ($id) {
+            return $id;
+        }
+        $pdo->prepare('INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)')
+            ->execute([$name, strtolower($email), $hash, $role, $now]);
+        $uid = (int) $pdo->lastInsertId();
+        if (tableExists($pdo, 'member_profiles')) {
+            $username = strtolower(preg_replace('/[^a-z0-9]+/', '', explode('@', $email)[0]) ?: 'user' . $uid);
+            $pdo->prepare(
+                'INSERT INTO member_profiles (user_id, username, headline, created_at, updated_at) VALUES (?, ?, ?, ?, ?)'
+            )->execute([$uid, $username, $name, $now, $now]);
+        }
+        return $uid;
+    };
+
+    $fanOwnerId = $ensureUser($pdo, 'fan.owner@sportify.demo', 'Fan Page Owner', 'fan');
+    $demoFanId = $ensureUser($pdo, 'demo.fan@sportify.demo', 'Demo Fan', 'fan');
+
+    // Fan pages
+    $pageIds = [];
+    foreach ($data['fan_pages'] as $fp) {
+        $stmt = $pdo->prepare('SELECT id FROM fan_pages WHERE slug = ? LIMIT 1');
+        $stmt->execute([$fp['slug']]);
+        $existing = (int) ($stmt->fetchColumn() ?: 0);
+        if ($existing) {
+            $pageIds[$fp['slug']] = $existing;
+            continue;
+        }
+        $chatGroupId = null;
+        if (tableExists($pdo, 'chat_groups')) {
+            $cg = $pdo->prepare("SELECT id FROM chat_groups WHERE team_slug = ? AND type = 'team_fan' LIMIT 1");
+            $cg->execute([$fp['team_slug']]);
+            $chatGroupId = (int) ($cg->fetchColumn() ?: 0) ?: null;
+        }
+        $pdo->prepare(
+            'INSERT INTO fan_pages (owner_user_id, slug, name, team_name, team_slug, description, cover_color, chat_group_id, member_count, status, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $fanOwnerId, $fp['slug'], $fp['name'], $fp['team_name'], $fp['team_slug'],
+            $fp['description'], $fp['cover_color'] ?? '#22c55e', $chatGroupId,
+            rand(50, 800), 'active', $now,
+        ]);
+        $pageId = (int) $pdo->lastInsertId();
+        $pageIds[$fp['slug']] = $pageId;
+        $pdo->prepare('INSERT INTO fan_page_members (fan_page_id, user_id, joined_at) VALUES (?, ?, ?)')
+            ->execute([$pageId, $fanOwnerId, $now]);
+        ok('synced fan page: ' . $fp['name']);
+    }
+
+    // Topics & replies
+    if (tableExists($pdo, 'fan_topics')) {
+        $topicIds = [];
+        foreach ($data['topics'] as $i => $t) {
+            $pageId = $pageIds[$t['page']] ?? null;
+            if (!$pageId) {
+                continue;
+            }
+            $chk = $pdo->prepare('SELECT id FROM fan_topics WHERE fan_page_id = ? AND title = ? LIMIT 1');
+            $chk->execute([$pageId, $t['title']]);
+            $existing = (int) ($chk->fetchColumn() ?: 0);
+            if ($existing) {
+                $topicIds[$t['page'] . ':' . $i] = $existing;
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO fan_topics (fan_page_id, author_id, title, body, type, pinned, reply_count, created_at)
+                 VALUES (?, ?, ?, ?, ?, 0, 0, ?)'
+            )->execute([$pageId, $fanOwnerId, $t['title'], $t['body'], $t['type'], $now]);
+            $topicIds[$t['page'] . ':' . $i] = (int) $pdo->lastInsertId();
+        }
+        foreach ($data['topic_replies'] ?? [] as $r) {
+            $key = $r['page'] . ':' . $r['topic_index'];
+            $topicId = $topicIds[$key] ?? null;
+            if (!$topicId) {
+                continue;
+            }
+            $pdo->prepare(
+                'INSERT INTO fan_topic_replies (topic_id, user_id, body, created_at) VALUES (?, ?, ?, ?)'
+            )->execute([$topicId, $demoFanId, $r['body'], $now]);
+            $pdo->prepare('UPDATE fan_topics SET reply_count = reply_count + 1 WHERE id = ?')->execute([$topicId]);
+        }
+        ok('synced fan topics');
+    }
+
+    // Bookable players
+    $playerUserIds = [];
+    if (tableExists($pdo, 'booking_profiles')) {
+        foreach ($data['bookable_players'] as $bp) {
+            $userId = $ensureUser($pdo, $bp['email'], $bp['name'], 'player');
+            $playerUserIds[$bp['slug']] = $userId;
+            $stmt = $pdo->prepare('SELECT id FROM booking_profiles WHERE user_id = ? LIMIT 1');
+            $stmt->execute([$userId]);
+            if (!$stmt->fetch()) {
+                $pdo->prepare(
+                    'INSERT INTO booking_profiles (user_id, player_slug, price_per_minute, currency, min_minutes, max_minutes, bio_pitch, is_active, is_verified, rating_avg, review_count, created_at, updated_at)
+                     VALUES (?, ?, ?, ?, 5, 60, ?, 1, ?, 0, 0, ?, ?)'
+                )->execute([
+                    $userId,
+                    $bp['slug'],
+                    $bp['price'],
+                    'EUR',
+                    'Book a 1:1 video talk with me — ask about my career, get tips, or just chat football!',
+                    !empty($bp['verified']) ? 1 : 0,
+                    $now,
+                    $now,
+                ]);
+                ok('synced booking profile: ' . $bp['name']);
+            }
+
+            if (tableExists($pdo, 'booking_availability')) {
+                for ($d = 1; $d <= 7; $d++) {
+                    $date = date('Y-m-d', strtotime("+{$d} days"));
+                    $starts = $date . ' 10:00:00';
+                    $ends = $date . ' 11:00:00';
+                    $chk = $pdo->prepare(
+                        'SELECT id FROM booking_availability WHERE user_id = ? AND starts_at = ? LIMIT 1'
+                    );
+                    $chk->execute([$userId, $starts]);
+                    if (!$chk->fetch()) {
+                        $pdo->prepare(
+                            'INSERT INTO booking_availability (user_id, starts_at, ends_at, is_booked, created_at) VALUES (?, ?, ?, 0, ?)'
+                        )->execute([$userId, $starts, $ends, $now]);
+                    }
+                    $starts2 = $date . ' 15:00:00';
+                    $ends2 = $date . ' 16:00:00';
+                    $chk->execute([$userId, $starts2]);
+                    if (!$chk->fetch()) {
+                        $pdo->prepare(
+                            'INSERT INTO booking_availability (user_id, starts_at, ends_at, is_booked, created_at) VALUES (?, ?, ?, 0, ?)'
+                        )->execute([$userId, $starts2, $ends2, $now]);
+                    }
+                }
+            }
+        }
+    }
+
+    // Sample bookings
+    if (tableExists($pdo, 'bookings') && !empty($playerUserIds)) {
+        $slugs = array_keys($playerUserIds);
+        $samples = [
+            ['player' => $slugs[0], 'days' => 2, 'duration' => 10, 'status' => 'pending'],
+            ['player' => $slugs[1], 'days' => 4, 'duration' => 15, 'status' => 'confirmed'],
+        ];
+        foreach ($samples as $s) {
+            $playerUserId = $playerUserIds[$s['player']] ?? null;
+            if (!$playerUserId) {
+                continue;
+            }
+            $prof = $pdo->prepare('SELECT price_per_minute FROM booking_profiles WHERE user_id = ? LIMIT 1');
+            $prof->execute([$playerUserId]);
+            $pricePerMin = (int) ($prof->fetchColumn() ?: 500);
+            $slotStart = date('Y-m-d H:i:s', strtotime('+' . $s['days'] . ' days 10:00:00'));
+            $slotEnd = date('Y-m-d H:i:s', strtotime($slotStart) + ($s['duration'] * 60));
+            $chk = $pdo->prepare(
+                'SELECT id FROM bookings WHERE fan_user_id = ? AND player_user_id = ? AND slot_start = ? LIMIT 1'
+            );
+            $chk->execute([$demoFanId, $playerUserId, $slotStart]);
+            if ($chk->fetch()) {
+                continue;
+            }
+            $total = $pricePerMin * $s['duration'];
+            $meetingUrl = $s['status'] === 'confirmed' ? 'https://meet.google.com/sportify-demo' : null;
+            $pdo->prepare(
+                'INSERT INTO bookings (fan_user_id, player_user_id, slot_start, slot_end, duration_min, price_per_min, total_price, currency, status, payment_method, meeting_url, notes, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $demoFanId, $playerUserId, $slotStart, $slotEnd, $s['duration'], $pricePerMin, $total,
+                'EUR', $s['status'], 'bank_transfer', $meetingUrl, 'Demo booking', $now,
+            ]);
+        }
+        ok('synced sample bookings');
+    }
+}
+
+function patchTransferBureauSchema(PDO $pdo, bool $isSqlite): void
+{
+    if (!tableExists($pdo, 'member_profiles')) {
+        return;
+    }
+    $real = $isSqlite ? 'REAL NULL' : 'DOUBLE NULL';
+    $int = $isSqlite ? 'INTEGER NOT NULL DEFAULT 0' : 'INT NOT NULL DEFAULT 0';
+    $intNull = $isSqlite ? 'INTEGER NULL' : 'INT NULL';
+    $varchar = 'VARCHAR(80) NULL';
+    $patches = [
+        'member_profiles' => [
+            'seeking_club'            => $int,
+            'city'                    => $varchar,
+            'latitude'                => $real,
+            'longitude'               => $real,
+            'league_level'            => 'VARCHAR(60) NULL',
+            'team_level_preference'   => 'VARCHAR(40) NULL',
+            'club_team_name'          => 'VARCHAR(160) NULL',
+            'club_team_level'         => 'VARCHAR(40) NULL',
+            'club_verified'           => $int,
+            'transfer_premium_plan'   => 'VARCHAR(30) NULL',
+            'transfer_premium_until'  => 'DATETIME NULL',
+        ],
+    ];
+    foreach ($patches as $table => $cols) {
+        foreach ($cols as $col => $def) {
+            if (columnExists($pdo, $table, $col, $isSqlite)) {
+                continue;
+            }
+            $pdo->exec("ALTER TABLE {$table} ADD COLUMN {$col} {$def}");
+            ok("patched {$table}.{$col}");
+        }
+    }
+}
+
+function syncTransferBureau(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'transfer_seekers')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/transfer_bureau.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $data = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $hash = password_hash('demo1234', PASSWORD_DEFAULT);
+
+    $ensureUser = static function (PDO $pdo, string $email, string $name, string $role) use ($hash, $now): int {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $stmt->execute([strtolower($email)]);
+        $id = (int) ($stmt->fetchColumn() ?: 0);
+        if ($id) {
+            return $id;
+        }
+        $pdo->prepare('INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)')
+            ->execute([$name, strtolower($email), $hash, $role, $now]);
+        $id = (int) $pdo->lastInsertId();
+        $username = strtolower(preg_replace('/[^a-z0-9]+/', '', $name)) . $id;
+        $pdo->prepare(
+            'INSERT INTO member_profiles (user_id, username, social, created_at, updated_at) VALUES (?, ?, ?, ?, ?)'
+        )->execute([$id, $username, '[]', $now, $now]);
+        return $id;
+    };
+
+    $playerIds = [];
+    foreach ($data['players'] as $i => $p) {
+        $userId = $ensureUser($pdo, $p['email'], $p['name'], 'player');
+        $playerIds[$i] = $userId;
+        $chk = $pdo->prepare('SELECT id FROM transfer_seekers WHERE user_id = ? LIMIT 1');
+        $chk->execute([$userId]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $pdo->prepare(
+            'UPDATE member_profiles SET seeking_club = 1, city = ?, latitude = ?, longitude = ?, league_level = ?, updated_at = ? WHERE user_id = ?'
+        )->execute([$p['city'], $p['lat'], $p['lng'], $p['league'], $now, $userId]);
+        $pdo->prepare(
+            'INSERT INTO transfer_seekers (user_id, type, positions, league_level_preference, city, lat, lng, radius_km, availability, bio, is_premium_highlight, status, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, 25, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $userId, 'player', json_encode($p['positions']), $p['league'], $p['city'], $p['lat'], $p['lng'],
+            $p['availability'], 'Suche einen Verein in der ' . $p['city'] . ' Region.', !empty($p['premium']) ? 1 : 0,
+            'seeking', $now, $now,
+        ]);
+    }
+    ok('synced transfer_seekers: ' . count($data['players']) . ' player(s)');
+
+    $trainerIds = [];
+    foreach ($data['trainers'] as $i => $t) {
+        $userId = $ensureUser($pdo, $t['email'], $t['name'], 'provider');
+        $trainerIds[$i] = $userId;
+        $chk = $pdo->prepare('SELECT id FROM transfer_seekers WHERE user_id = ? LIMIT 1');
+        $chk->execute([$userId]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $pdo->prepare(
+            'UPDATE member_profiles SET seeking_club = 1, city = ?, latitude = ?, longitude = ?, updated_at = ? WHERE user_id = ?'
+        )->execute([$t['city'], $t['lat'], $t['lng'], $now, $userId]);
+        $pdo->prepare(
+            'INSERT INTO transfer_seekers (user_id, type, positions, league_level_preference, city, lat, lng, radius_km, availability, bio, is_premium_highlight, status, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, 30, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $userId, 'trainer', json_encode(['TRAINER']), $t['league'], $t['city'], $t['lat'], $t['lng'],
+            'immediate', 'Erfahrener Trainer sucht engagierten Verein.', !empty($t['premium']) ? 1 : 0,
+            'seeking', $now, $now,
+        ]);
+    }
+    ok('synced transfer_seekers: ' . count($data['trainers']) . ' trainer(s)');
+
+    $clubUserIds = [];
+    $listingIds = [];
+    foreach ($data['clubs'] as $i => $c) {
+        $userId = $ensureUser($pdo, $c['email'], $c['name'], 'club');
+        $clubUserIds[$i] = $userId;
+        $pdo->prepare(
+            'UPDATE member_profiles SET club_team_name = ?, club_team_level = ?, city = ?, latitude = ?, longitude = ?,
+             club_verified = ?, updated_at = ? WHERE user_id = ?'
+        )->execute([$c['team_name'], $c['team_level'], $c['city'], $c['lat'], $c['lng'], !empty($c['verified']) ? 1 : 0, $now, $userId]);
+
+        $chk = $pdo->prepare('SELECT id FROM transfer_listings WHERE club_user_id = ? AND team_name = ? LIMIT 1');
+        $chk->execute([$userId, $c['team_name']]);
+        $existing = (int) ($chk->fetchColumn() ?: 0);
+        if ($existing) {
+            $listingIds[$i] = $existing;
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO transfer_listings (club_user_id, team_name, team_level, gender, positions_needed, league_level, city, lat, lng, radius_km, description, status, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 25, ?, ?, ?, ?)'
+        )->execute([
+            $userId, $c['team_name'], $c['team_level'], $c['gender'], json_encode($c['positions']),
+            $c['league'], $c['city'], $c['lat'], $c['lng'],
+            'Wir suchen Verstärkung für die kommende Saison.', 'active', $now, $now,
+        ]);
+        $listingIds[$i] = (int) $pdo->lastInsertId();
+    }
+    ok('synced transfer_listings: ' . count($data['clubs']) . ' listing(s)');
+
+    $trialAdded = 0;
+    foreach ($data['trials'] as $tr) {
+        $clubId = $clubUserIds[$tr['club_index']] ?? null;
+        $playerId = $playerIds[$tr['player_index']] ?? null;
+        if (!$clubId || !$playerId) {
+            continue;
+        }
+        $chk = $pdo->prepare(
+            'SELECT id FROM trial_requests WHERE from_user_id = ? AND to_user_id = ? LIMIT 1'
+        );
+        $chk->execute([$clubId, $playerId]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $date = date('Y-m-d H:i:s', strtotime('+' . (int)$tr['days_ahead'] . ' days'));
+        $pdo->prepare(
+            'INSERT INTO trial_requests (from_user_id, to_user_id, listing_id, proposed_date, location, message, status, created_at, updated_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $clubId, $playerId, $listingIds[$tr['club_index']] ?? null, $date,
+            'Sportplatz ' . ($data['clubs'][$tr['club_index']]['city'] ?? 'Berlin'),
+            'Probetraining — melde dich gerne!', $tr['status'], $now, $now,
+        ]);
+        $trialAdded++;
+    }
+    if ($trialAdded > 0) {
+        ok("synced trial_requests: {$trialAdded} row(s)");
+    }
+}
+
+function syncMembershipPlans(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'membership_plans')) {
+        return;
+    }
+    $seed = require __DIR__ . '/database/seeds/membership.php';
+    $now = date('Y-m-d H:i:s');
+    $added = 0;
+    foreach ($seed['plans'] as $p) {
+        $stmt = $pdo->prepare('SELECT id FROM membership_plans WHERE slug = ? LIMIT 1');
+        $stmt->execute([$p['slug']]);
+        $existing = $stmt->fetchColumn();
+        if ($existing) {
+            $pdo->prepare(
+                'UPDATE membership_plans SET role = ?, name = ?, tier_level = ?, price_monthly = ?, price_yearly = ?,
+                 features = ?, limits = ?, sort_order = ? WHERE slug = ?'
+            )->execute([
+                $p['role'], $p['name'], $p['tier_level'], $p['price_monthly'], $p['price_yearly'],
+                json_encode($p['features']), json_encode($p['limits'] ?? []),
+                $p['sort_order'] ?? $p['tier_level'], $p['slug'],
+            ]);
+            continue;
+        }
+        $ins = $pdo->prepare(
+            'INSERT INTO membership_plans (role, slug, name, tier_level, price_monthly, price_yearly, currency, features, limits, is_active, sort_order, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)'
+        );
+        $ins->execute([
+            $p['role'], $p['slug'], $p['name'], $p['tier_level'],
+            $p['price_monthly'], $p['price_yearly'], $p['currency'] ?? 'EUR',
+            json_encode($p['features']), json_encode($p['limits'] ?? []),
+            $p['sort_order'] ?? $p['tier_level'], $now,
+        ]);
+        $added++;
+    }
+    if ($added > 0) {
+        ok("synced membership_plans: {$added} new plan(s)");
+    }
+}
+
+function backfillFreeMemberships(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'user_memberships') || !tableExists($pdo, 'membership_plans') || !tableExists($pdo, 'users')) {
+        return;
+    }
+    $roleMap = [
+        'player' => 'player', 'club' => 'club', 'scout' => 'scout', 'agent' => 'scout',
+        'provider' => 'trainer', 'coach' => 'trainer', 'fan' => 'fan',
+    ];
+    $users = $pdo->query('SELECT id, role FROM users')->fetchAll(PDO::FETCH_ASSOC);
+    $added = 0;
+    foreach ($users as $u) {
+        $uid = (int) $u['id'];
+        $chk = $pdo->prepare(
+            "SELECT id FROM user_memberships WHERE user_id = ? AND status IN ('active','trial') LIMIT 1"
+        );
+        $chk->execute([$uid]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $memRole = $roleMap[$u['role'] ?? 'fan'] ?? 'fan';
+        $planStmt = $pdo->prepare(
+            'SELECT id FROM membership_plans WHERE role = ? AND tier_level = 0 LIMIT 1'
+        );
+        $planStmt->execute([$memRole]);
+        $planId = (int) ($planStmt->fetchColumn() ?: 0);
+        if (!$planId) {
+            continue;
+        }
+        $now = date('Y-m-d H:i:s');
+        $pdo->prepare(
+            'INSERT INTO user_memberships (user_id, plan_id, status, starts_at, ends_at, gateway, billing_cycle, created_at, updated_at)
+             VALUES (?, ?, ?, ?, NULL, ?, ?, ?, ?)'
+        )->execute([$uid, $planId, 'active', $now, 'system', 'monthly', $now, $now]);
+        $added++;
+    }
+    if ($added > 0) {
+        ok("backfilled user_memberships (free): {$added} user(s)");
+    }
+}
+
+function makeAdmin(array $argv, string $role = 'admin'): void
+{
+    $email = $argv[2] ?? null;
+    $password = $argv[3] ?? null;
+    $name = $argv[4] ?? ($role === 'super_admin' ? 'Super Administrator' : 'Administrator');
+    if (!$email || !$password) {
+        $cmd = $role === 'super_admin' ? 'super-admin' : 'admin';
+        err("Usage: php sportify {$cmd} <email> <password> [name]");
+        exit(1);
+    }
+    $pdo = Database::connection();
+    if (!$pdo) { err('No database connection.'); exit(1); }
+
+    $existing = \App\Models\User::findByEmail($email);
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    if ($existing) {
+        Database::execute('UPDATE users SET password = ?, role = ? WHERE id = ?', [$hash, $role, $existing['id']]);
+        ok("Updated existing user to {$role}: {$email}");
+    } else {
+        Database::execute(
+            'INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, ?)',
+            [$name, strtolower($email), $hash, $role, date('Y-m-d H:i:s')]
+        );
+        ok("Created {$role} user: {$email}");
+    }
+}
+
+function setUserRole(array $argv): void
+{
+    $email = $argv[2] ?? null;
+    $role = $argv[3] ?? null;
+    if (!$email || !$role) {
+        err('Usage: php sportify user-role <email> <role>');
+        err('Roles: ' . implode(', ', \App\Support\Rbac::allRoleKeys()));
+        exit(1);
+    }
+
+    $role = \App\Support\Rbac::normalizeRole($role);
+    if ($role === 'guest') {
+        err('Cannot assign guest role to a user account.');
+        exit(1);
+    }
+
+    $user = \App\Models\User::findByEmail($email);
+    if (!$user) {
+        err("User not found: {$email}");
+        exit(1);
+    }
+
+    if (($user['role'] ?? '') === 'super_admin' && $role !== 'super_admin' && \App\Models\User::countSuperAdmins() <= 1) {
+        err('Cannot demote the last super_admin.');
+        exit(1);
+    }
+
+    \App\Models\User::updateRole((int) $user['id'], $role);
+    ok("Updated {$email} → {$role}");
+}
+
+function patchMarktSchema(PDO $pdo, bool $isSqlite): void
+{
+    if (!tableExists($pdo, 'player_market_values')) {
+        return;
+    }
+    $indexes = [
+        'idx_pmv_player' => 'CREATE INDEX idx_pmv_player ON player_market_values(player_id)',
+        'idx_tr_player' => 'CREATE INDEX idx_tr_player ON transfer_records(player_id)',
+        'idx_tr_date' => 'CREATE INDEX idx_tr_date ON transfer_records(transfer_date)',
+        'idx_rumour_status' => 'CREATE INDEX idx_rumour_status ON transfer_rumours(status)',
+    ];
+    foreach ($indexes as $name => $sql) {
+        if (indexExistsGeneric($pdo, $name, $isSqlite)) {
+            continue;
+        }
+        try {
+            $pdo->exec($sql);
+            ok("patched index: {$name}");
+        } catch (\Throwable) {
+            // index may already exist under another name
+        }
+    }
+}
+
+function indexExistsGeneric(PDO $pdo, string $name, bool $isSqlite): bool
+{
+    if ($isSqlite) {
+        $rows = $pdo->query('PRAGMA index_list(player_market_values)')->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($rows as $r) {
+            if (($r['name'] ?? '') === $name) {
+                return true;
+            }
+        }
+        return false;
+    }
+    $stmt = $pdo->prepare('SHOW INDEX FROM player_market_values WHERE Key_name = ?');
+    $stmt->execute([$name]);
+    return (bool) $stmt->fetch();
+}
+
+function syncTransfermarkt(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'player_market_values') || !tableExists($pdo, 'players')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/transfermarkt.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $cfg = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $target = (int) $cfg['player_limit'];
+
+    $existing = (int) $pdo->query('SELECT COUNT(*) FROM players')->fetchColumn();
+    if ($existing < $target) {
+        $needed = $target - $existing;
+        $factory = \App\Models\PlayerFactory::generate($needed + 10);
+        $slugs = $pdo->query('SELECT slug FROM players')->fetchAll(PDO::FETCH_COLUMN);
+        $slugSet = array_flip($slugs);
+        $added = 0;
+        $ins = $pdo->prepare(
+            'INSERT INTO players (slug, name, number, position, position_short, age, nationality, nationality_code, foot, height, weight, club, availability, level, rating, fit, video, market_value, bio, photo, data, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        );
+        foreach ($factory as $p) {
+            if ($added >= $needed || isset($slugSet[$p['slug']])) {
+                continue;
+            }
+            $data = json_encode([
+                'tags' => $p['tags'] ?? [], 'stats' => $p['stats'] ?? [],
+                'career' => $p['career'] ?? [], 'highlights' => $p['highlights'] ?? [],
+            ]);
+            $ins->execute([
+                $p['slug'], $p['name'], $p['number'] ?? 0, $p['position'] ?? '', $p['position_short'] ?? '',
+                $p['age'] ?? 0, $p['nationality'] ?? '', $p['nationality_code'] ?? '', $p['foot'] ?? 'Right',
+                $p['height'] ?? 180, $p['weight'] ?? 75, $p['club'] ?? '', $p['availability'] ?? 'Under Contract',
+                $p['level'] ?? 'Semi-Pro', $p['rating'] ?? 70, $p['fit'] ?? 70, !empty($p['video']) ? 1 : 0,
+                $p['market_value'] ?? '€500K', $p['bio'] ?? '', '', $data, $now,
+            ]);
+            $slugSet[$p['slug']] = true;
+            $added++;
+        }
+        if ($added > 0) {
+            ok("synced transfermarkt: added {$added} factory player(s) to reach market seed target");
+        }
+    }
+
+    $players = $pdo->query('SELECT id, slug, name, rating, age, position_short, foot, height, nationality, club, market_value FROM players ORDER BY rating DESC LIMIT ' . $target)->fetchAll(PDO::FETCH_ASSOC);
+    if (empty($players)) {
+        return;
+    }
+
+    $valueCount = 0;
+    $playerCount = 0;
+    $agents = $cfg['agents'];
+    $nationalTeams = $cfg['national_teams'];
+
+    foreach ($players as $i => $p) {
+        $playerId = (int) $p['id'];
+        $rating = (int) ($p['rating'] ?? 70);
+        $age = (int) ($p['age'] ?? 24);
+        $youthBoost = $age <= 21 ? 1.35 : ($age <= 24 ? 1.15 : 1.0);
+        $base = max(200_000, (int) round(($rating - 55) * 100_000 * $youthBoost));
+        $jitter = 1 + ((abs(crc32($p['slug'] . 'tm')) % 20) - 10) / 100;
+        $valueEur = (int) round($base * $jitter);
+        $formatted = $valueEur >= 1_000_000
+            ? '€' . rtrim(rtrim(number_format($valueEur / 1_000_000, 2, '.', ''), '0'), '.') . 'm'
+            : '€' . (int) round($valueEur / 1000) . 'k';
+
+        $foot = $p['foot'] ?? 'Right';
+        $height = (int) ($p['height'] ?? 180);
+        $nat = $p['nationality'] ?? '';
+        $agent = $agents[$i % count($agents)];
+        $nationalTeam = $nationalTeams[$nat] ?? $nat;
+        $expires = $i < (int) $cfg['expiry_limit']
+            ? date('Y-m-d', strtotime('+' . (20 + $i * 14) . ' days'))
+            : date('Y-m-d', strtotime('+' . (400 + $i * 30) . ' days'));
+
+        $pdo->prepare(
+            'UPDATE players SET market_value_eur = ?, market_value = ?, preferred_foot = ?, height_cm = ?, contract_expires = ?, agent_name = ?, national_team = ? WHERE id = ?'
+        )->execute([$valueEur, $formatted, $foot, $height, $expires, $agent, $nationalTeam, $playerId]);
+        $playerCount++;
+
+        foreach ($cfg['history_months'] as $monthsAgo) {
+            $chk = $pdo->prepare('SELECT id FROM player_market_values WHERE player_id = ? AND recorded_at = ? LIMIT 1');
+            $recorded = date('Y-m-d H:i:s', strtotime("-{$monthsAgo} months"));
+            $chk->execute([$playerId, $recorded]);
+            if ($chk->fetch()) {
+                continue;
+            }
+            $histFactor = 1 - ($monthsAgo * 0.06);
+            $histVal = (int) round($valueEur * max(0.5, $histFactor));
+            $pdo->prepare(
+                'INSERT INTO player_market_values (player_id, value_eur, recorded_at, created_at) VALUES (?, ?, ?, ?)'
+            )->execute([$playerId, $histVal, $recorded, $now]);
+            $valueCount++;
+        }
+    }
+
+    $transferCount = 0;
+    $types = $cfg['transfer_types'];
+    $clubs = $cfg['transfer_clubs'];
+    $season = '2025/26';
+    foreach (array_slice($players, 0, (int) $cfg['transfer_limit']) as $i => $p) {
+        $playerId = (int) $p['id'];
+        $chk = $pdo->prepare('SELECT id FROM transfer_records WHERE player_id = ? AND season = ? LIMIT 1');
+        $chk->execute([$playerId, $season]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $pair = $clubs[$i % count($clubs)];
+        $type = $types[$i % count($types)];
+        $fee = match ($type) {
+            'free', 'loan' => null,
+            'undisclosed' => null,
+            default => (int) round(max(200_000, ($p['rating'] ?? 70) * 80_000)),
+        };
+        $pdo->prepare(
+            'INSERT INTO transfer_records (player_id, from_club, to_club, fee_eur, type, transfer_date, season, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $playerId,
+            $pair['from'],
+            $pair['to'],
+            $fee,
+            $type,
+            date('Y-m-d', strtotime('-' . ($i * 5 + 2) . ' days')),
+            $season,
+            $now,
+        ]);
+        $transferCount++;
+    }
+
+    $rumourCount = 0;
+    $sources = $cfg['rumour_sources'];
+    foreach (array_slice($players, 0, (int) $cfg['rumour_limit']) as $i => $p) {
+        $playerId = (int) $p['id'];
+        $chk = $pdo->prepare('SELECT id FROM transfer_rumours WHERE player_id = ? LIMIT 1');
+        $chk->execute([$playerId]);
+        if ($chk->fetch()) {
+            continue;
+        }
+        $pair = $clubs[($i + 2) % count($clubs)];
+        $pdo->prepare(
+            'INSERT INTO transfer_rumours (player_name, player_id, from_club, to_club, probability_percent, source, status, reported_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        )->execute([
+            $p['name'],
+            $playerId,
+            $p['club'] ?? $pair['from'],
+            $pair['to'],
+            30 + ($i * 4) % 65,
+            $sources[$i % count($sources)],
+            'active',
+            date('Y-m-d H:i:s', strtotime('-' . ($i + 1) . ' days')),
+            $now,
+        ]);
+        $rumourCount++;
+    }
+
+    ok("synced transfermarkt: {$playerCount} players, {$valueCount} value snapshots, {$transferCount} transfers, {$rumourCount} rumours");
+}
+
+function syncTalentCategories(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'talent_categories')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/talent_categories.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $seed = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $slugToId = [];
+
+    foreach ($seed as $row) {
+        $chk = $pdo->prepare('SELECT id FROM talent_categories WHERE slug = ? LIMIT 1');
+        $chk->execute([$row['slug']]);
+        $existing = $chk->fetchColumn();
+        if ($existing) {
+            $slugToId[$row['slug']] = (int) $existing;
+            continue;
+        }
+        $ins = $pdo->prepare(
+            'INSERT INTO talent_categories (slug, parent_id, name_en, name_de, name_ar, sport_type, sort_order, is_active, created_at, updated_at)
+             VALUES (?, NULL, ?, ?, ?, ?, ?, 1, ?, ?)'
+        );
+        $ins->execute([
+            $row['slug'],
+            $row['name_en'],
+            $row['name_de'] ?? null,
+            $row['name_ar'] ?? null,
+            $row['sport_type'] ?? null,
+            (int) ($row['sort_order'] ?? 0),
+            $now,
+            $now,
+        ]);
+        $slugToId[$row['slug']] = (int) $pdo->lastInsertId();
+    }
+
+    foreach ($seed as $row) {
+        if (empty($row['parent_slug'])) {
+            continue;
+        }
+        $id = $slugToId[$row['slug']] ?? null;
+        $parentId = $slugToId[$row['parent_slug']] ?? null;
+        if ($id && $parentId) {
+            $pdo->prepare('UPDATE talent_categories SET parent_id = ? WHERE id = ?')->execute([$parentId, $id]);
+        }
+    }
+
+    ok('synced talent_categories: ' . count($seed) . ' rows');
+}
+
+function syncOtCommunities(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'ot_communities')) {
+        return;
+    }
+    $existing = (int) $pdo->query('SELECT COUNT(*) FROM ot_communities')->fetchColumn();
+    if ($existing > 0) {
+        out('• ot_communities: already has ' . $existing . ' rows, skipping seed.');
+        return;
+    }
+
+    $seedFile = __DIR__ . '/database/seeds/ot_communities.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+
+    $seed = require $seedFile;
+    $created = 0;
+
+    foreach ($seed as $row) {
+        $email = (string) ($row['owner_email'] ?? '');
+        $ownerStmt = $pdo->prepare('SELECT id FROM users WHERE email = ? LIMIT 1');
+        $ownerStmt->execute([$email]);
+        $ownerId = (int) ($ownerStmt->fetchColumn() ?: 0);
+        if ($ownerId <= 0) {
+            continue;
+        }
+
+        $communityId = \App\Models\CommunityRepository::create([
+            'owner_user_id' => $ownerId,
+            'slug'          => $row['slug'],
+            'name'          => $row['name'],
+            'description'   => $row['description'] ?? '',
+            'type'          => $row['type'] ?? 'free',
+            'category_slug' => $row['category_slug'] ?? null,
+            'sport_type'    => $row['sport_type'] ?? null,
+            'is_featured'   => (int) ($row['is_featured'] ?? 0),
+            'status'        => $row['status'] ?? 'active',
+        ]);
+        if (!$communityId) {
+            continue;
+        }
+
+        $memberCount = (int) ($row['member_count'] ?? 0);
+        if ($memberCount > 0) {
+            $pdo->prepare('UPDATE ot_communities SET member_count = ? WHERE id = ?')->execute([$memberCount, $communityId]);
+        }
+
+        \App\Models\SubscriptionPlanRepository::defaultPlans($communityId, (string) ($row['type'] ?? 'free'));
+
+        foreach ($row['posts'] ?? [] as $post) {
+            \App\Models\CommunityPostRepository::create($communityId, $ownerId, [
+                'type'         => 'post',
+                'title'        => $post['title'] ?? 'Post',
+                'body'         => $post['body'] ?? '',
+                'access_level' => $post['access_level'] ?? 'members',
+            ]);
+            if (!empty($post['pinned'])) {
+                $pdo->prepare('UPDATE ot_community_posts SET pinned = 1 WHERE community_id = ? ORDER BY id DESC LIMIT 1')
+                    ->execute([$communityId]);
+            }
+        }
+
+        foreach ($row['live_sessions'] ?? [] as $session) {
+            $startsAt = $session['starts_at'] ?? '+7 days';
+            if (str_starts_with((string) $startsAt, '+')) {
+                $startsAt = date('Y-m-d H:i:s', strtotime($startsAt));
+            }
+            \App\Models\LiveSessionRepository::create($communityId, $ownerId, [
+                'title'       => $session['title'] ?? 'Live session',
+                'starts_at'   => $startsAt,
+                'platform'    => $session['platform'] ?? 'zoom',
+                'meeting_url' => $session['meeting_url'] ?? null,
+            ]);
+        }
+
+        foreach ($row['courses'] ?? [] as $course) {
+            $courseId = \App\Models\CourseRepository::create($communityId, $ownerId, [
+                'slug'                 => $course['slug'],
+                'title'                => $course['title'],
+                'description'          => $course['description'] ?? '',
+                'access_level'         => $course['access_level'] ?? 'paid',
+                'free_preview_lessons' => $course['free_preview_lessons'] ?? null,
+                'published'            => true,
+            ]);
+            if (!$courseId) {
+                continue;
+            }
+            foreach ($course['modules'] ?? [] as $module) {
+                $moduleId = \App\Models\CourseRepository::createModule($courseId, [
+                    'title'        => $module['title'] ?? 'Module',
+                    'access_level' => $module['access_level'] ?? 'paid',
+                ]);
+                if (!$moduleId) {
+                    continue;
+                }
+                foreach ($module['lessons'] ?? [] as $lesson) {
+                    \App\Models\CourseRepository::createLesson($moduleId, [
+                        'title'        => $lesson['title'] ?? 'Lesson',
+                        'content_type' => $lesson['content_type'] ?? 'text',
+                        'access_level' => $lesson['access_level'] ?? 'paid',
+                        'body'         => $lesson['body'] ?? '',
+                    ]);
+                }
+            }
+        }
+
+        $created++;
+    }
+
+    ok('synced ot_communities: ' . $created . ' demo communities');
+}
+
+/** Seed 500+ OnlyTalents shorts from ot_shorts_bulk.php (idempotent). */
+function syncOtShortsBulk(PDO $pdo, bool $force = false): array
+{
+    return \App\Services\OtShortsBulkSeedService::sync($force);
+}
+
+function syncOnlyTalents(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'talent_creator_profiles') || !tableExists($pdo, 'talent_shorts')) {
+        return;
+    }
+    $seedFile = __DIR__ . '/database/seeds/only_talents.php';
+    if (!is_file($seedFile)) {
+        return;
+    }
+    $data = require $seedFile;
+    $now = date('Y-m-d H:i:s');
+    $creatorIds = [];
+    $shortCount = 0;
+
+    foreach ($data['creators'] as $c) {
+        $pStmt = $pdo->prepare('SELECT id, bio FROM players WHERE slug = ? LIMIT 1');
+        $pStmt->execute([$c['player_slug']]);
+        $player = $pStmt->fetch(PDO::FETCH_ASSOC);
+        if (!$player) {
+            continue;
+        }
+        $playerId = (int) $player['id'];
+        $chk = $pdo->prepare('SELECT id FROM talent_creator_profiles WHERE player_id = ? LIMIT 1');
+        $chk->execute([$playerId]);
+        $existing = (int) ($chk->fetchColumn() ?: 0);
+        if ($existing) {
+            $creatorIds[$c['player_slug']] = $existing;
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO talent_creator_profiles (player_id, user_id, slug, bio, subscription_price_cents, currency, subscriber_count, verified, is_active, created_at, updated_at)
+             VALUES (?, NULL, ?, ?, ?, ?, ?, ?, 1, ?, ?)'
+        )->execute([
+            $playerId,
+            $c['player_slug'],
+            $player['bio'] ?? null,
+            (int) ($c['price'] ?? 499),
+            'EUR',
+            (int) ($c['subscribers'] ?? 0),
+            !empty($c['verified']) ? 1 : 0,
+            $now,
+            $now,
+        ]);
+        $creatorIds[$c['player_slug']] = (int) $pdo->lastInsertId();
+    }
+
+    $ytPool = $data['youtube_pool'] ?? [];
+    $templates = $data['short_templates'] ?? [];
+    $thumbs = $data['fallback_thumbs'] ?? [];
+    $ti = 0;
+
+    foreach ($data['creators'] as $c) {
+        $creatorId = $creatorIds[$c['player_slug']] ?? null;
+        if (!$creatorId) {
+            continue;
+        }
+        $pStmt = $pdo->prepare('SELECT id FROM players WHERE slug = ? LIMIT 1');
+        $pStmt->execute([$c['player_slug']]);
+        $playerId = (int) ($pStmt->fetchColumn() ?: 0);
+
+        foreach ($templates as $tpl) {
+            $ytId = $ytPool[$ti % max(1, count($ytPool))] ?? 'ugmYIOZW3as';
+            $source = $tpl['source'] ?? 'youtube';
+            $key = 'seed:' . $c['player_slug'] . ':' . $ti;
+            $chk = $pdo->prepare('SELECT id FROM talent_shorts WHERE external_key = ? LIMIT 1');
+            $chk->execute([$key]);
+            if ($chk->fetch()) {
+                $ti++;
+                continue;
+            }
+            $thumb = $source === 'youtube'
+                ? 'https://img.youtube.com/vi/' . $ytId . '/hqdefault.jpg'
+                : ($thumbs[$ti % max(1, count($thumbs))] ?? '');
+            $pdo->prepare(
+                'INSERT INTO talent_shorts (player_id, creator_profile_id, title, caption, video_url, embed_id, source, thumbnail, likes, views, is_premium, is_featured, external_key, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            )->execute([
+                $playerId,
+                $creatorId,
+                $tpl['title'],
+                $tpl['caption'],
+                $source === 'youtube' ? 'https://www.youtube.com/watch?v=' . $ytId : 'https://www.tiktok.com/@football',
+                $source === 'youtube' ? $ytId : null,
+                $source,
+                $thumb,
+                rand(80, 12000),
+                rand(500, 95000),
+                !empty($tpl['premium']) ? 1 : 0,
+                $ti < 8 ? 1 : 0,
+                $key,
+                date('Y-m-d H:i:s', strtotime('-' . ($ti % 14) . ' days')),
+            ]);
+            $shortCount++;
+            $ti++;
+        }
+    }
+
+    if ($shortCount > 0 || $creatorIds) {
+        ok('synced only talents: ' . count($creatorIds) . ' creators, ' . $shortCount . ' new shorts');
+    }
+
+    try {
+        $imported = \App\Services\TalentShortsService::refresh();
+        if ($imported > 0) {
+            ok("imported {$imported} shorts from video feed");
+        }
+    } catch (\Throwable $e) {
+        // non-fatal during migrate
+    }
+}
+
+function syncShortsFeed(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'shorts_feed')) {
+        return;
+    }
+    $count = (int) $pdo->query('SELECT COUNT(*) FROM shorts_feed')->fetchColumn();
+    if ($count >= 4) {
+        return;
+    }
+    try {
+        $result = \App\Services\ShortsFeedService::refresh();
+        ok('seeded shorts_feed: ' . ($result['shorts'] ?? 0) . ' items from ' . implode(', ', $result['sources'] ?? ['RSS']));
+    } catch (\Throwable $e) {
+        err('shorts_feed seed skipped: ' . $e->getMessage());
+    }
+}
+
+function syncNewsFeed(PDO $pdo): void
+{
+    if (!tableExists($pdo, 'news')) {
+        return;
+    }
+    $count = 0;
+    if (columnExists($pdo, 'news', 'external', Database::isSqlite())) {
+        $count = (int) $pdo->query('SELECT COUNT(*) FROM news WHERE external = 1')->fetchColumn();
+    }
+    if ($count >= 4) {
+        return;
+    }
+    try {
+        $result = \App\Services\NewsFeedService::refresh();
+        ok('seeded news feed: ' . ($result['synced'] ?? 0) . ' items from ' . implode(', ', $result['sources'] ?? ['RSS']));
+    } catch (\Throwable $e) {
+        err('news feed seed skipped: ' . $e->getMessage());
+    }
+}
+
+switch ($cmd) {
+    case 'livehd7-sync': syncLiveHd7(); break;
+    case 'matches': syncMatches(); break;
+    case 'fixtures': syncFixtures(); break;
+    case 'migrate': migrate(); break;
+    case 'seed':    seed(); break;
+    case 'fresh':   migrate(); seed(); break;
+    case 'admin':   makeAdmin($argv, 'admin'); break;
+    case 'super-admin': makeAdmin($argv, 'super_admin'); break;
+    case 'user-role': setUserRole($argv); break;
+    case 'serve':
+        $port = $argv[2] ?? '8000';
+        out("Sportify dev server: http://localhost:{$port}");
+        $router = __DIR__ . '/public/router.php';
+        passthru(PHP_BINARY . ' -S localhost:' . $port . ' -t ' . escapeshellarg(__DIR__ . '/public') . ' ' . escapeshellarg($router));
+        break;
+    case 'ot-prune-shorts':
+        $delete = in_array('--delete', $argv ?? [], true);
+        $limit = null;
+        $afterId = 0;
+        foreach ($argv ?? [] as $arg) {
+            if (str_starts_with($arg, '--limit=')) {
+                $limit = max(1, (int) substr($arg, 8));
+            } elseif (str_starts_with($arg, '--after-id=')) {
+                $afterId = max(0, (int) substr($arg, 11));
+            }
+        }
+        $result = \App\Services\OtShortsValidationService::prune($delete, $limit, $afterId);
+        ok('OT shorts prune — checked ' . ($result['checked'] ?? 0)
+            . ', unavailable ' . ($result['unavailable'] ?? 0)
+            . ', marked ' . ($result['marked'] ?? 0)
+            . ', deleted ' . ($result['deleted'] ?? 0)
+            . ', available total ' . ($result['available_total'] ?? 0)
+            . ', last_id ' . ($result['last_id'] ?? 0)
+            . (!empty($result['has_more']) ? ' (more batches remain — use --after-id=' . ($result['last_id'] ?? 0) . ')' : ''));
+        break;
+    case 'ot-refresh-shorts':
+    case 'ot-daily-videos':
+        $result = \App\Services\OtShortsRefreshService::refresh();
+        ok('OT shorts refresh — added ' . ($result['added'] ?? 0)
+            . ', bumped ' . ($result['bumped'] ?? 0)
+            . ', skipped ' . ($result['skipped'] ?? 0)
+            . ', prune_marked ' . ($result['prune_marked'] ?? 0)
+            . ', pruned ' . ($result['pruned'] ?? 0)
+            . ', total ' . ($result['total'] ?? 0)
+            . ', available ' . ($result['available_total'] ?? 0));
+        out('');
+        out('Hostinger cron (daily 07:00 UTC):');
+        out('  0 7 * * * cd /home/u234903558/domains/sportifyplus.de/public_html && php sportify ot-prune-shorts && php sportify ot-refresh-shorts >> storage/logs/ot-shorts-cron.log 2>&1');
+        out('');
+        out('Web trigger (no SSH, ~2 min):');
+        out('  curl -s --max-time 300 "https://talents.sportifyplus.de/seed-ot-shorts-2026.php?key=onlytalents2026&action=daily"');
+        break;
+    case 'feeds':
+        $newsResult = \App\Services\NewsFeedService::refresh();
+        $shortsResult = \App\Services\ShortsFeedService::refresh();
+        $rankings = \App\Services\RankingsFeedService::refresh();
+        $fixtures = \App\Services\LiveFixtureFeedService::refresh();
+        $reconciled = \App\Services\LiveFixtureFeedService::reconcileStaleLiveStatus();
+        $otRefresh = \App\Services\OtShortsRefreshService::refresh();
+        $newsSources = implode(', ', $newsResult['sources'] ?? []);
+        ok(
+            "Refreshed {$newsResult['synced']} news items"
+            . ($newsSources !== '' ? " ({$newsSources})" : '')
+            . ", {$shortsResult['videos']} YouTube + {$shortsResult['shorts']} homepage shorts, "
+            . "{$rankings['fifa']} FIFA + {$rankings['clubs']} club rankings, "
+            . "{$fixtures} live fixtures from " . \App\Services\LiveFixtureFeedService::sourceLabel()
+            . ($reconciled > 0 ? " (cleared {$reconciled} stale live badge(s))" : '')
+            . ", OT refresh +{$otRefresh['added']} shorts."
+        );
+        break;
+    case 'news':
+        $result = \App\Services\NewsFeedService::refresh();
+        $sources = implode(', ', $result['sources'] ?? []);
+        $stale = !empty($result['stale']) ? ' (kept stale cache — RSS unreachable)' : '';
+        ok("Refreshed {$result['synced']} football news articles → news table"
+            . ($sources !== '' ? " ({$sources})" : '') . $stale);
+        out('');
+        out('Hostinger cron (daily 05:00 UTC):');
+        out('  0 5 * * * cd /home/u234903558/domains/sportifyplus.de/public_html && /usr/bin/php sportify news >> storage/logs/news-cron.log 2>&1');
+        break;
+    case 'rankings':
+        $rankings = \App\Services\RankingsFeedService::refresh();
+        ok("Refreshed {$rankings['fifa']} FIFA teams and {$rankings['clubs']} clubs → storage/cache/rankings_feed.json");
+        break;
+    case 'videos':
+    case 'shorts':
+        $result = \App\Services\ShortsFeedService::refresh();
+        $sources = implode(', ', $result['sources'] ?? []);
+        ok("Refreshed {$result['videos']} YouTube RSS + {$result['shorts']} homepage shorts → shorts_feed table"
+            . ($sources !== '' ? " ({$sources})" : ''));
+        out('');
+        out('Hostinger cron (daily 06:00 UTC):');
+        out('  0 6 * * * cd /home/u234903558/domains/sportifyplus.de/public_html && /usr/bin/php sportify videos >> storage/logs/shorts-cron.log 2>&1');
+        break;
+    case 'feed-posts':
+        $pdo = Database::connection();
+        if (!$pdo) { err('No database connection.'); exit(1); }
+        syncCommunityFeed($pdo);
+        break;
+    case 'talents':
+        $pdo = Database::connection();
+        if ($pdo) {
+            syncOtShortsBulk($pdo);
+        }
+        $imported = \App\Services\TalentShortsService::refresh();
+        ok("Refreshed Only Talents feed — {$imported} new shorts imported from video RSS + player catalog");
+        break;
+    case 'ot-seed-shorts':
+        $pdo = Database::connection();
+        if (!$pdo) {
+            err('No database connection.');
+            exit(1);
+        }
+        $force = in_array('--force', $argv ?? [], true);
+        $result = syncOtShortsBulk($pdo, $force);
+        if (!empty($result['skipped'])) {
+            $existing = (int) ($result['existing'] ?? 0);
+            $min = (int) ($result['min_total'] ?? 500);
+            ok("OT shorts bulk seed skipped — {$existing} shorts already (min {$min})");
+        } else {
+            ok('OT shorts bulk seed — ' . ($result['inserted'] ?? 0) . ' inserted, '
+                . ($result['total'] ?? 0) . ' total across ' . count($result['categories'] ?? []) . ' categories');
+        }
+        break;
+    case 'talent-videos':
+        $result = \App\Services\TalentVideoImportService::refresh();
+        ok('Imported talent videos — ' . ($result['imported'] ?? 0) . ' videos, '
+            . ($result['shorts'] ?? 0) . ' shorts (' . ($result['total'] ?? 0) . ' total in talent_imported_videos)');
+        break;
+    case 'ot-communities':
+    case 'communities':
+        $pdo = Database::connection();
+        if (!$pdo) { err('No database connection.'); exit(1); }
+        syncOtCommunities($pdo);
+        break;
+    case 'ot-seed-discovery':
+        $pdo = Database::connection();
+        if (!$pdo) {
+            err('No database connection.');
+            exit(1);
+        }
+        $force = in_array('--force', $argv ?? [], true);
+        $result = \App\Services\OtDiscoveryProfilesSeedService::sync($force);
+        ok('OT discovery profiles — ' . ($result['upserted'] ?? 0) . ' upserted across '
+            . count($result['categories'] ?? []) . ' categories');
+        break;
+    case 'news-translate-ar':
+        $limit = 100;
+        $force = in_array('--force', $argv ?? [], true);
+        foreach ($argv ?? [] as $arg) {
+            if (str_starts_with($arg, '--limit=')) {
+                $limit = max(1, (int) substr($arg, 8));
+            }
+        }
+        Lang::set('ar');
+        $result = \App\Services\NewsTranslationService::translateAll($limit, !$force);
+        if (!empty($result['message'])) {
+            err($result['message']);
+            exit(1);
+        }
+        ok('Arabic news DB translation — translated ' . ($result['translated'] ?? 0)
+            . ', skipped ' . ($result['skipped'] ?? 0)
+            . ', errors ' . ($result['errors'] ?? 0)
+            . ', batch ' . ($result['total'] ?? 0)
+            . ($force ? ' (force re-translate)' : ''));
+        out('');
+        out('Hostinger cron (after daily news sync):');
+        out('  15 5 * * * cd /home/u234903558/domains/sportifyplus.de/public_html && /usr/bin/php sportify news-translate-ar --limit=120 >> storage/logs/news-translate-ar.log 2>&1');
+        break;
+    case 'translate-content':
+        $limit = 100;
+        $batch = in_array('--batch', $argv ?? [], true);
+        $locale = 'ar';
+        foreach ($argv ?? [] as $arg) {
+            if (str_starts_with($arg, '--limit=')) {
+                $limit = max(1, (int) substr($arg, 8));
+            } elseif (str_starts_with($arg, '--locale=')) {
+                $locale = substr($arg, 9);
+            }
+        }
+        Lang::set($locale);
+        $result = \App\Services\ContentLocalizer::warmBatch($locale, $limit, $batch);
+        ok('Content translation cache — warmed ' . ($result['translated'] ?? 0)
+            . ' / ' . ($result['total'] ?? 0)
+            . ($batch ? ' (batch mode)' : ''));
+        out('');
+        out('Hostinger cron (optional weekly warm):');
+        out('  0 4 * * 0 cd /home/u234903558/domains/sportifyplus.de/public_html && /usr/bin/php sportify translate-content --locale=ar --batch --limit=200 >> storage/logs/translate-cron.log 2>&1');
+        break;
+    default:
+        out("Sportify console");
+        out("  php sportify migrate   php sportify seed   php sportify fresh");
+        out("  php sportify livehd7-sync  Fetch today's matches from livehd7top.com → cache");
+        out("  php sportify matches   Refresh live scores (ESPN / football-data.org)");
+        out("  php sportify fixtures  Refresh live fixtures (ESPN / optional football-data.org)");
+        out("  php sportify feeds     Refresh news, video, rankings + live score caches");
+        out("  php sportify news      Refresh football news RSS → news table (daily cron)");
+        out("  php sportify rankings  Refresh FIFA + club rankings cache");
+        out("  php sportify videos    Refresh homepage shorts from YouTube RSS + talents (alias: shorts)");
+        out("  php sportify shorts    Same as videos — daily homepage Shorts & Highlights refresh");
+        out("  php sportify feed-posts  Seed community member feed (if < 15 posts)");
+        out("  php sportify talents   Refresh Only Talents shorts from RSS + DB (runs bulk seed if < 500)");
+        out("  php sportify ot-seed-shorts  Seed 500+ OT shorts (idempotent; --force to re-check keys)");
+        out("  php sportify talent-videos  Import YouTube RSS into talent_imported_videos + shorts");
+        out("  php sportify ot-communities  Seed demo paid/free OT communities (alias: communities)");
+        out("  php sportify ot-seed-discovery  Seed discovery profiles for OT creators");
+        out("  php sportify ot-prune-shorts  Mark unavailable YouTube shorts (is_available=0; --delete to remove)");
+        out("  php sportify ot-refresh-shorts  Add new OT shorts from RSS + verified pool (alias: ot-daily-videos)");
+        out("  php sportify news-translate-ar [--limit=100] [--force]  Store Arabic title/excerpt in news table");
+        out("  php sportify translate-content [--batch] [--limit=100]  Warm Arabic content translation file cache");
+        out("  php sportify admin <email> <password> [name]");
+        out("  php sportify super-admin <email> <password> [name]");
+        out("  php sportify user-role <email> <role>");
+        out("  php sportify serve [port]");
+}
