@@ -118,11 +118,43 @@ class PartnerLeadRepository
         $email = isset($data['email']) && $data['email'] !== ''
             ? strtolower(trim((string) $data['email']))
             : null;
+        $website = isset($data['website']) && $data['website'] !== ''
+            ? rtrim(strtolower(trim((string) $data['website'])), '/')
+            : null;
         $existing = null;
+        // Deduplicate by email (lowercase) first
         if ($email) {
             $existing = Database::first(
+                'SELECT id FROM partner_leads WHERE LOWER(email) = ? LIMIT 1',
+                [$email]
+            );
+        }
+        // Then by name + website (normalize trailing slash in PHP)
+        if (!$existing && $website) {
+            $existing = Database::first(
+                'SELECT id FROM partner_leads WHERE LOWER(name) = ? AND website IS NOT NULL AND website != \'\' LIMIT 20',
+                [mb_strtolower($name)]
+            );
+            if ($existing) {
+                // Re-check among name matches with normalized website
+                $candidates = Database::select(
+                    'SELECT id, website FROM partner_leads WHERE LOWER(name) = ? AND website IS NOT NULL AND website != \'\'',
+                    [mb_strtolower($name)]
+                );
+                $existing = null;
+                foreach ($candidates as $cand) {
+                    $candWeb = rtrim(strtolower(trim((string) ($cand['website'] ?? ''))), '/');
+                    if ($candWeb === $website) {
+                        $existing = $cand;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!$existing) {
+            $existing = Database::first(
                 'SELECT id FROM partner_leads WHERE LOWER(name) = ? AND LOWER(email) = ? LIMIT 1',
-                [mb_strtolower($name), $email]
+                [mb_strtolower($name), $email ?? '']
             );
         }
         if (!$existing) {

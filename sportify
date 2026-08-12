@@ -3131,7 +3131,12 @@ switch ($cmd) {
         \App\Models\PartnerLeadRepository::ensureSchema();
         $result = \App\Services\PartnerSeedImporter::import();
         ok('partners seeded — upserted ' . ($result['upserted'] ?? 0)
+            . ' unique=' . ($result['unique_rows'] ?? 0)
+            . ' skipped_dupes=' . ($result['skipped_dupes'] ?? 0)
             . ' from ' . ($result['files'] ?? 0) . ' file(s)');
+        foreach (($result['file_names'] ?? []) as $fn) {
+            out('  · file: ' . $fn);
+        }
         foreach (($result['by_type'] ?? []) as $type => $count) {
             out('  · ' . $type . ': ' . $count);
         }
@@ -3141,7 +3146,9 @@ switch ($cmd) {
     case 'invite-partners':
         $dry = in_array('--dry-run', $argv ?? [], true);
         $send = in_array('--send', $argv ?? [], true);
-        $limit = 50;
+        // Default: invite every lead with an email (not only verified). Pass --verified-only to restrict.
+        $verifiedOnly = in_array('--verified-only', $argv ?? [], true);
+        $limit = 2000;
         foreach ($argv ?? [] as $arg) {
             if (str_starts_with($arg, '--limit=')) {
                 $limit = max(1, (int) substr($arg, 8));
@@ -3150,15 +3157,20 @@ switch ($cmd) {
         $result = \App\Services\PartnerInviteService::inviteAll([
             'dry_run' => $dry,
             'send' => $send,
-            'verified_only' => true,
+            'verified_only' => $verifiedOnly,
             'limit' => $limit,
         ]);
         ok('partner invite — sent=' . $result['sent'] . ' queued=' . $result['queued']
             . ' skipped=' . $result['skipped'] . ' failed=' . $result['failed']
+            . ' candidates=' . ($result['candidates'] ?? 0)
             . ' from=' . $result['from']
+            . ' verified_only=' . ($verifiedOnly ? '1' : '0')
             . ($dry ? ' (dry-run)' : ''));
         if (!$result['mail_configured'] && $send) {
             out('MAIL_* not configured — invites were queued instead of sent.');
+        }
+        if (!$result['mail_configured'] && !$dry && !$send) {
+            out('MAIL_* not configured — invites queued for later send with --send.');
         }
         break;
     default:

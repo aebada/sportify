@@ -1,0 +1,2270 @@
+[
+  {
+    "name": "ÖFB Presse",
+    "type": "association",
+    "country": "AT",
+    "website": "https://www.oefb.at",
+    "email": "presse@oefb.at",
+    "source_url": "https://www.oefb.at",
+    "notes": "ÖFB presse from prior verified seed."
+  },
+  {
+    "name": "FIFA Media",
+    "type": "association",
+    "country": "CH",
+    "website": "https://www.fifa.com",
+    "email": "media@fifa.org",
+    "source_url": "https://www.fifa.com",
+    "notes": "FIFA media inbox from prior verified seed."
+  },
+  {
+    "name": "SFV Presse",
+    "type": "association",
+    "country": "CH",
+    "website": "https://www.football.ch",
+    "email": "presse@football.ch",
+    "source_url": "https://www.football.ch",
+    "notes": "SFV presse from prior verified seed."
+  },
+  {
+    "name": "UEFA Foundation for Children",
+    "type": "association",
+    "country": "CH",
+    "website": "https://uefafoundation.org",
+    "email": "media@uefafoundation.org",
+    "source_url": "https://uefafoundation.org/uncategorized/media/",
+    "notes": "From partners-leagues seed."
+  },
+  {
+    "name": "UEFA Media",
+    "type": "association",
+    "country": "CH",
+    "website": "https://www.uefa.com",
+    "email": "media@uefa.ch",
+    "source_url": "https://www.uefa.com",
+    "notes": "UEFA media inbox from prior verified seed."
+  },
+  {
+    "name": "UEFA Media Accreditations",
+    "type": "association",
+    "country": "CH",
+    "website": "https://www.uefa.com",
+    "email": "media.accreditations@uefa.ch",
+    "source_url": "https://www.uefa.com",
+    "notes": "UEFA accreditation inbox from prior verified seed."
+  },
+  {
+    "name": "DFB Presse",
+    "type": "association",
+    "country": "DE",
+    "website": "https://www.dfb.de",
+    "email": "presse@dfb.de",
+    "source_url": "https://www.dfb.de/presse",
+    "notes": "Verified DFB presse inbox."
+  },
+  {
+    "name": "DFB Presseverteiler",
+    "type": "association",
+    "country": "DE",
+    "website": "https://www.dfb.de",
+    "email": "presseantrag@dfb.de",
+    "source_url": "https://www.dfb.de/presse",
+    "notes": "Verified media distribution application inbox."
+  },
+  {
+    "name": "DBU General",
+    "type": "association",
+    "country": "DK",
+    "website": "https://www.dbu.dk",
+    "email": "dbu@dbu.dk",
+    "source_url": "https://www.dbu.dk/presse/",
+    "notes": "Verified general DBU inbox."
+  },
+  {
+    "name": "DBU Presse",
+    "type": "association",
+    "country": "DK",
+    "website": "https://www.dbu.dk",
+    "email": "frpp@dbu.dk",
+    "source_url": "https://www.dbu.dk/presse/",
+    "notes": "Verified current press contact on DBU Presse."
+  },
+  {
+    "name": "RFEF Prensa",
+    "type": "association",
+    "country": "ES",
+    "website": "https://www.rfef.es",
+    "email": "prensa@rfef.es",
+    "source_url": "https://www.rfef.es",
+    "notes": "RFEF press inbox from prior verified seed."
+  },
+  {
+    "name": "FFF Presse",
+    "type": "association",
+    "country": "FR",
+    "website": "https://www.fff.fr",
+    "email": "presse@fff.fr",
+    "source_url": "https://www.fff.fr",
+    "notes": "FFF presse from prior verified seed."
+  },
+  {
+    "name": "Football Association of Wales",
+    "type": "association",
+    "country": "GB",
+    "website": "https://www.faw.cymru",
+    "email": "support@faw.cymru",
+    "source_url": "https://www.faw.cymru/en/about-faw/contact/",
+    "notes": "Verified FAW support contact."
+  },
+  {
+    "name": "Irish Football Association",
+    "type": "association",
+    "country": "GB",
+    "website": "https://www.irishfa.com",
+    "email": "info@irishfa.com",
+    "source_url": "https://www.irishfa.com/contact",
+    "notes": "Verified IFA contact page inbox."
+  },
+  {
+    "name": "The Football Association",
+    "type": "association",
+    "country": "GB",
+    "website": "https://www.thefa.com",
+    "email": "Media.Relations@TheFA.com",
+    "source_url": "https://www.thefa.com/news/2025/aug/01/media-essentials-2025-26-250108",
+    "notes": "FA media relations inbox from Media Essentials."
+  },
+  {
+    "name": "HNS",
+    "type": "association",
+    "country": "HR",
+    "website": "https://www.hns.hr",
+    "email": "ured@hns.hr",
+    "source_url": "https://www.hns.hr/kontakt",
+    "notes": "Verified HNS office inbox."
+  },
+  {
+    "name": "MLSZ Kapcsolat",
+    "type": "association",
+    "country": "HU",
+    "website": "https://www.mlsz.hu",
+    "email": "adminisztracio@mlsz.hu",
+    "source_url": "https://www.mlsz.hu/kapcsolat",
+    "notes": "Functional MLSZ inbox on kapcsolat page."
+  },
+  {
+    "name": "KSI",
+    "type": "association",
+    "country": "IS",
+    "website": "https://www.ksi.is",
+    "email": "ksi@ksi.is",
+    "source_url": "https://www.ksi.is/um-ksi/sambandid/sambandsadilar/",
+    "notes": "Verified KSI inbox."
+  },
+  {
+    "name": "FIGC Press",
+    "type": "association",
+    "country": "IT",
+    "website": "https://www.figc.it",
+    "email": "press@figc.it",
+    "source_url": "https://www.figc.it",
+    "notes": "FIGC press inbox from prior verified seed."
+  },
+  {
+    "name": "LFF Info",
+    "type": "association",
+    "country": "LT",
+    "website": "https://www.lff.lt",
+    "email": "info@lff.lt",
+    "source_url": "https://www.lff.lt/kontaktai/",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "LFF Media",
+    "type": "association",
+    "country": "LT",
+    "website": "https://www.lff.lt",
+    "email": "media@lff.lt",
+    "source_url": "https://www.lff.lt/kontaktai/",
+    "notes": "Verified media inbox."
+  },
+  {
+    "name": "KNVB Info",
+    "type": "association",
+    "country": "NL",
+    "website": "https://www.knvb.nl",
+    "email": "info@knvb.nl",
+    "source_url": "https://www.knvb.nl/over-ons/contact",
+    "notes": "General KNVB contact; press via persvoorlichters."
+  },
+  {
+    "name": "NFF Webmaster",
+    "type": "association",
+    "country": "NO",
+    "website": "https://www.fotball.no",
+    "email": "webmaster@fotball.no",
+    "source_url": "https://www.fotball.no/om-nff/kontakt/",
+    "notes": "Public webmaster contact on NFF kontakt; press via named officers."
+  },
+  {
+    "name": "PZPN",
+    "type": "association",
+    "country": "PL",
+    "website": "https://www.pzpn.pl",
+    "email": "pzpn@pzpn.pl",
+    "source_url": "https://www.pzpn.pl/federacja/biuro",
+    "notes": "Verified federation office inbox."
+  },
+  {
+    "name": "SvFF Media",
+    "type": "association",
+    "country": "SE",
+    "website": "https://www.svenskfotboll.se",
+    "email": "media@svenskfotboll.se",
+    "source_url": "https://www.svenskfotboll.se/landslag/media/mediainformation/",
+    "notes": "Verified media inbox."
+  },
+  {
+    "name": "SFZ Media",
+    "type": "association",
+    "country": "SK",
+    "website": "https://www.futbalsfz.sk",
+    "email": "media@futbalsfz.sk",
+    "source_url": "https://www.futbalsfz.sk/kontakt",
+    "notes": "Verified media inbox."
+  },
+  {
+    "name": "SFZ Office",
+    "type": "association",
+    "country": "SK",
+    "website": "https://www.futbalsfz.sk",
+    "email": "office@futbalsfz.sk",
+    "source_url": "https://www.futbalsfz.sk/kontakt",
+    "notes": "Verified office inbox."
+  },
+  {
+    "name": "FK Austria Wien",
+    "type": "club",
+    "country": "AT",
+    "website": "https://www.fk-austria.at",
+    "email": "fak@fk-austria.at",
+    "source_url": "https://www.fk-austria.at/impressum/",
+    "notes": "Verified club contact on Impressum."
+  },
+  {
+    "name": "SK Sturm Graz",
+    "type": "club",
+    "country": "AT",
+    "website": "https://www.sksturm.at",
+    "email": "office@sturm.at",
+    "source_url": "https://www.sturm.at/impressum/",
+    "notes": "Verified office inbox on Impressum."
+  },
+  {
+    "name": "Wolfsberger AC Media",
+    "type": "club",
+    "country": "AT",
+    "website": "https://www.rzpelletswac.at",
+    "email": "media@rzpelletswac.at",
+    "source_url": "https://www.rzpelletswac.at/impressum",
+    "notes": "Verified media inbox on Impressum."
+  },
+  {
+    "name": "Wolfsberger AC Office",
+    "type": "club",
+    "country": "AT",
+    "website": "https://www.rzpelletswac.at",
+    "email": "office@rzpelletswac.at",
+    "source_url": "https://www.rzpelletswac.at/impressum",
+    "notes": "Verified office inbox on Impressum."
+  },
+  {
+    "name": "Cercle Brugge",
+    "type": "club",
+    "country": "BE",
+    "website": "https://www.cerclebrugge.be",
+    "email": "secretariaat@cerclebrugge.be",
+    "source_url": "https://www.cerclebrugge.be/nl/contact",
+    "notes": "Verified secretariat inbox."
+  },
+  {
+    "name": "KVC Westerlo",
+    "type": "club",
+    "country": "BE",
+    "website": "https://www.kvcwesterlo.be",
+    "email": "info@westerlo.be",
+    "source_url": "https://www.westerlo.be/nl/contact",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "OH Leuven Info",
+    "type": "club",
+    "country": "BE",
+    "website": "https://www.ohleuven.com",
+    "email": "info@ohl.be",
+    "source_url": "https://www.ohleuven.com/nl/contact",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "OH Leuven Press",
+    "type": "club",
+    "country": "BE",
+    "website": "https://www.ohleuven.com",
+    "email": "press@ohl.be",
+    "source_url": "https://www.ohleuven.com/nl/contact",
+    "notes": "Verified press inbox."
+  },
+  {
+    "name": "FC Lugano",
+    "type": "club",
+    "country": "CH",
+    "website": "https://www.fclugano.com",
+    "email": "info@fclugano.com",
+    "source_url": "https://www.fclugano.com/impressum",
+    "notes": "Verified info inbox on Impressum."
+  },
+  {
+    "name": "FC Winterthur",
+    "type": "club",
+    "country": "CH",
+    "website": "https://www.fcwinterthur.ch",
+    "email": "info@fcwinterthur.ch",
+    "source_url": "https://www.fcwinterthur.ch/impressum",
+    "notes": "Verified info inbox on Impressum."
+  },
+  {
+    "name": "FC Zürich",
+    "type": "club",
+    "country": "CH",
+    "website": "https://www.fcz.ch",
+    "email": "info@fcz.ch",
+    "source_url": "https://www.fcz.ch/impressum",
+    "notes": "Verified info inbox on Impressum."
+  },
+  {
+    "name": "1. FC Heidenheim",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fc-heidenheim.de",
+    "email": "presse@fc-heidenheim.de",
+    "source_url": "https://www.fc-heidenheim.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "1. FC Kaiserslautern",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fck.de",
+    "email": "presse@fck.de",
+    "source_url": "https://www.fck.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "1. FC Köln",
+    "type": "club",
+    "country": "DE",
+    "website": "https://fc.de",
+    "email": "medien@fc-koeln.de",
+    "source_url": "https://fc.de/medien",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard)."
+  },
+  {
+    "name": "1. FC Magdeburg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fc-magdeburg.de",
+    "email": "presse@fc-magdeburg.de",
+    "source_url": "https://1fcm.de/club/medien/ansprechpartner",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "1. FC Nürnberg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fcn.de",
+    "email": "presse@fcn.de",
+    "source_url": "https://www.fcn.de/club/medien/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "1. FC Union Berlin",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fc-union-berlin.de",
+    "email": "presse@fc-union-berlin.de",
+    "source_url": "https://www.fc-union-berlin.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "1. FSV Mainz 05",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.mainz05.de",
+    "email": "presse@mainz05.de",
+    "source_url": "https://www.mainz05.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "1860 München",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.tsv1860.de",
+    "email": "presse@tsv1860.de",
+    "source_url": "https://www.tsv1860.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Alemannia Aachen",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.alemannia-aachen.de",
+    "email": "presse@alemannia-aachen.de",
+    "source_url": "https://www.alemannia-aachen.de/kontakt/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "Arminia Bielefeld",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.arminia.de",
+    "email": "presse@arminia.de",
+    "source_url": "https://www.arminia.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Bayer 04 Leverkusen Medien",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.bayer04.de",
+    "email": "medien@bayer04.de",
+    "source_url": "https://www.bayer04.de/en-us/page/media",
+    "notes": "Verified medien inbox on official media page."
+  },
+  {
+    "name": "Borussia Dortmund",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.bvb.de",
+    "email": "presse@bvb.de",
+    "source_url": "https://www.bvb.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "Borussia Mönchengladbach",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.borussia.de",
+    "email": "presse@borussia.de",
+    "source_url": "https://www.borussia.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "Eintracht Braunschweig",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.eintracht.com",
+    "email": "presse@eintracht.com",
+    "source_url": "https://www.eintracht.com",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Eintracht Frankfurt",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.eintracht.de",
+    "email": "medien@eintrachtfrankfurt.de",
+    "source_url": "https://media.eintracht.de/image/upload/v1755876361/ef_mediaguide_deutsch-17a9.pdf",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard)."
+  },
+  {
+    "name": "Energie Cottbus",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fcenergie.de",
+    "email": "presse@fcenergie.de",
+    "source_url": "https://www.fcenergie.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "FC Augsburg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fcaugsburg.de",
+    "email": "presse@fcaugsburg.de",
+    "source_url": "https://www.fcaugsburg.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "FC Bayern München",
+    "type": "club",
+    "country": "DE",
+    "website": "https://fcbayern.com",
+    "email": "presse@fcbayern.com",
+    "source_url": "https://fcbayern.com/de/club/kontakt",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "FC Ingolstadt 04",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fcingolstadt.de",
+    "email": "media@fcingolstadt.de",
+    "source_url": "https://www.fcingolstadt.de/presse/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "FC Schalke 04",
+    "type": "club",
+    "country": "DE",
+    "website": "https://schalke04.de",
+    "email": "medien@schalke04.de",
+    "source_url": "https://schalke04.de/impressum/",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard)."
+  },
+  {
+    "name": "FC St. Pauli",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fcstpauli.com",
+    "email": "presse@fcstpauli.com",
+    "source_url": "https://www.fcstpauli.com",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "Fortuna Düsseldorf",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.f95.de",
+    "email": "medien@f95.de",
+    "source_url": "https://www.f95.de/presse",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard)."
+  },
+  {
+    "name": "Greuther Fürth",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.greuther-fuerth.de",
+    "email": "presse@greuther-fuerth.de",
+    "source_url": "https://www.greuther-fuerth.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Hamburger SV",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.hsv.de",
+    "email": "presse@hsv.de",
+    "source_url": "https://www.hsv.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Hannover 96",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.hannover96.de",
+    "email": "presse@hannover96.de",
+    "source_url": "https://www.hannover96.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Hansa Rostock",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.fc-hansa.de",
+    "email": "presse@fc-hansa.de",
+    "source_url": "https://www.fc-hansa.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Hertha BSC",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.herthabsc.com",
+    "email": "presse@herthabsc.de",
+    "source_url": "https://www.herthabsc.com",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Holstein Kiel",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.holstein-kiel.de",
+    "email": "presse@holstein-kiel.de",
+    "source_url": "https://www.holstein-kiel.de/medien/presse/presse-und-interviewanfragen/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "Jahn Regensburg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.ssv-jahn.de",
+    "email": "presse@ssv-jahn.de",
+    "source_url": "https://www.ssv-jahn.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Karlsruher SC",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.ksc.de",
+    "email": "presse@ksc.de",
+    "source_url": "https://www.ksc.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "MSV Duisburg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.msv-duisburg.de",
+    "email": "presse@msv-duisburg.de",
+    "source_url": "https://www.msv-duisburg.de/presse/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "Preußen Münster",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.scpreussen-muenster.de",
+    "email": "presse@scpreussen-muenster.de",
+    "source_url": "https://www.scpreussen-muenster.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "RB Leipzig",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.dierotenbulls.com",
+    "email": "presse@dierotenbulls.com",
+    "source_url": "https://www.dierotenbulls.com",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "Rot-Weiss Essen",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.rot-weiss-essen.de",
+    "email": "presse@rot-weiss-essen.de",
+    "source_url": "https://www.rot-weiss-essen.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "SC Freiburg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.scfreiburg.com",
+    "email": "presse@scfreiburg.com",
+    "source_url": "https://www.scfreiburg.com/impressum",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "SC Paderborn 07",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.scpaderborn07.de",
+    "email": "presse@scpaderborn07.de",
+    "source_url": "https://www.scpaderborn07.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "SG Dynamo Dresden",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.dynamo-dresden.de",
+    "email": "kommunikation@dynamo-dresden.de",
+    "source_url": "https://www.dynamo-dresden.de/verein/presse/akkreditierung/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "SpVgg Unterhaching",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.spvggunterhaching.de",
+    "email": "presse@spvggunterhaching.de",
+    "source_url": "https://www.spvggunterhaching.de/verein/werkstudenten-oder-pflichtpraktikanten-m-w-d-medien-kommunikation-mit-schwerpunkt-social-media-creation/",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "SSV Ulm 1846",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.ssvulm1846-fussball.de",
+    "email": "presse@ssvulm1846-fussball.de",
+    "source_url": "https://www.ssvulm1846-fussball.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "SV Darmstadt 98",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.sv98.de",
+    "email": "presse@sv98.de",
+    "source_url": "https://www.sv98.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "SV Elversberg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.sv07elversberg.de",
+    "email": "presse@sv07elversberg.de",
+    "source_url": "https://www.sv07elversberg.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "SV Wehen Wiesbaden",
+    "type": "club",
+    "country": "DE",
+    "website": "https://svww.de",
+    "email": "presse@svww.de",
+    "source_url": "https://svww.de/medien",
+    "notes": "Verified public media/press inbox from official club page."
+  },
+  {
+    "name": "SV Werder Bremen",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.werder.de",
+    "email": "medien@werder.de",
+    "source_url": "https://www.werder.de/der-svw/medienservice/akkreditierung",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard)."
+  },
+  {
+    "name": "TSG Hoffenheim",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.tsg-hoffenheim.de",
+    "email": "presse@tsg-hoffenheim.de",
+    "source_url": "https://www.tsg-hoffenheim.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "VfB Stuttgart",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.vfb.de",
+    "email": "presse@vfb-stuttgart.de",
+    "source_url": "https://www.vfb.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "VfL Bochum",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.vfl-bochum.de",
+    "email": "presse@vfl-bochum.de",
+    "source_url": "https://www.vfl-bochum.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "VfL Osnabrück",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.vfl.de",
+    "email": "medien@vfl.de",
+    "source_url": "https://www.vfl.de/rechtliches/medienservice",
+    "notes": "Verified public media/press inbox from official club page. medien@ is a valid DE public media email (Bundesliga standard)."
+  },
+  {
+    "name": "VfL Wolfsburg",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.vfl-wolfsburg.de",
+    "email": "presse@vfl-wolfsburg.de",
+    "source_url": "https://www.vfl-wolfsburg.de",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite."
+  },
+  {
+    "name": "Viktoria Köln",
+    "type": "club",
+    "country": "DE",
+    "website": "https://www.viktoria1904.de",
+    "email": "presse@viktoria1904.de",
+    "source_url": "https://www.viktoria1904.de",
+    "notes": "Verify presse@ on club website before invite."
+  },
+  {
+    "name": "Atlético Madrid",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.atleticodemadrid.com",
+    "email": "prensa@atleticodemadrid.com",
+    "source_url": "https://www.atleticodemadrid.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Cádiz CF",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.cadizcf.com",
+    "email": "cadizcf@cadizcf.es",
+    "source_url": "https://www.cadizcf.com/aviso-legal",
+    "notes": "General club inbox on aviso legal."
+  },
+  {
+    "name": "FC Barcelona Premsa",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.fcbarcelona.com",
+    "email": "premsa@fcbarcelona.cat",
+    "source_url": "https://www.fcbarcelona.es/es/club/premsa/contacte",
+    "notes": "Verified media-only premsa inbox."
+  },
+  {
+    "name": "Levante UD",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.levanteud.com",
+    "email": "admon@levanteud.es",
+    "source_url": "https://www.levanteud.com/es/aviso-legal",
+    "notes": "Administration inbox on aviso legal."
+  },
+  {
+    "name": "Real Madrid",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.realmadrid.com",
+    "email": "prensa@corp.realmadrid.com",
+    "source_url": "https://www.realmadrid.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Real Sociedad Acreditaciones",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.realsociedad.eus",
+    "email": "acreditaciones@realsociedad.eus",
+    "source_url": "https://www.realsociedad.eus/es/club/prensa",
+    "notes": "Verified acreditaciones inbox."
+  },
+  {
+    "name": "Real Sociedad Prensa",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.realsociedad.eus",
+    "email": "prensa@realsociedad.eus",
+    "source_url": "https://www.realsociedad.eus/es/club/prensa",
+    "notes": "Verified prensa inbox."
+  },
+  {
+    "name": "SD Eibar Prensa",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.sdeibar.com",
+    "email": "prensa@sdeibar.com",
+    "source_url": "https://www.sdeibar.com/contacto",
+    "notes": "Verified prensa inbox on contacto page."
+  },
+  {
+    "name": "Valencia CF Prensa",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.valenciacf.com",
+    "email": "prensa@valenciacf.es",
+    "source_url": "https://www.valenciacf.com/prensa",
+    "notes": "Prensa alias referenced on Valencia prensa materials; verify current mailto before invite."
+  },
+  {
+    "name": "Villarreal CF Prensa",
+    "type": "club",
+    "country": "ES",
+    "website": "https://www.villarrealcf.es",
+    "email": "prensa@villarrealcf.es",
+    "source_url": "https://panel.villarrealcf.es/normativa-de-prensa/",
+    "notes": "Verified prensa inbox on normativa de prensa."
+  },
+  {
+    "name": "FC Lorient Partenariat",
+    "type": "club",
+    "country": "FR",
+    "website": "https://www.fclorient.bzh",
+    "email": "partenariat@fclweb.fr",
+    "source_url": "https://www.fclorient.bzh/club/contact",
+    "notes": "Verified partenariat inbox."
+  },
+  {
+    "name": "OGC Nice Communication",
+    "type": "club",
+    "country": "FR",
+    "website": "https://www.ogcnice.com",
+    "email": "communication@ogcnice.com",
+    "source_url": "https://www.ogcnice.com/fr/club/presse.html",
+    "notes": "Communication alias; Nice presse page uses forms—verify current email before invite."
+  },
+  {
+    "name": "Olympique de Marseille",
+    "type": "club",
+    "country": "FR",
+    "website": "https://www.om.fr",
+    "email": "presse@om.net",
+    "source_url": "https://www.om.fr",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Paris Saint-Germain",
+    "type": "club",
+    "country": "FR",
+    "website": "https://www.psg.fr",
+    "email": "media@psg.fr",
+    "source_url": "https://www.psg.fr",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "AFC Bournemouth",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.afcb.co.uk",
+    "email": "media@afcb.co.uk",
+    "source_url": "https://www.afcb.co.uk/news/club-news/media-accreditation",
+    "notes": "Verified media inbox on media accreditation page."
+  },
+  {
+    "name": "Arsenal",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.arsenal.com",
+    "email": "media@arsenal.co.uk",
+    "source_url": "https://www.arsenal.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Birmingham City",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.bcfc.co.uk",
+    "email": "media@bcfc.co.uk",
+    "source_url": "https://www.bcfc.co.uk/news/media",
+    "notes": "Verified media inbox on club media page."
+  },
+  {
+    "name": "Brighton & Hove Albion",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.brightonandhovealbion.com",
+    "email": "media@bhafc.co.uk",
+    "source_url": "https://www.brightonandhovealbion.com/media-enquiries",
+    "notes": "Verified public media inbox on club media-enquiries page."
+  },
+  {
+    "name": "Celtic FC",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.celticfc.com",
+    "email": "media@celticfc.co.uk",
+    "source_url": "https://www.celticfc.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Chelsea FC",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.chelseafc.com",
+    "email": "media@chelseafc.com",
+    "source_url": "https://www.chelseafc.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Liverpool FC",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.liverpoolfc.com",
+    "email": "media@liverpoolfc.com",
+    "source_url": "https://www.liverpoolfc.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Manchester City",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.mancity.com",
+    "email": "media@mancity.com",
+    "source_url": "https://www.mancity.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Manchester United",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.manutd.com",
+    "email": "pressoffice@manutd.co.uk",
+    "source_url": "https://www.manutd.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Newcastle United Press",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.nufc.co.uk",
+    "email": "press@nufc.co.uk",
+    "source_url": "https://support.newcastleunited.com/hc/en-gb/articles/14301194821404-Press-Office",
+    "notes": "Verified press mailto on club support Press Office article."
+  },
+  {
+    "name": "Tottenham Hotspur",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.tottenhamhotspur.com",
+    "email": "media@tottenhamhotspur.com",
+    "source_url": "https://www.tottenhamhotspur.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Tottenham Hotspur Accreditation",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.tottenhamhotspur.com",
+    "email": "accreditation@tottenhamhotspur.com",
+    "source_url": "https://ask.tottenhamhotspur.com/hc/en-us/articles/209202085-Media-Accreditation",
+    "notes": "Verified accreditation inbox on Ask Spurs."
+  },
+  {
+    "name": "Tottenham Hotspur Press Office",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.tottenhamhotspur.com",
+    "email": "press.office@tottenhamhotspur.com",
+    "source_url": "https://ask.tottenhamhotspur.com/hc/en-us/articles/209202085-Media-Accreditation",
+    "notes": "Verified press office inbox on Ask Spurs."
+  },
+  {
+    "name": "Wolverhampton Wanderers",
+    "type": "club",
+    "country": "GB",
+    "website": "https://www.wolves.co.uk",
+    "email": "press@wolves.co.uk",
+    "source_url": "https://www.wolves.co.uk/club/about-us/media-information/",
+    "notes": "Verified press inbox on club media information page."
+  },
+  {
+    "name": "AC Milan",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.acmilan.com",
+    "email": "media@acmilan.com",
+    "source_url": "https://www.acmilan.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "AC Milan Sponsorship Enquiries",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.acmilan.com",
+    "email": "sponsorshipenquiries@acmilan.com",
+    "source_url": "https://www.acmilan.com/en/club/contacts",
+    "notes": "Verified sponsorship enquiries inbox."
+  },
+  {
+    "name": "AC Monza Ufficio Stampa",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.acmonza.com",
+    "email": "ufficiostampa@acmonza.com",
+    "source_url": "https://www.acmonza.com/it/contatti/",
+    "notes": "Verified ufficiostampa on contatti."
+  },
+  {
+    "name": "ACF Fiorentina Ufficio Stampa",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.acffiorentina.com",
+    "email": "ufficiostampa@acffiorentina.it",
+    "source_url": "https://www.acffiorentina.com/stampa",
+    "notes": "Verified ufficio stampa inbox."
+  },
+  {
+    "name": "Atalanta BC Ufficio Stampa",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.atalanta.it",
+    "email": "ufficiostampa@atalanta.it",
+    "source_url": "https://www.atalanta.it/press-room",
+    "notes": "Verified ufficio stampa inbox."
+  },
+  {
+    "name": "Hellas Verona Info",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.hellasverona.it",
+    "email": "info@hellasverona.it",
+    "source_url": "https://www.hellasverona.it/club/contatti",
+    "notes": "Verified info inbox on contatti."
+  },
+  {
+    "name": "Hellas Verona Partnerships",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.hellasverona.it",
+    "email": "partnerships@hellasverona.it",
+    "source_url": "https://www.hellasverona.it/club/contatti",
+    "notes": "Verified partnerships inbox."
+  },
+  {
+    "name": "Hellas Verona Stampa",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.hellasverona.it",
+    "email": "stampa@hellasverona.it",
+    "source_url": "https://www.hellasverona.it/club/contatti",
+    "notes": "Stampa-style alias; contatti page lists other public org inboxes."
+  },
+  {
+    "name": "Inter Milan",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.inter.it",
+    "email": "media@inter.it",
+    "source_url": "https://www.inter.it",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Juventus",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.juventus.com",
+    "email": "media@juventus.com",
+    "source_url": "https://www.juventus.com",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Juventus Media Accreditation",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.juventus.com",
+    "email": "media.accreditation@juventus.com",
+    "source_url": "https://www.juventus.com/it/club/press-room",
+    "notes": "Verified accreditation inbox on press room."
+  },
+  {
+    "name": "SSC Napoli",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.sscnapoli.it",
+    "email": "press@sscnapoli.it",
+    "source_url": "https://www.sscnapoli.it",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Udinese Calcio Ufficio Stampa",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.udinese.it",
+    "email": "stampa@udinese.it",
+    "source_url": "https://www.udinese.it/club/contatti",
+    "notes": "Verified stampa inbox on contatti."
+  },
+  {
+    "name": "US Lecce Commerciale",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.uslecce.it",
+    "email": "commerciale@uslecce.it",
+    "source_url": "https://www.uslecce.it/contatti/",
+    "notes": "Verified commerciale inbox."
+  },
+  {
+    "name": "US Lecce Marketing",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.uslecce.it",
+    "email": "marketing@uslecce.it",
+    "source_url": "https://www.uslecce.it/contatti/",
+    "notes": "Verified marketing inbox."
+  },
+  {
+    "name": "US Sassuolo Ufficio Stampa",
+    "type": "club",
+    "country": "IT",
+    "website": "https://www.sassuolocalcio.it",
+    "email": "ufficiostampa@sassuolocalcio.it",
+    "source_url": "https://www.sassuolocalcio.it/biglietteria/accrediti/",
+    "notes": "Verified ufficio stampa for accrediti."
+  },
+  {
+    "name": "Ajax",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.ajax.nl",
+    "email": "pers@ajax.nl",
+    "source_url": "https://www.ajax.nl",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Ajax Football Partnerships",
+    "type": "club",
+    "country": "NL",
+    "website": "https://footballpartnerships.ajax.nl/",
+    "email": "footballpartnerships@ajax.nl",
+    "source_url": "https://footballpartnerships.ajax.nl/contact-us",
+    "notes": "Verified football partnerships contact."
+  },
+  {
+    "name": "Almere City FC",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.almerecity.nl",
+    "email": "info@almerecity.nl",
+    "source_url": "https://www.almerecity.nl/club/contact",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "AZ Alkmaar Accreditatie",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.az.nl",
+    "email": "accreditatie@az.nl",
+    "source_url": "https://www.az.nl/club/media",
+    "notes": "Verified accreditation inbox."
+  },
+  {
+    "name": "AZ Alkmaar Pers",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.az.nl",
+    "email": "pers@az.nl",
+    "source_url": "https://www.az.nl/club/media",
+    "notes": "Verified pers inbox for interview requests."
+  },
+  {
+    "name": "Excelsior Rotterdam",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.excelsiorrotterdam.nl",
+    "email": "info@excelsiorrotterdam.nl",
+    "source_url": "https://www.excelsiorrotterdam.nl/club/contact",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "FC Utrecht Info",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.fcutrecht.nl",
+    "email": "info@fcutrecht.nl",
+    "source_url": "https://www.fcutrecht.nl/club/contact",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "FC Utrecht Pers",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.fcutrecht.nl",
+    "email": "pers@fcutrecht.nl",
+    "source_url": "https://www.fcutrecht.nl/club/media",
+    "notes": "Verified pers inbox."
+  },
+  {
+    "name": "Heracles Almelo",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.heracles.nl",
+    "email": "info@heracles.nl",
+    "source_url": "https://www.heracles.nl/privacy",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "RKC Waalwijk",
+    "type": "club",
+    "country": "NL",
+    "website": "https://www.rkcwaalwijk.nl",
+    "email": "info@rkcwaalwijk.nl",
+    "source_url": "https://www.rkcwaalwijk.nl/privacy",
+    "notes": "Verified info inbox on privacy/imprint."
+  },
+  {
+    "name": "Legia Warszawa Biuro Prasowe",
+    "type": "club",
+    "country": "PL",
+    "website": "https://legia.com",
+    "email": "biuroprasowe@legia.pl",
+    "source_url": "https://www.legia.com/pl/biuro-prasowe",
+    "notes": "Verified press office inbox."
+  },
+  {
+    "name": "Benfica",
+    "type": "club",
+    "country": "PT",
+    "website": "https://www.slbenfica.pt",
+    "email": "media@slbenfica.pt",
+    "source_url": "https://www.slbenfica.pt",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "FC Porto",
+    "type": "club",
+    "country": "PT",
+    "website": "https://www.fcporto.pt",
+    "email": "imprensa@fcporto.pt",
+    "source_url": "https://www.fcporto.pt",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite."
+  },
+  {
+    "name": "Österreichische Fußball-Bundesliga",
+    "type": "league",
+    "country": "AT",
+    "website": "https://www.bundesliga.at",
+    "email": "office@bundesliga.at",
+    "source_url": "https://www.bundesliga.at/de/impressum",
+    "notes": "Verified office inbox on Impressum."
+  },
+  {
+    "name": "Pro League Info",
+    "type": "league",
+    "country": "BE",
+    "website": "https://www.proleague.be",
+    "email": "info@proleague.be",
+    "source_url": "https://www.proleague.be/perscommunicatie",
+    "notes": "Verified general inbox."
+  },
+  {
+    "name": "Pro League Media",
+    "type": "league",
+    "country": "BE",
+    "website": "https://www.proleague.be",
+    "email": "media@proleague.be",
+    "source_url": "https://www.proleague.be/perscommunicatie",
+    "notes": "Verified media inbox on perscommunicatie."
+  },
+  {
+    "name": "Swiss Football League Accreditation",
+    "type": "league",
+    "country": "CH",
+    "website": "https://sfl.ch",
+    "email": "accreditation@sfl.ch",
+    "source_url": "https://sfl.ch/contact",
+    "notes": "SFL accreditation inbox from prior verified seed."
+  },
+  {
+    "name": "Swiss Football League Info",
+    "type": "league",
+    "country": "CH",
+    "website": "https://sfl.ch",
+    "email": "info@sfl.ch",
+    "source_url": "https://sfl.ch/contact",
+    "notes": "Verified info inbox."
+  },
+  {
+    "name": "Swiss Football League Media",
+    "type": "league",
+    "country": "CH",
+    "website": "https://sfl.ch",
+    "email": "media@sfl.ch",
+    "source_url": "https://sfl.ch/contact",
+    "notes": "Verified media distribution inbox."
+  },
+  {
+    "name": "DFL Presse",
+    "type": "league",
+    "country": "DE",
+    "website": "https://www.dfl.de",
+    "email": "presse@dfl.de",
+    "source_url": "https://www.dfl.de/de/medien/media-guide/",
+    "notes": "Verified DFL presse inbox."
+  },
+  {
+    "name": "LALIGA Acreditaciones",
+    "type": "league",
+    "country": "ES",
+    "website": "https://www.laliga.com",
+    "email": "acreditaciones@laliga.es",
+    "source_url": "https://www.realsociedad.eus/es/club/prensa",
+    "notes": "Accreditation inbox referenced on club prensa pages."
+  },
+  {
+    "name": "LALIGA Prensa",
+    "type": "league",
+    "country": "ES",
+    "website": "https://www.laliga.com",
+    "email": "prensa@laliga.es",
+    "source_url": "https://www.laliga.com",
+    "notes": "LALIGA press inbox from prior verified seed / media materials."
+  },
+  {
+    "name": "Ligue de Football Professionnel",
+    "type": "league",
+    "country": "FR",
+    "website": "https://www.lfp.fr",
+    "email": "infos@lfp.fr",
+    "source_url": "https://www.lfp.fr/contact",
+    "notes": "Verified LFP contact inbox."
+  },
+  {
+    "name": "Football DataCo Accreditations",
+    "type": "league",
+    "country": "GB",
+    "website": "https://www.football-dataco.com",
+    "email": "accreditations@football-dataco.com",
+    "source_url": "https://www.wolves.co.uk/club/about-us/media-information/",
+    "notes": "PL/EFL accreditation system contact published via club media pages."
+  },
+  {
+    "name": "Premier League Info",
+    "type": "league",
+    "country": "GB",
+    "website": "https://www.premierleague.com",
+    "email": "info@premierleague.com",
+    "source_url": "https://www.premierleague.com/en/about/faq/other",
+    "notes": "Verified general info inbox on PL FAQ."
+  },
+  {
+    "name": "Premier League Partnerships",
+    "type": "league",
+    "country": "GB",
+    "website": "https://www.premierleague.com",
+    "email": "partnerships@premierleague.com",
+    "source_url": "https://www.premierleague.com/en/about/faq/other",
+    "notes": "Verified partnerships inbox on PL FAQ."
+  },
+  {
+    "name": "Premier League Press",
+    "type": "league",
+    "country": "GB",
+    "website": "https://www.premierleague.com",
+    "email": "press@premierleague.com",
+    "source_url": "https://www.premierleague.com/en/media/accreditations",
+    "notes": "Verified media enquiry inbox."
+  },
+  {
+    "name": "Lega Serie A Media International",
+    "type": "league",
+    "country": "IT",
+    "website": "https://www.legaseriea.it",
+    "email": "media.international@legaseriea.it",
+    "source_url": "https://www.legaseriea.it",
+    "notes": "International media desk from prior verified seed."
+  },
+  {
+    "name": "Lega Serie A Media Operations",
+    "type": "league",
+    "country": "IT",
+    "website": "https://www.legaseriea.it",
+    "email": "media.operations@legaseriea.it",
+    "source_url": "https://www.legaseriea.it",
+    "notes": "Media operations from prior verified seed."
+  },
+  {
+    "name": "Lega Serie A Ufficio Stampa",
+    "type": "league",
+    "country": "IT",
+    "website": "https://www.legaseriea.it",
+    "email": "stampa@legaseriea.it",
+    "source_url": "https://www.legaseriea.it",
+    "notes": "Serie A press office from prior verified seed."
+  },
+  {
+    "name": "Eredivisie CV",
+    "type": "league",
+    "country": "NL",
+    "website": "https://eredivisie.nl",
+    "email": "info@eredivisie.nl",
+    "source_url": "https://eredivisie.nl/contact",
+    "notes": "Verified league contact."
+  },
+  {
+    "name": "Liga Portugal Comunicação",
+    "type": "league",
+    "country": "PT",
+    "website": "https://www.ligaportugal.pt",
+    "email": "comunicacao@ligaportugal.pt",
+    "source_url": "https://www.ligaportugal.pt",
+    "notes": "Liga Portugal communications from prior verified seed."
+  },
+  {
+    "name": "APA",
+    "type": "media",
+    "country": "AT",
+    "website": "https://www.apa.at",
+    "email": "apa@apa.at",
+    "source_url": "https://www.apa.at/kontakt/",
+    "notes": "Verified APA contact."
+  },
+  {
+    "name": "SRF Sport",
+    "type": "media",
+    "country": "CH",
+    "website": "https://www.srf.ch/sport",
+    "email": "srf@srf.ch",
+    "source_url": "https://www.srf.ch/impressum",
+    "notes": "General SRF imprint contact"
+  },
+  {
+    "name": "11FREUNDE",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.11freunde.de",
+    "email": "redaktion@11freunde.de",
+    "source_url": "https://www.11freunde.de/impressum",
+    "notes": "Editorial; also info@11freunde.de / kontakt@11freunde.de on imprint"
+  },
+  {
+    "name": "11FREUNDE Verlag",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.11freunde.de",
+    "email": "info@11freunde.de",
+    "source_url": "https://www.11freunde.de/impressum",
+    "notes": "Publisher/general imprint contact"
+  },
+  {
+    "name": "90min Deutschland",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.90min.de",
+    "email": "de@90min.com",
+    "source_url": "https://www.90min.de/posts/impressum-90min-de-01hw84txs2gf",
+    "notes": "DE imprint contact; business: general.enquiries@minutemedia.com"
+  },
+  {
+    "name": "Abendzeitung München Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.abendzeitung-muenchen.de/sport/",
+    "email": "online@abendzeitung.de",
+    "source_url": "https://www.abendzeitung-muenchen.de/sport/",
+    "notes": "Online/sport contact; imprint also lists info@abendzeitung.de"
+  },
+  {
+    "name": "ARD Presse",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.ard.de",
+    "email": "pressestelle@ard.de",
+    "source_url": "https://www.sportschau.de/impressum",
+    "notes": "ARD press office listed on Sportschau imprint"
+  },
+  {
+    "name": "BILD",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.bild.de",
+    "email": "anfragen@bild.de",
+    "source_url": "https://www.bild.de/corporate-site/impressum/unternehmen/impressum-53026320.bild.html",
+    "notes": "General inquiry inbox on Bild imprint; sport coverage under Bild Sport"
+  },
+  {
+    "name": "DAZN DACH",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.dazn.com/de-DE",
+    "email": "PR-DACH@dazn.com",
+    "source_url": "https://www.presseportal.de/pdf.htx?nr=6219704",
+    "notes": "DACH communications; imprint lists help@dazn.com for customer support only"
+  },
+  {
+    "name": "DER SPIEGEL Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.spiegel.de/sport/",
+    "email": "spiegel@spiegel.de",
+    "source_url": "https://gruppe.spiegel.de/kontakt",
+    "notes": "Central SPIEGEL editorial contact (no dedicated sport@ published)"
+  },
+  {
+    "name": "Deutsche Welle Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.dw.com/en/sports/s-8171",
+    "email": "info@dw.com",
+    "source_url": "https://www.dw.com/en/about-dw/contact/s-30605",
+    "notes": "General DW contact; no dedicated sport@ found publicly"
+  },
+  {
+    "name": "Express Sport (Köln)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.express.de/sport/",
+    "email": "post@express.de",
+    "source_url": "https://www.express.de/sport/",
+    "notes": "General post inbox published on Express sport pages"
+  },
+  {
+    "name": "FUSSBALL.DE (DFB)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.fussball.de",
+    "email": "service@fussball.de",
+    "source_url": "https://www.fussball.de/imprint",
+    "notes": "DFB portal imprint contact (prefer contact form for editorial)"
+  },
+  {
+    "name": "kicker",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.kicker.de",
+    "email": "redaktion@kicker.de",
+    "source_url": "https://www.kicker.de/impressum-316443/artikel",
+    "notes": "Print/editorial feedback; also info@kicker.de (general) on imprint"
+  },
+  {
+    "name": "kicker (general)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.kicker.de",
+    "email": "info@kicker.de",
+    "source_url": "https://www.kicker.de/impressum-316443/artikel",
+    "notes": "General questions inbox on imprint (alongside redaktion@)"
+  },
+  {
+    "name": "LigaInsider",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.ligainsider.de",
+    "email": "support@ligainsider.de",
+    "source_url": "https://www.ligainsider.de/impressum/",
+    "notes": "Imprint contact for Bundesliga news/rumours site"
+  },
+  {
+    "name": "n-tv Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.n-tv.de/sport/",
+    "email": "zuschauer.redaktion@ntv.de",
+    "source_url": "https://www.n-tv.de/ntvintern/Impressum-id6405904.html",
+    "notes": "Content/viewer editorial inbox on n-tv imprint (covers sport.de production chain)"
+  },
+  {
+    "name": "OneFootball",
+    "type": "media",
+    "country": "DE",
+    "website": "https://onefootball.com",
+    "email": "feedback@onefootball.com",
+    "source_url": "https://company.onefootball.com/contact/",
+    "notes": "Public contact/feedback on company site & imprint"
+  },
+  {
+    "name": "ran (ProSiebenSat.1 / Seven.One Sports)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.ran.de",
+    "email": "kontakt@ran.de",
+    "source_url": "https://ran.joyn.de/sports/news/kontakt-und-hilfe-75131",
+    "notes": "Website/app feedback & contact for ran"
+  },
+  {
+    "name": "SID Sales",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sid.de",
+    "email": "sales@sid.de",
+    "source_url": "https://sid.de/kontakt/",
+    "notes": "SID distribution/sales; editorial is redaktion@sid.de"
+  },
+  {
+    "name": "SID Sport-Informations-Dienst",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sid.de",
+    "email": "redaktion@sid.de",
+    "source_url": "https://sid.de/impressum/",
+    "notes": "German sports wire/agency editorial desk"
+  },
+  {
+    "name": "Sky Deutschland Impressum",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sky.de",
+    "email": "impressum@sky.de",
+    "source_url": "https://www.sky.de/impressum",
+    "notes": "Legal/imprint contact; sport PR: Sky-Sport-PR@sky.de"
+  },
+  {
+    "name": "Sky Sport Deutschland",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sport.sky.de",
+    "email": "Sky-Sport-PR@sky.de",
+    "source_url": "https://www.sportpresseportal.de/customer/skysportpr",
+    "notes": "Sky Sport PR team contact published on Sport Presse Portal"
+  },
+  {
+    "name": "SPORT BILD",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sportbild.bild.de",
+    "email": "redaktion@sportbild.de",
+    "source_url": "https://sportbild.bild.de/corporate-site/impressum/sportmix/artikel-impressum-10239336.sport.html",
+    "notes": "Editorial contact on Sport Bild imprint/contact pages"
+  },
+  {
+    "name": "sport.de",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sport.de",
+    "email": "redaktion@sport.de",
+    "source_url": "https://www.sport.de/kontakt/",
+    "notes": "Editorial feedback; daten-redaktion@sport.de for data corrections"
+  },
+  {
+    "name": "SPORT1",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sport1.de",
+    "email": "presse@sport1.de",
+    "source_url": "https://www.sport1.de/unternehmen/presse",
+    "notes": "Official media/press desk; also listed on sportpresseportal.de"
+  },
+  {
+    "name": "SPORT1 (company)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sport1.de",
+    "email": "info@sport1.de",
+    "source_url": "https://www.sport1.de/unternehmen/impressum",
+    "notes": "Company imprint general email (prefer presse@ for media)"
+  },
+  {
+    "name": "Sportbuzzer",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sportbuzzer.de",
+    "email": "info@sportbuzzer.de",
+    "source_url": "https://www.sportbuzzer.de/services/ihr-kontakt-zu-uns-XMHIAXKBARFUBBNGMIBJXGPEOY.html",
+    "notes": "Editorial/company contact (RND partner)"
+  },
+  {
+    "name": "Sportschau (ARD/WDR)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sportschau.de",
+    "email": "fragen@sportschau.de",
+    "source_url": "https://www.sportschau.de/impressum",
+    "notes": "Audience/editorial contact; ARD pressestelle@ard.de also on imprint"
+  },
+  {
+    "name": "SPOX",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.spox.com",
+    "email": "info@spox.com",
+    "source_url": "https://www.spox.com/impressum",
+    "notes": "General editorial/company email on imprint (FootballCo / Mediasports Digital)"
+  },
+  {
+    "name": "Süddeutsche Zeitung Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sueddeutsche.de/sport",
+    "email": "kontakt@sueddeutsche.de",
+    "source_url": "https://www.sueddeutsche.de/sport",
+    "notes": "General SZ contact published on sport section pages"
+  },
+  {
+    "name": "Tagesspiegel Redaktion",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.tagesspiegel.de",
+    "email": "redaktion@tagesspiegel.de",
+    "source_url": "https://www.tagesspiegel.de/impressum",
+    "notes": "General editorial inbox including sport coverage"
+  },
+  {
+    "name": "Tagesspiegel Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.tagesspiegel.de/sport/",
+    "email": "pressestelle@tagesspiegel.de",
+    "source_url": "https://www.tagesspiegel.de/impressum",
+    "notes": "Press office; also redaktion@tagesspiegel.de on imprint"
+  },
+  {
+    "name": "Transfermarkt Redaktion",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "redaktion@transfermarkt.de",
+    "source_url": "https://www.transfermarkt.de/intern/tmteam",
+    "notes": "Editorial desk listed on TM team/contact page"
+  },
+  {
+    "name": "Transfermarkt Sales / Kooperation",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "sales@transfermarkt.com",
+    "source_url": "https://www.transfermarkt.de/intern/tmteam",
+    "notes": "Marketing/cooperation desk (partnerships)"
+  },
+  {
+    "name": "WAZ / Funke Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.waz.de/sport/",
+    "email": "sport@funkemedien.de",
+    "source_url": "https://www.waz.de/service/impressum/",
+    "notes": "Funke Medien sport desk email on WAZ imprint"
+  },
+  {
+    "name": "WDR Redaktion (Sportschau parent)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.wdr.de",
+    "email": "redaktion@wdr.de",
+    "source_url": "https://www.sportschau.de/impressum",
+    "notes": "WDR editorial listed on Sportschau imprint (federführend)"
+  },
+  {
+    "name": "WELT Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.welt.de/sport/",
+    "email": "redaktion@welt.de",
+    "source_url": "https://www.eurotopics.net/de/148503/die-welt",
+    "notes": "Publicly listed WELT editorial email; use for sport desk outreach"
+  },
+  {
+    "name": "AS",
+    "type": "media",
+    "country": "ES",
+    "website": "https://as.com",
+    "email": "diarioas@diarioas.es",
+    "source_url": "https://as.com/contacto/",
+    "notes": "Editorial/admin contact on AS corporate contact page"
+  },
+  {
+    "name": "AS Cartas al Director",
+    "type": "media",
+    "country": "ES",
+    "website": "https://as.com",
+    "email": "cartasaldirector@diarioas.es",
+    "source_url": "https://as.com/contacto/",
+    "notes": "Letters to the editor (print); secondary to diarioas@diarioas.es"
+  },
+  {
+    "name": "MARCA",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.marca.com",
+    "email": "attcliente@unidadeditorial.es",
+    "source_url": "https://www.marca.com/corporativo/contacto.html",
+    "notes": "Official marca.com redacción contact (plain text only); marca.redaccion@marca.com also in public Spanish gov. media agenda"
+  },
+  {
+    "name": "MARCA Redacción (agenda)",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.marca.com",
+    "email": "marca.redaccion@marca.com",
+    "source_url": "https://www.lamoncloa.gob.es/serviciosdeprensa/agendacom/paginas/index.aspx?Nivel1=90&Nivel2=115",
+    "notes": "Editorial email in Spanish government Agenda de la Comunicación; corporate site prefers attcliente@"
+  },
+  {
+    "name": "Mundo Deportivo",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.mundodeportivo.com",
+    "email": "mdonline@mundodeportivo.com",
+    "source_url": "https://www.mundodeportivo.com/contacto.html",
+    "notes": "Online editorial contact; redaccionmd@mundodeportivo.com also in public media agenda"
+  },
+  {
+    "name": "Mundo Deportivo Redacción",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.mundodeportivo.com",
+    "email": "redaccionmd@mundodeportivo.com",
+    "source_url": "https://www.lamoncloa.gob.es/serviciosdeprensa/agendacom/paginas/index.aspx?Nivel1=90&Nivel2=115",
+    "notes": "Editorial email in Spanish government Agenda de la Comunicación (public directory)"
+  },
+  {
+    "name": "SPORT (Diario Sport)",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.sport.es",
+    "email": "redaccion@diariosport.com",
+    "source_url": "https://www.sport.es/es/contactar.shtml",
+    "notes": "Editorial contact on Sport contact page"
+  },
+  {
+    "name": "Eurosport France",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.eurosport.fr",
+    "email": "redaction.fr@eurosport.com",
+    "source_url": "https://tv-production.fr/contacter-eurosport/",
+    "notes": "Widely published FR editorial address; viewer: telespectateurs@eurosport.fr"
+  },
+  {
+    "name": "L'Équipe",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.lequipe.fr",
+    "email": "contact@lequipe.fr",
+    "source_url": "https://www.lequipe.fr/Page/Tous-les-contacts-utiles/1183885",
+    "notes": "Site/TV/editorial contact; courrierdeslecteurs@lequipe.fr for print readers"
+  },
+  {
+    "name": "L'Équipe Courrier des lecteurs",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.lequipe.fr",
+    "email": "courrierdeslecteurs@lequipe.fr",
+    "source_url": "https://www.lequipe.fr/Page/Tous-les-contacts-utiles/1183885",
+    "notes": "Print newspaper reader mail; prefer contact@lequipe.fr for digital/TV"
+  },
+  {
+    "name": "Maxifoot",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.maxifoot.fr",
+    "email": "erreur@maxifoot.com",
+    "source_url": "https://www.maxifoot.fr/contact.htm",
+    "notes": "Verified editorial contact."
+  },
+  {
+    "name": "RMC Sport / BFMTV group",
+    "type": "media",
+    "country": "FR",
+    "website": "https://rmcsport.bfmtv.com",
+    "email": "bfmtvetvous@bfmtv.fr",
+    "source_url": "https://rmcsport.bfmtv.com/contacts/",
+    "notes": "RMC Sport contacts page lists BFMTV rédaction email; no dedicated rmcsport@ found"
+  },
+  {
+    "name": "BBC Press Office",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.bbc.co.uk",
+    "email": "press.office@bbc.co.uk",
+    "source_url": "https://www.bbc.co.uk/mediacentre/contacts/press-office/",
+    "notes": "Verified BBC Press Office."
+  },
+  {
+    "name": "Football365",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.football365.com",
+    "email": "Football365editor@planetsport.com",
+    "source_url": "https://www.football365.com/contact",
+    "notes": "Verified editorial contact."
+  },
+  {
+    "name": "FourFourTwo",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.fourfourtwo.com",
+    "email": "fourfourtwo@futurenet.com",
+    "source_url": "https://www.fourfourtwo.com/about-fourfourtwo",
+    "notes": "All editorial queries; online pitches: fourfourtwoonline@futurenet.com"
+  },
+  {
+    "name": "FourFourTwo Online",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.fourfourtwo.com",
+    "email": "fourfourtwoonline@futurenet.com",
+    "source_url": "https://www.fourfourtwo.com/features/fourfourtwo-magazine-pitching-guide",
+    "notes": "Website pitch/editorial inbox"
+  },
+  {
+    "name": "Sky News (UK press desk)",
+    "type": "media",
+    "country": "GB",
+    "website": "https://news.sky.com",
+    "email": "news@skynews.com",
+    "source_url": "https://news.sky.com/info/contact-us",
+    "notes": "Same-day news/press releases; future events: news.plan@sky.uk"
+  },
+  {
+    "name": "Sky News Planning",
+    "type": "media",
+    "country": "GB",
+    "website": "https://news.sky.com",
+    "email": "news.plan@sky.uk",
+    "source_url": "https://news.sky.com/info/contact-us",
+    "notes": "Future-event press releases (Sky News contact page)"
+  },
+  {
+    "name": "Sky Sports UK",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.skysports.com",
+    "email": "sports@sky.com",
+    "source_url": "https://www.skysports.com/contact",
+    "notes": "Verified Sky Sports contact."
+  },
+  {
+    "name": "The Guardian Sport",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.theguardian.com/uk/sport",
+    "email": "media.enquiries@theguardian.com",
+    "source_url": "https://www.theguardian.com/gnm-press-office/gnm-press-office-faqs",
+    "notes": "GNM press office for media/interview requests; section pitches go to sport desk"
+  },
+  {
+    "name": "GOAL",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.goal.com",
+    "email": "editor@goal.com",
+    "source_url": "https://www.goal.com/es/contacto",
+    "notes": "Editorial contact listed on Goal regional contact pages; Central@goal.com also published"
+  },
+  {
+    "name": "GOAL / FootballCo Sales",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.goal.com",
+    "email": "sales@footballco.com",
+    "source_url": "https://www.goal.com/en/contact",
+    "notes": "Verified sales contact on GOAL contact page."
+  },
+  {
+    "name": "GOAL Central",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.goal.com",
+    "email": "Central@goal.com",
+    "source_url": "https://www.goal.com/es/contacto",
+    "notes": "Published central contact email on Goal ES contact page"
+  },
+  {
+    "name": "Minute Media / 90min (business)",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.90min.com",
+    "email": "general.enquiries@minutemedia.com",
+    "source_url": "https://www.90min.de/posts/impressum-90min-de-01hw84txs2gf",
+    "notes": "Business/enquiries for 90min network (Minute Media)"
+  },
+  {
+    "name": "Reuters",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.reuters.com",
+    "email": "support.reuters.com@thomsonreuters.com",
+    "source_url": "https://www.reuters.com",
+    "notes": "Reuters support routing; prefer sports desk via Reuters contact forms when inviting."
+  },
+  {
+    "name": "Calciomercato.com",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.calciomercato.com",
+    "email": "notizie.calciomercato@footballco.com",
+    "source_url": "https://www.calciomercato.com/about/redazione",
+    "notes": "Editorial news desk (FootballCo)"
+  },
+  {
+    "name": "La Gazzetta dello Sport",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.gazzetta.it",
+    "email": "segretgaz@rcs.it",
+    "source_url": "https://www.ipresslive.it/it/ipress/media/view/22/",
+    "notes": "Editorial secretariat email published in Italian media directories; site mainly uses contact forms"
+  },
+  {
+    "name": "Tuttosport",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.tuttosport.com",
+    "email": "posta@tuttosport.com",
+    "source_url": "https://www.tuttosport.com/contatti",
+    "notes": "Verified posta inbox."
+  },
+  {
+    "name": "Voetbal International",
+    "type": "media",
+    "country": "NL",
+    "website": "https://www.vi.nl",
+    "email": "nieuws@vi.nl",
+    "source_url": "https://www.vi.nl/pagina/tip-de-redactie",
+    "notes": "News tips / editorial tips inbox"
+  },
+  {
+    "name": "NTB Sport",
+    "type": "media",
+    "country": "NO",
+    "website": "https://www.ntb.no",
+    "email": "sporten@ntb.no",
+    "source_url": "https://www.ntb.no/kontakt",
+    "notes": "Verified NTB sport desk."
+  },
+  {
+    "name": "Record",
+    "type": "media",
+    "country": "PT",
+    "website": "https://www.record.pt",
+    "email": "leitor@record.pt",
+    "source_url": "https://www.record.pt/contacto",
+    "notes": "Reader/editorial contact on contacto page"
+  },
+  {
+    "name": "ESPN / ESPN FC",
+    "type": "media",
+    "country": "US",
+    "website": "https://www.espn.com/soccer/",
+    "email": "espnpr@espn.com",
+    "source_url": "https://espnpressroom.com/us/contact-us/",
+    "notes": "ESPN Press Room feedback/PR inbox"
+  },
+  {
+    "name": "The Athletic",
+    "type": "media",
+    "country": "US",
+    "website": "https://www.nytimes.com/athletic/",
+    "email": "business@theathletic.com",
+    "source_url": "https://www.nytimes.com/athletic/contact-us/",
+    "notes": "Business inquiries; press often routed via NYT booking@nytimes.com"
+  },
+  {
+    "name": "Catapult Sports",
+    "type": "tech",
+    "country": "AU",
+    "website": "https://www.catapult.com/",
+    "email": "media@catapultsports.com",
+    "source_url": "https://www.catapult.com/company/about-catapult",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Eyeball",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.eyeball.club/",
+    "email": "partnerships@eyeball.club",
+    "source_url": "https://www.eyeball.club/contacts/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Eyeball General",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.eyeball.club/",
+    "email": "hello@eyeball.club",
+    "source_url": "https://www.eyeball.club/contacts/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Eyeball Press",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.eyeball.club/",
+    "email": "press@eyeball.club",
+    "source_url": "https://www.eyeball.club/contacts/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Flashscore Support",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.flashscore.com",
+    "email": "support@flashscore.com",
+    "source_url": "https://www.flashscore.com/contact/",
+    "notes": "Verified support inbox."
+  },
+  {
+    "name": "IMPECT",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://www.impect.com/",
+    "email": "info@impect.com",
+    "source_url": "https://www.impect.com/en/ueber-uns/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "SPORTTOTAL AG",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://sporttotal.com/",
+    "email": "info@sporttotal.com",
+    "source_url": "https://sporttotal.com/kontakt.php",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Transfermarkt",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "info@transfermarkt.de",
+    "source_url": "https://www.transfermarkt.com/intern/kontakt",
+    "notes": "Verified kontakt inbox."
+  },
+  {
+    "name": "Transfermarkt Press",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "press@transfermarkt.com",
+    "source_url": "https://www.transfermarkt.de/intern/tmteam",
+    "notes": "Public press inbox on TM team page."
+  },
+  {
+    "name": "Nacsport",
+    "type": "tech",
+    "country": "ES",
+    "website": "https://www.nacsport.com/",
+    "email": "info@nacsport.com",
+    "source_url": "https://www.nacsport.com/ebook/NS_Ebook_Computers_Cameras_Captures_and_Drones_2022_EN.pdf",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "SkillCorner Support",
+    "type": "tech",
+    "country": "FR",
+    "website": "https://skillcorner.com/",
+    "email": "support@skillcorner.com",
+    "source_url": "https://pypi.org/project/skillcorner-on-demand/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Orreco",
+    "type": "tech",
+    "country": "IE",
+    "website": "https://www.orreco.com/",
+    "email": "info@orreco.com",
+    "source_url": "https://www.orreco.com/contact",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Pixellot",
+    "type": "tech",
+    "country": "IL",
+    "website": "https://www.pixellot.tv/",
+    "email": "support@pixellot.tv",
+    "source_url": "https://www.pixellot.tv/contact/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Soccerment",
+    "type": "tech",
+    "country": "IT",
+    "website": "https://www.soccerment.com/",
+    "email": "sales@soccerment.com",
+    "source_url": "https://www.soccerment.com/contact/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "Spiideo",
+    "type": "tech",
+    "country": "SE",
+    "website": "https://www.spiideo.com/",
+    "email": "info@spiideo.com",
+    "source_url": "https://www.spiideo.com/contact/",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  },
+  {
+    "name": "FBRef / Sports Reference",
+    "type": "tech",
+    "country": "US",
+    "website": "https://fbref.com",
+    "email": "sportsref@sports-reference.com",
+    "source_url": "https://www.sports-reference.com",
+    "notes": "Sports Reference contact used across SR properties."
+  },
+  {
+    "name": "Second Spectrum",
+    "type": "tech",
+    "country": "US",
+    "website": "https://www.secondspectrum.com",
+    "email": "info@secondspectrum.com",
+    "source_url": "https://www.secondspectrum.com/contact",
+    "notes": "Verified company contact."
+  },
+  {
+    "name": "STAIDIUM",
+    "type": "tech",
+    "country": "US",
+    "website": "https://staidium.com/",
+    "email": "info@staidium.com",
+    "source_url": "https://staidium.com/partners",
+    "notes": "Sports tech public inbox from ecosystem seed."
+  }
+]
