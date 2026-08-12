@@ -61,6 +61,16 @@ function migrate(): void
     syncKoooraSeed($pdo);
     syncChatGroups($pdo);
     syncCrmDemo($pdo);
+    try {
+        \App\Models\PartnerLeadRepository::ensureSchema();
+        $pr = \App\Services\PartnerSeedImporter::import();
+        if (($pr['upserted'] ?? 0) > 0) {
+            ok('synced potential partners: ' . $pr['upserted']);
+        }
+    } catch (\Throwable $e) {
+        err('partners seed skipped: ' . $e->getMessage());
+    }
+
     syncMarketplace($pdo);
     syncProCoaches($pdo);
     syncFansAndBookings($pdo);
@@ -3112,9 +3122,50 @@ switch ($cmd) {
         out('Hostinger cron (optional weekly warm):');
         out('  0 4 * * 0 cd /home/u234903558/domains/sportifyplus.de/public_html && /usr/bin/php sportify translate-content --locale=ar --batch --limit=200 >> storage/logs/translate-cron.log 2>&1');
         break;
+    case 'seed-partners':
+        $pdo = Database::connection();
+        if (!$pdo) {
+            err('Could not connect to the database. Check your .env settings.');
+            exit(1);
+        }
+        \App\Models\PartnerLeadRepository::ensureSchema();
+        $result = \App\Services\PartnerSeedImporter::import();
+        ok('partners seeded — upserted ' . ($result['upserted'] ?? 0)
+            . ' from ' . ($result['files'] ?? 0) . ' file(s)');
+        foreach (($result['by_type'] ?? []) as $type => $count) {
+            out('  · ' . $type . ': ' . $count);
+        }
+        out('  with_email=' . ($result['with_email'] ?? 0) . ' verified=' . ($result['verified'] ?? 0));
+        out('Admin: /admin/partners');
+        break;
+    case 'invite-partners':
+        $dry = in_array('--dry-run', $argv ?? [], true);
+        $send = in_array('--send', $argv ?? [], true);
+        $limit = 50;
+        foreach ($argv ?? [] as $arg) {
+            if (str_starts_with($arg, '--limit=')) {
+                $limit = max(1, (int) substr($arg, 8));
+            }
+        }
+        $result = \App\Services\PartnerInviteService::inviteAll([
+            'dry_run' => $dry,
+            'send' => $send,
+            'verified_only' => true,
+            'limit' => $limit,
+        ]);
+        ok('partner invite — sent=' . $result['sent'] . ' queued=' . $result['queued']
+            . ' skipped=' . $result['skipped'] . ' failed=' . $result['failed']
+            . ' from=' . $result['from']
+            . ($dry ? ' (dry-run)' : ''));
+        if (!$result['mail_configured'] && $send) {
+            out('MAIL_* not configured — invites were queued instead of sent.');
+        }
+        break;
     default:
         out("Sportify console");
         out("  php sportify migrate   php sportify seed   php sportify fresh");
+        out("  php sportify seed-partners  Import partners-*.json into partner_leads");
+        out("  php sportify invite-partners [--dry-run|--send] [--limit=50]  Official partner invites");
         out("  php sportify livehd7-sync  Fetch today's matches from livehd7top.com → cache");
         out("  php sportify matches   Refresh live scores (ESPN / football-data.org)");
         out("  php sportify fixtures  Refresh live fixtures (ESPN / optional football-data.org)");

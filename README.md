@@ -78,6 +78,16 @@ Placeholders only in repo examples (`YOUR_SPORTIFY_CLIENT_ID`, empty secrets).
 | `/auth/google` | Start Google OAuth |
 | `/auth/google/callback` | OAuth return (exchange code → session) |
 | `/only-talents` | OnlyTalents TikTok-style shorts feed |
+
+### Potential Partners CRM
+
+```bash
+php sportify migrate
+php sportify seed-partners
+php sportify invite-partners --dry-run   # then --limit=100 to queue; --send when MAIL_* set
+```
+
+Admin: `/admin/partners` — see [docs/PARTNERS-CRM.md](docs/PARTNERS-CRM.md).
 | `/only-talents/discover` | Discovery browse |
 | `/refereex-ai` | RefereeX AI product page |
 | `/admin/social-auth` | Admin toggles for Facebook/LinkedIn button visibility |

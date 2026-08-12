@@ -1,0 +1,677 @@
+[
+  {
+    "name": "kicker",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.kicker.de",
+    "email": "redaktion@kicker.de",
+    "source_url": "https://www.kicker.de/impressum-316443/artikel",
+    "notes": "Print/editorial feedback; also info@kicker.de (general) on imprint"
+  },
+  {
+    "name": "SPORT1",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sport1.de",
+    "email": "presse@sport1.de",
+    "source_url": "https://www.sport1.de/unternehmen/presse",
+    "notes": "Official media/press desk; also listed on sportpresseportal.de"
+  },
+  {
+    "name": "Sky Sport Deutschland",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sport.sky.de",
+    "email": "Sky-Sport-PR@sky.de",
+    "source_url": "https://www.sportpresseportal.de/customer/skysportpr",
+    "notes": "Sky Sport PR team contact published on Sport Presse Portal"
+  },
+  {
+    "name": "DAZN DACH",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.dazn.com/de-DE",
+    "email": "PR-DACH@dazn.com",
+    "source_url": "https://www.presseportal.de/pdf.htx?nr=6219704",
+    "notes": "DACH communications; imprint lists help@dazn.com for customer support only"
+  },
+  {
+    "name": "SPORT BILD",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sportbild.bild.de",
+    "email": "redaktion@sportbild.de",
+    "source_url": "https://sportbild.bild.de/corporate-site/impressum/sportmix/artikel-impressum-10239336.sport.html",
+    "notes": "Editorial contact on Sport Bild imprint/contact pages"
+  },
+  {
+    "name": "BILD",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.bild.de",
+    "email": "anfragen@bild.de",
+    "source_url": "https://www.bild.de/corporate-site/impressum/unternehmen/impressum-53026320.bild.html",
+    "notes": "General inquiry inbox on Bild imprint; sport coverage under Bild Sport"
+  },
+  {
+    "name": "Transfermarkt",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "press@transfermarkt.com",
+    "source_url": "https://www.transfermarkt.de/intern/tmteam",
+    "notes": "PR/media requests; also redaktion@transfermarkt.de for editorial"
+  },
+  {
+    "name": "Transfermarkt Redaktion",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "redaktion@transfermarkt.de",
+    "source_url": "https://www.transfermarkt.de/intern/tmteam",
+    "notes": "Editorial desk listed on TM team/contact page"
+  },
+  {
+    "name": "SPOX",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.spox.com",
+    "email": "info@spox.com",
+    "source_url": "https://www.spox.com/impressum",
+    "notes": "General editorial/company email on imprint (FootballCo / Mediasports Digital)"
+  },
+  {
+    "name": "GOAL Deutschland",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.goal.com/de",
+    "email": "info@spox.com",
+    "source_url": "https://www.goal.com/de/kontakt",
+    "notes": "DE imprint shares Mediasports Digital general email with SPOX; also redaktion.deutschland@goal.com for security disclosure"
+  },
+  {
+    "name": "GOAL",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.goal.com",
+    "email": "editor@goal.com",
+    "source_url": "https://www.goal.com/es/contacto",
+    "notes": "Editorial contact listed on Goal regional contact pages; Central@goal.com also published"
+  },
+  {
+    "name": "11FREUNDE",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.11freunde.de",
+    "email": "redaktion@11freunde.de",
+    "source_url": "https://www.11freunde.de/impressum",
+    "notes": "Editorial; also info@11freunde.de / kontakt@11freunde.de on imprint"
+  },
+  {
+    "name": "Sportschau (ARD/WDR)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sportschau.de",
+    "email": "fragen@sportschau.de",
+    "source_url": "https://www.sportschau.de/impressum",
+    "notes": "Audience/editorial contact; ARD pressestelle@ard.de also on imprint"
+  },
+  {
+    "name": "ARD Presse",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.ard.de",
+    "email": "pressestelle@ard.de",
+    "source_url": "https://www.sportschau.de/impressum",
+    "notes": "ARD press office listed on Sportschau imprint"
+  },
+  {
+    "name": "ran (ProSiebenSat.1 / Seven.One Sports)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.ran.de",
+    "email": "kontakt@ran.de",
+    "source_url": "https://ran.joyn.de/sports/news/kontakt-und-hilfe-75131",
+    "notes": "Website/app feedback & contact for ran"
+  },
+  {
+    "name": "SID Sport-Informations-Dienst",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sid.de",
+    "email": "redaktion@sid.de",
+    "source_url": "https://sid.de/impressum/",
+    "notes": "German sports wire/agency editorial desk"
+  },
+  {
+    "name": "OneFootball",
+    "type": "media",
+    "country": "DE",
+    "website": "https://onefootball.com",
+    "email": "feedback@onefootball.com",
+    "source_url": "https://company.onefootball.com/contact/",
+    "notes": "Public contact/feedback on company site & imprint"
+  },
+  {
+    "name": "LigaInsider",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.ligainsider.de",
+    "email": "support@ligainsider.de",
+    "source_url": "https://www.ligainsider.de/impressum/",
+    "notes": "Imprint contact for Bundesliga news/rumours site"
+  },
+  {
+    "name": "Sportbuzzer",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sportbuzzer.de",
+    "email": "info@sportbuzzer.de",
+    "source_url": "https://www.sportbuzzer.de/services/ihr-kontakt-zu-uns-XMHIAXKBARFUBBNGMIBJXGPEOY.html",
+    "notes": "Editorial/company contact (RND partner)"
+  },
+  {
+    "name": "90min Deutschland",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.90min.de",
+    "email": "de@90min.com",
+    "source_url": "https://www.90min.de/posts/impressum-90min-de-01hw84txs2gf",
+    "notes": "DE imprint contact; business: general.enquiries@minutemedia.com"
+  },
+  {
+    "name": "sport.de",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sport.de",
+    "email": "redaktion@sport.de",
+    "source_url": "https://www.sport.de/kontakt/",
+    "notes": "Editorial feedback; daten-redaktion@sport.de for data corrections"
+  },
+  {
+    "name": "n-tv Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.n-tv.de/sport/",
+    "email": "zuschauer.redaktion@ntv.de",
+    "source_url": "https://www.n-tv.de/ntvintern/Impressum-id6405904.html",
+    "notes": "Content/viewer editorial inbox on n-tv imprint (covers sport.de production chain)"
+  },
+  {
+    "name": "DER SPIEGEL Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.spiegel.de/sport/",
+    "email": "spiegel@spiegel.de",
+    "source_url": "https://gruppe.spiegel.de/kontakt",
+    "notes": "Central SPIEGEL editorial contact (no dedicated sport@ published)"
+  },
+  {
+    "name": "WELT Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.welt.de/sport/",
+    "email": "redaktion@welt.de",
+    "source_url": "https://www.eurotopics.net/de/148503/die-welt",
+    "notes": "Publicly listed WELT editorial email; use for sport desk outreach"
+  },
+  {
+    "name": "Süddeutsche Zeitung Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sueddeutsche.de/sport",
+    "email": "kontakt@sueddeutsche.de",
+    "source_url": "https://www.sueddeutsche.de/sport",
+    "notes": "General SZ contact published on sport section pages"
+  },
+  {
+    "name": "Tagesspiegel Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.tagesspiegel.de/sport/",
+    "email": "pressestelle@tagesspiegel.de",
+    "source_url": "https://www.tagesspiegel.de/impressum",
+    "notes": "Press office; also redaktion@tagesspiegel.de on imprint"
+  },
+  {
+    "name": "WAZ / Funke Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.waz.de/sport/",
+    "email": "sport@funkemedien.de",
+    "source_url": "https://www.waz.de/service/impressum/",
+    "notes": "Funke Medien sport desk email on WAZ imprint"
+  },
+  {
+    "name": "Abendzeitung München Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.abendzeitung-muenchen.de/sport/",
+    "email": "online@abendzeitung.de",
+    "source_url": "https://www.abendzeitung-muenchen.de/sport/",
+    "notes": "Online/sport contact; imprint also lists info@abendzeitung.de"
+  },
+  {
+    "name": "FUSSBALL.DE (DFB)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.fussball.de",
+    "email": "service@fussball.de",
+    "source_url": "https://www.fussball.de/imprint",
+    "notes": "DFB portal imprint contact (prefer contact form for editorial)"
+  },
+  {
+    "name": "Deutsche Welle Sport",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.dw.com/en/sports/s-8171",
+    "email": "info@dw.com",
+    "source_url": "https://www.dw.com/en/about-dw/contact/s-30605",
+    "notes": "General DW contact; no dedicated sport@ found publicly"
+  },
+  {
+    "name": "ESPN / ESPN FC",
+    "type": "media",
+    "country": "US",
+    "website": "https://www.espn.com/soccer/",
+    "email": "espnpr@espn.com",
+    "source_url": "https://espnpressroom.com/us/contact-us/",
+    "notes": "ESPN Press Room feedback/PR inbox"
+  },
+  {
+    "name": "The Athletic",
+    "type": "media",
+    "country": "US",
+    "website": "https://www.nytimes.com/athletic/",
+    "email": "business@theathletic.com",
+    "source_url": "https://www.nytimes.com/athletic/contact-us/",
+    "notes": "Business inquiries; press often routed via NYT booking@nytimes.com"
+  },
+  {
+    "name": "Sky Sports UK",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.skysports.com",
+    "email": "sports@sky.com",
+    "source_url": "https://www.skysports.com/about-us",
+    "notes": "Published on Sky Sports about page"
+  },
+  {
+    "name": "Sky News (UK press desk)",
+    "type": "media",
+    "country": "GB",
+    "website": "https://news.sky.com",
+    "email": "news@skynews.com",
+    "source_url": "https://news.sky.com/info/contact-us",
+    "notes": "Same-day news/press releases; future events: news.plan@sky.uk"
+  },
+  {
+    "name": "BBC Press Office",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.bbc.co.uk/sport",
+    "email": "press.office@bbc.co.uk",
+    "source_url": "https://www.bbc.co.uk/mediacentre/contacts/press-office/",
+    "notes": "Journalist media enquiries for BBC incl. Sport; no dedicated bbc.sport press@ published"
+  },
+  {
+    "name": "The Guardian Sport",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.theguardian.com/uk/sport",
+    "email": "media.enquiries@theguardian.com",
+    "source_url": "https://www.theguardian.com/gnm-press-office/gnm-press-office-faqs",
+    "notes": "GNM press office for media/interview requests; section pitches go to sport desk"
+  },
+  {
+    "name": "FourFourTwo",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.fourfourtwo.com",
+    "email": "fourfourtwo@futurenet.com",
+    "source_url": "https://www.fourfourtwo.com/about-fourfourtwo",
+    "notes": "All editorial queries; online pitches: fourfourtwoonline@futurenet.com"
+  },
+  {
+    "name": "Football365",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.football365.com",
+    "email": "Football365editor@planetsport.com",
+    "source_url": "https://www.football365.com/contact",
+    "notes": "Editor contact on official contact page"
+  },
+  {
+    "name": "MARCA",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.marca.com",
+    "email": "attcliente@unidadeditorial.es",
+    "source_url": "https://www.marca.com/corporativo/contacto.html",
+    "notes": "Official marca.com redacción contact (plain text only); marca.redaccion@marca.com also in public Spanish gov. media agenda"
+  },
+  {
+    "name": "AS",
+    "type": "media",
+    "country": "ES",
+    "website": "https://as.com",
+    "email": "diarioas@diarioas.es",
+    "source_url": "https://as.com/contacto/",
+    "notes": "Editorial/admin contact on AS corporate contact page"
+  },
+  {
+    "name": "Mundo Deportivo",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.mundodeportivo.com",
+    "email": "mdonline@mundodeportivo.com",
+    "source_url": "https://www.mundodeportivo.com/contacto.html",
+    "notes": "Online editorial contact; redaccionmd@mundodeportivo.com also in public media agenda"
+  },
+  {
+    "name": "SPORT (Diario Sport)",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.sport.es",
+    "email": "redaccion@diariosport.com",
+    "source_url": "https://www.sport.es/es/contactar.shtml",
+    "notes": "Editorial contact on Sport contact page"
+  },
+  {
+    "name": "La Gazzetta dello Sport",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.gazzetta.it",
+    "email": "segretgaz@rcs.it",
+    "source_url": "https://www.ipresslive.it/it/ipress/media/view/22/",
+    "notes": "Editorial secretariat email published in Italian media directories; site mainly uses contact forms"
+  },
+  {
+    "name": "Tuttosport",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.tuttosport.com",
+    "email": "posta@tuttosport.com",
+    "source_url": "https://www.tuttosport.com/widget/utility/2015/11/24-6139847/redazione",
+    "notes": "Redazione/posta contact on Tuttosport redazione page"
+  },
+  {
+    "name": "Calciomercato.com",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.calciomercato.com",
+    "email": "notizie.calciomercato@footballco.com",
+    "source_url": "https://www.calciomercato.com/about/redazione",
+    "notes": "Editorial news desk (FootballCo)"
+  },
+  {
+    "name": "L'Équipe",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.lequipe.fr",
+    "email": "contact@lequipe.fr",
+    "source_url": "https://www.lequipe.fr/Page/Tous-les-contacts-utiles/1183885",
+    "notes": "Site/TV/editorial contact; courrierdeslecteurs@lequipe.fr for print readers"
+  },
+  {
+    "name": "France Football",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.francefootball.fr",
+    "email": "contact@lequipe.fr",
+    "source_url": "https://www.francefootball.fr/news/Mentions-legales/1262272",
+    "notes": "Published under L'Équipe group; same contact as L'Équipe mentions légales"
+  },
+  {
+    "name": "Eurosport France",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.eurosport.fr",
+    "email": "redaction.fr@eurosport.com",
+    "source_url": "https://tv-production.fr/contacter-eurosport/",
+    "notes": "Widely published FR editorial address; viewer: telespectateurs@eurosport.fr"
+  },
+  {
+    "name": "RMC Sport / BFMTV group",
+    "type": "media",
+    "country": "FR",
+    "website": "https://rmcsport.bfmtv.com",
+    "email": "bfmtvetvous@bfmtv.fr",
+    "source_url": "https://rmcsport.bfmtv.com/contacts/",
+    "notes": "RMC Sport contacts page lists BFMTV rédaction email; no dedicated rmcsport@ found"
+  },
+  {
+    "name": "Voetbal International",
+    "type": "media",
+    "country": "NL",
+    "website": "https://www.vi.nl",
+    "email": "nieuws@vi.nl",
+    "source_url": "https://www.vi.nl/pagina/tip-de-redactie",
+    "notes": "News tips / editorial tips inbox"
+  },
+  {
+    "name": "Record",
+    "type": "media",
+    "country": "PT",
+    "website": "https://www.record.pt",
+    "email": "leitor@record.pt",
+    "source_url": "https://www.record.pt/contacto",
+    "notes": "Reader/editorial contact on contacto page"
+  },
+  {
+    "name": "SRF Sport",
+    "type": "media",
+    "country": "CH",
+    "website": "https://www.srf.ch/sport",
+    "email": "srf@srf.ch",
+    "source_url": "https://www.srf.ch/impressum",
+    "notes": "General SRF imprint contact"
+  },
+  {
+    "name": "kicker (general)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.kicker.de",
+    "email": "info@kicker.de",
+    "source_url": "https://www.kicker.de/impressum-316443/artikel",
+    "notes": "General questions inbox on imprint (alongside redaktion@)"
+  },
+  {
+    "name": "SPORT1 (company)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sport1.de",
+    "email": "info@sport1.de",
+    "source_url": "https://www.sport1.de/unternehmen/impressum",
+    "notes": "Company imprint general email (prefer presse@ for media)"
+  },
+  {
+    "name": "Sky Deutschland Impressum",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.sky.de",
+    "email": "impressum@sky.de",
+    "source_url": "https://www.sky.de/impressum",
+    "notes": "Legal/imprint contact; sport PR: Sky-Sport-PR@sky.de"
+  },
+  {
+    "name": "Tagesspiegel Redaktion",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.tagesspiegel.de",
+    "email": "redaktion@tagesspiegel.de",
+    "source_url": "https://www.tagesspiegel.de/impressum",
+    "notes": "General editorial inbox including sport coverage"
+  },
+  {
+    "name": "AS Cartas al Director",
+    "type": "media",
+    "country": "ES",
+    "website": "https://as.com",
+    "email": "cartasaldirector@diarioas.es",
+    "source_url": "https://as.com/contacto/",
+    "notes": "Letters to the editor (print); secondary to diarioas@diarioas.es"
+  },
+  {
+    "name": "L'Équipe Courrier des lecteurs",
+    "type": "media",
+    "country": "FR",
+    "website": "https://www.lequipe.fr",
+    "email": "courrierdeslecteurs@lequipe.fr",
+    "source_url": "https://www.lequipe.fr/Page/Tous-les-contacts-utiles/1183885",
+    "notes": "Print newspaper reader mail; prefer contact@lequipe.fr for digital/TV"
+  },
+  {
+    "name": "GOAL Central",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.goal.com",
+    "email": "Central@goal.com",
+    "source_url": "https://www.goal.com/es/contacto",
+    "notes": "Published central contact email on Goal ES contact page"
+  },
+  {
+    "name": "Minute Media / 90min (business)",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.90min.com",
+    "email": "general.enquiries@minutemedia.com",
+    "source_url": "https://www.90min.de/posts/impressum-90min-de-01hw84txs2gf",
+    "notes": "Business/enquiries for 90min network (Minute Media)"
+  },
+  {
+    "name": "FootballCo Sales (GOAL/SPOX network)",
+    "type": "media",
+    "country": "INT",
+    "website": "https://www.footballco.com",
+    "email": "sales@footballco.com",
+    "source_url": "https://www.goal.com/en/contact",
+    "notes": "Commercial/partnership enquiries for Goal/FootballCo properties"
+  },
+  {
+    "name": "Transfermarkt Sales / Kooperation",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de",
+    "email": "sales@transfermarkt.com",
+    "source_url": "https://www.transfermarkt.de/intern/tmteam",
+    "notes": "Marketing/cooperation desk (partnerships)"
+  },
+  {
+    "name": "Sky News Planning",
+    "type": "media",
+    "country": "GB",
+    "website": "https://news.sky.com",
+    "email": "news.plan@sky.uk",
+    "source_url": "https://news.sky.com/info/contact-us",
+    "notes": "Future-event press releases (Sky News contact page)"
+  },
+  {
+    "name": "Express Sport (Köln)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.express.de/sport/",
+    "email": "post@express.de",
+    "source_url": "https://www.express.de/sport/",
+    "notes": "General post inbox published on Express sport pages"
+  },
+  {
+    "name": "Mundo Deportivo Redacción",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.mundodeportivo.com",
+    "email": "redaccionmd@mundodeportivo.com",
+    "source_url": "https://www.lamoncloa.gob.es/serviciosdeprensa/agendacom/paginas/index.aspx?Nivel1=90&Nivel2=115",
+    "notes": "Editorial email in Spanish government Agenda de la Comunicación (public directory)"
+  },
+  {
+    "name": "MARCA Redacción (agenda)",
+    "type": "media",
+    "country": "ES",
+    "website": "https://www.marca.com",
+    "email": "marca.redaccion@marca.com",
+    "source_url": "https://www.lamoncloa.gob.es/serviciosdeprensa/agendacom/paginas/index.aspx?Nivel1=90&Nivel2=115",
+    "notes": "Editorial email in Spanish government Agenda de la Comunicación; corporate site prefers attcliente@"
+  },
+  {
+    "name": "SID Sales",
+    "type": "media",
+    "country": "DE",
+    "website": "https://sid.de",
+    "email": "sales@sid.de",
+    "source_url": "https://sid.de/kontakt/",
+    "notes": "SID distribution/sales; editorial is redaktion@sid.de"
+  },
+  {
+    "name": "11FREUNDE Verlag",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.11freunde.de",
+    "email": "info@11freunde.de",
+    "source_url": "https://www.11freunde.de/impressum",
+    "notes": "Publisher/general imprint contact"
+  },
+  {
+    "name": "WDR Redaktion (Sportschau parent)",
+    "type": "media",
+    "country": "DE",
+    "website": "https://www.wdr.de",
+    "email": "redaktion@wdr.de",
+    "source_url": "https://www.sportschau.de/impressum",
+    "notes": "WDR editorial listed on Sportschau imprint (federführend)"
+  },
+  {
+    "name": "FourFourTwo Online",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.fourfourtwo.com",
+    "email": "fourfourtwoonline@futurenet.com",
+    "source_url": "https://www.fourfourtwo.com/features/fourfourtwo-magazine-pitching-guide",
+    "notes": "Website pitch/editorial inbox"
+  },
+  {
+    "name": "Sofascore",
+    "type": "media",
+    "country": "HR",
+    "website": "https://www.sofascore.com",
+    "email": "",
+    "source_url": "https://corporate.sofascore.com/contact",
+    "notes": "No public press@ email; contact via corporate.sofascore.com/contact form only"
+  },
+  {
+    "name": "Corriere dello Sport",
+    "type": "media",
+    "country": "IT",
+    "website": "https://www.corrieredellosport.it",
+    "email": "",
+    "source_url": "https://www.corrieredellosport.it/contatti",
+    "notes": "No stable public editorial email found; uses contact form/portal"
+  },
+  {
+    "name": "The Athletic Press",
+    "type": "media",
+    "country": "US",
+    "website": "https://www.nytimes.com/athletic/",
+    "email": "",
+    "source_url": "https://www.nytimes.com/athletic/contact-us/",
+    "notes": "No dedicated press@theathletic.com on official pages; business@ only; NYT press routing may apply"
+  },
+  {
+    "name": "Squawka",
+    "type": "media",
+    "country": "GB",
+    "website": "https://www.squawka.com",
+    "email": "",
+    "source_url": "https://www.squawka.com",
+    "notes": "No public press/media email found on site"
+  },
+  {
+    "name": "Flashscore",
+    "type": "media",
+    "country": "CZ",
+    "website": "https://www.flashscore.com",
+    "email": "",
+    "source_url": "https://www.flashscore.com/about/",
+    "notes": "No public press email found on about/contact surfaces"
+  }
+]

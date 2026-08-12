@@ -1,0 +1,600 @@
+[
+  {
+    "name": "Ajax Football Partnerships / Coaching Academy",
+    "type": "academy",
+    "country": "NL",
+    "website": "https://footballpartnerships.ajax.nl/",
+    "email": "footballpartnerships@ajax.nl",
+    "source_url": "https://footballpartnerships.ajax.nl/contact-us"
+  },
+  {
+    "name": "Bayer 04 Fussball Akademie",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.bayer04.de/de-de/page/fans/bayer-04-fussball-akademie",
+    "email": "fussballschule@bayer04.de",
+    "source_url": "https://www.bayer04.de/de-de/page/fans/bayer-04-fussball-akademie"
+  },
+  {
+    "name": "Bayer 04 Leistungszentrum",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.bayer04.de/de-de/page/leistungszentrum",
+    "email": "leistungszentrum@bayer04.de",
+    "source_url": "https://www.bayer04.de/de-de/page/leistungszentrum"
+  },
+  {
+    "name": "Bayer 04 Probetraining",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.bayer04.de/de-de/page/jugend/probetraining",
+    "email": "probetraining@bayer04.de",
+    "source_url": "https://www.bayer04.de/de-de/page/jugend/probetraining"
+  },
+  {
+    "name": "BVB Evonik Football Academy",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.bvb.de/de/en/borussia-dortmund/evonik-football-academy/contact-faq.html",
+    "email": "fussballakademie@bvb.de",
+    "source_url": "https://www.bvb.de/de/en/borussia-dortmund/evonik-football-academy/contact-faq.html"
+  },
+  {
+    "name": "Deutsche Fussball Akademie",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://deutsche-fussball-akademie.de/",
+    "email": "info@dfa-web.de",
+    "source_url": "https://deutsche-fussball-akademie.de/kontakt"
+  },
+  {
+    "name": "Die runde Fussballschule",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.die-runde-fussballschule.de/",
+    "email": "info@die-runde-fussballschule.de",
+    "source_url": "https://www.die-runde-fussballschule.de/impressum/"
+  },
+  {
+    "name": "FC Bayern Campus Training",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://campus-training.fcbayern.com/",
+    "email": "campus.training@fcbayern.com",
+    "source_url": "https://campus-training.fcbayern.com/en/portal/eventtypes/3-5-tages-training"
+  },
+  {
+    "name": "FC Schalke 04 Fussballschule",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://schalke04.de/knappenschmiede/trainingskurse/",
+    "email": "fussballschule@schalke04.de",
+    "source_url": "https://schalke04.de/knappenschmiede/trainingskurse/"
+  },
+  {
+    "name": "FC Schalke 04 Knappenschmiede",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://schalke04.de/knappenschmiede/",
+    "email": "nachwuchs@schalke04.de",
+    "source_url": "https://schalke04.de/knappenschmiede/kontakt/knappenschmiede/"
+  },
+  {
+    "name": "Football Academy Germany",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://football-academy.de/",
+    "email": "info@football-academy.de",
+    "source_url": "https://football-academy.de/kontakt/"
+  },
+  {
+    "name": "Fussballschule Kantenwein",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.kantenwein.net/",
+    "email": "fussballschule@kantenwein.net",
+    "source_url": "https://www.kantenwein.net/contact-football-academy/?lang=en"
+  },
+  {
+    "name": "Fussballschule Michael Rummenigge",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://fussball-schule.de/",
+    "email": "info@fussball-schule.de",
+    "source_url": "https://fussball-schule.de/impressum/"
+  },
+  {
+    "name": "Hertha BSC Academy",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.herthabsc.com/en/academy/contact",
+    "email": "akademie@herthabsc.de",
+    "source_url": "https://www.herthabsc.com/en/academy/contact"
+  },
+  {
+    "name": "SL Benfica Campus",
+    "type": "academy",
+    "country": "PT",
+    "website": "https://www.slbenfica.pt/en-us/instituicao/instalacoes/benfica-campus",
+    "email": "futformacao@slbenfica.pt",
+    "source_url": "https://www.slbenfica.pt/en-us/instituicao/instalacoes/benfica-campus"
+  },
+  {
+    "name": "SL Benfica Scouting & Player Evaluation",
+    "type": "academy",
+    "country": "PT",
+    "website": "https://www.slbenfica.pt/en-us/futebol-formacao/formacao/prospecao/recrutamento-jogadores",
+    "email": "prospeccao@slbenfica.pt",
+    "source_url": "https://www.slbenfica.pt/en-us/futebol-formacao/formacao/prospecao/recrutamento-jogadores"
+  },
+  {
+    "name": "Soccer Academy Germany",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://soccer-academy-germany.de/",
+    "email": "kontakt@soccer-academy-germany.de",
+    "source_url": "https://soccer-academy-germany.de/kontakt/"
+  },
+  {
+    "name": "TSG Hoffenheim Academy",
+    "type": "academy",
+    "country": "DE",
+    "website": "https://www.tsg-hoffenheim.de/en/academy/service-en-us/contact",
+    "email": "akademie@tsg-hoffenheim.de",
+    "source_url": "https://www.tsg-hoffenheim.de/en/academy/service-en-us/contact"
+  },
+  {
+    "name": "Avantgarde Football",
+    "type": "agency",
+    "country": "DE",
+    "website": "https://avantgarde.football/",
+    "email": "football@avantgarde.de",
+    "source_url": "https://avantgarde.football/"
+  },
+  {
+    "name": "CAA Base",
+    "type": "agency",
+    "country": "GB",
+    "website": "https://caabase.com/",
+    "email": "baseinfo@caa.com",
+    "source_url": "https://www.soccerassociation.com/agents/166.htm"
+  },
+  {
+    "name": "FSB Spielerberatung",
+    "type": "agency",
+    "country": "DE",
+    "website": "https://fsb-spielerberatung.de/",
+    "email": "zentrale@fsb-spielerberatung.de",
+    "source_url": "https://fsb-spielerberatung.de/en/"
+  },
+  {
+    "name": "Graner Bonomi Europe",
+    "type": "agency",
+    "country": "DE",
+    "website": "https://www.graner-bonomi.com/",
+    "email": "europe@graner-bonomi.com",
+    "source_url": "https://www.graner-bonomi.com/playersagents/"
+  },
+  {
+    "name": "The Football Agents / Graner Bonomi",
+    "type": "agency",
+    "country": "DE",
+    "website": "https://www.graner-bonomi.com/",
+    "email": "info@thefootballagents.com",
+    "source_url": "https://www.graner-bonomi.com/playersagents/"
+  },
+  {
+    "name": "Unique Sports Management",
+    "type": "agency",
+    "country": "DE",
+    "website": "https://www.unique-sports.de/",
+    "email": "info@unique-sports.de",
+    "source_url": "https://www.unique-sports.de/impressum"
+  },
+  {
+    "name": "Catapult Sports",
+    "type": "tech",
+    "country": "AU",
+    "website": "https://www.catapult.com/",
+    "email": "media@catapultsports.com",
+    "source_url": "https://www.catapult.com/company/about-catapult"
+  },
+  {
+    "name": "Eyeball",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.eyeball.club/",
+    "email": "partnerships@eyeball.club",
+    "source_url": "https://www.eyeball.club/contacts/"
+  },
+  {
+    "name": "Eyeball General",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.eyeball.club/",
+    "email": "hello@eyeball.club",
+    "source_url": "https://www.eyeball.club/contacts/"
+  },
+  {
+    "name": "Eyeball Press",
+    "type": "tech",
+    "country": "CZ",
+    "website": "https://www.eyeball.club/",
+    "email": "press@eyeball.club",
+    "source_url": "https://www.eyeball.club/contacts/"
+  },
+  {
+    "name": "IMPECT",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://www.impect.com/",
+    "email": "info@impect.com",
+    "source_url": "https://www.impect.com/en/ueber-uns/"
+  },
+  {
+    "name": "Nacsport",
+    "type": "tech",
+    "country": "ES",
+    "website": "https://www.nacsport.com/",
+    "email": "info@nacsport.com",
+    "source_url": "https://www.nacsport.com/ebook/NS_Ebook_Computers_Cameras_Captures_and_Drones_2022_EN.pdf"
+  },
+  {
+    "name": "Orreco",
+    "type": "tech",
+    "country": "IE",
+    "website": "https://www.orreco.com/",
+    "email": "info@orreco.com",
+    "source_url": "https://www.orreco.com/contact"
+  },
+  {
+    "name": "Pixellot",
+    "type": "tech",
+    "country": "IL",
+    "website": "https://www.pixellot.tv/",
+    "email": "support@pixellot.tv",
+    "source_url": "https://www.pixellot.tv/contact/"
+  },
+  {
+    "name": "Second Spectrum",
+    "type": "tech",
+    "country": "US",
+    "website": "https://www.secondspectrum.com/",
+    "email": "info@secondspectrum.com",
+    "source_url": "https://www.secondspectrum.com/contact"
+  },
+  {
+    "name": "SkillCorner Support",
+    "type": "tech",
+    "country": "FR",
+    "website": "https://skillcorner.com/",
+    "email": "support@skillcorner.com",
+    "source_url": "https://pypi.org/project/skillcorner-on-demand/"
+  },
+  {
+    "name": "Soccerment",
+    "type": "tech",
+    "country": "IT",
+    "website": "https://www.soccerment.com/",
+    "email": "sales@soccerment.com",
+    "source_url": "https://www.soccerment.com/contact/"
+  },
+  {
+    "name": "Spiideo",
+    "type": "tech",
+    "country": "SE",
+    "website": "https://www.spiideo.com/",
+    "email": "info@spiideo.com",
+    "source_url": "https://www.spiideo.com/contact/"
+  },
+  {
+    "name": "SPORTTOTAL AG",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://sporttotal.com/",
+    "email": "info@sporttotal.com",
+    "source_url": "https://sporttotal.com/kontakt.php"
+  },
+  {
+    "name": "STAIDIUM",
+    "type": "tech",
+    "country": "US",
+    "website": "https://staidium.com/",
+    "email": "info@staidium.com",
+    "source_url": "https://staidium.com/partners"
+  },
+  {
+    "name": "Transfermarkt",
+    "type": "tech",
+    "country": "DE",
+    "website": "https://www.transfermarkt.de/",
+    "email": "info@transfermarkt.de",
+    "source_url": "https://www.transfermarkt.de/intern/impressum"
+  },
+  {
+    "name": "adidas AG",
+    "type": "brand",
+    "country": "DE",
+    "website": "https://www.adidas-group.com/",
+    "email": "corporate.press@adidas.com",
+    "source_url": "https://www.adidas-group.com/en/imprint"
+  },
+  {
+    "name": "Derbystar Sportartikelfabrik",
+    "type": "brand",
+    "country": "DE",
+    "website": "https://en.derbystar.de/",
+    "email": "info@derbystar.de",
+    "source_url": "https://en.derbystar.de/pages/contact-1674132878"
+  },
+  {
+    "name": "ERIMA GmbH",
+    "type": "brand",
+    "country": "DE",
+    "website": "https://www.erima.de/",
+    "email": "info@erima.de",
+    "source_url": "https://www.erima.de/corporate/impressum"
+  },
+  {
+    "name": "JAKO AG",
+    "type": "brand",
+    "country": "DE",
+    "website": "https://www.jako.com/",
+    "email": "info@jako.com",
+    "source_url": "https://www.jako.com/de-de/info/impressum/"
+  },
+  {
+    "name": "Joma Sport",
+    "type": "brand",
+    "country": "ES",
+    "website": "https://www.joma-sport.com/",
+    "email": "customerservice@joma-sport.com",
+    "source_url": "https://www.joma-sport.com/en/contact"
+  },
+  {
+    "name": "PUMA SE",
+    "type": "brand",
+    "country": "DE",
+    "website": "https://about.puma.com/",
+    "email": "info@puma.com",
+    "source_url": "https://about.puma.com/en/imprint"
+  },
+  {
+    "name": "SELECT Sport",
+    "type": "brand",
+    "country": "DK",
+    "website": "https://www.select-sport.com/",
+    "email": "select@select.dk",
+    "source_url": "https://www.select-sport.com/pages/contact"
+  },
+  {
+    "name": "uhlsport GmbH",
+    "type": "brand",
+    "country": "DE",
+    "website": "https://uhlsport.group/",
+    "email": "info@uhlsport.de",
+    "source_url": "https://uhlsport.group/impressum/"
+  },
+  {
+    "name": "1. FC Koeln",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://fc.de/",
+    "email": "service@fc.de",
+    "source_url": "https://fc.de/impressum/"
+  },
+  {
+    "name": "Allianz Arena",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://allianz-arena.com/",
+    "email": "service@allianz-arena.com",
+    "source_url": "https://allianz-arena.com/en/imprint"
+  },
+  {
+    "name": "Allianz Arena Press Pictures",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://allianz-arena.com/",
+    "email": "redaktion.internet@allianz-arena.de",
+    "source_url": "https://allianz-arena.com/en/arena/pictures/picture-service"
+  },
+  {
+    "name": "Deutsche Bank Park / Eintracht Frankfurt Media",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.eintracht.de/",
+    "email": "medien@eintrachtfrankfurt.de",
+    "source_url": "https://media.eintracht.de/image/upload/v1761845188/ef_mediaguide_englisch_3_-e7f2.pdf"
+  },
+  {
+    "name": "FC St. Pauli",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.fcstpauli.com/",
+    "email": "info@fcstpauli.com",
+    "source_url": "https://www.fcstpauli.com/impressum/"
+  },
+  {
+    "name": "FC St. Pauli Vermarktung",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.fcstpauli.com/",
+    "email": "vermarktung@fcstpauli.com",
+    "source_url": "https://www.fcstpauli.com/impressum/"
+  },
+  {
+    "name": "Hamburger SV",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.hsv.de/",
+    "email": "info@hsv.de",
+    "source_url": "https://www.hsv.de/impressum"
+  },
+  {
+    "name": "Hertha BSC Media",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.herthabsc.com/",
+    "email": "medien@herthabsc.de",
+    "source_url": "https://www.herthabsc.com/en/academy/contact"
+  },
+  {
+    "name": "Olympiastadion Berlin",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://olympiastadion.berlin/",
+    "email": "pr@olympiastadion.berlin",
+    "source_url": "https://olympiastadion.berlin/de/kontakt/"
+  },
+  {
+    "name": "Olympiastadion Berlin General",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://olympiastadion.berlin/",
+    "email": "info@olympiastadion.berlin",
+    "source_url": "https://olympiastadion.berlin/de/impressum/"
+  },
+  {
+    "name": "SC Freiburg Press",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.scfreiburg.com/",
+    "email": "presse@scfreiburg.com",
+    "source_url": "https://www.scfreiburg.com/impressum"
+  },
+  {
+    "name": "Schalke Knappenschmiede Media",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://schalke04.de/knappenschmiede/",
+    "email": "medien-knappenschmiede@schalke04.de",
+    "source_url": "https://schalke04.de/knappenschmiede/kontakt/knappenschmiede/"
+  },
+  {
+    "name": "SIGNAL IDUNA PARK / Borussia Dortmund Media",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.bvb.de/",
+    "email": "medien@bvb.de",
+    "source_url": "https://www.bvb.de/de/de/allgemein/impressum.html"
+  },
+  {
+    "name": "Uber Arena Berlin",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.uber-arena.de/",
+    "email": "media@uber-arena.de",
+    "source_url": "https://www.uber-arena.de/en/presse/infos"
+  },
+  {
+    "name": "VELTINS-Arena / FC Schalke 04 Media",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://en.veltins-arena.de/",
+    "email": "medien@schalke04.de",
+    "source_url": "https://schalke04.de/en/media-portal/"
+  },
+  {
+    "name": "VELTINS-Arena Business Events",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://en.veltins-arena.de/",
+    "email": "business-events@schalke04.de",
+    "source_url": "https://en.veltins-arena.de/business/kontakt/"
+  },
+  {
+    "name": "VfL Wolfsburg",
+    "type": "facility",
+    "country": "DE",
+    "website": "https://www.vfl-wolfsburg.de/",
+    "email": "service@vfl-wolfsburg.de",
+    "source_url": "https://www.vfl-wolfsburg.de/impressum"
+  },
+  {
+    "name": "Sportschau Podcast / ARD",
+    "type": "community",
+    "subtype": "podcast",
+    "country": "DE",
+    "city": "",
+    "league": "",
+    "website": "https://www.sportschau.de",
+    "email": "fragen@sportschau.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.sportschau.de/impressum",
+    "invite_status": "queued",
+    "notes": "",
+    "tags": [
+      "podcast"
+    ]
+  },
+  {
+    "name": "11FREUNDE Podcast",
+    "type": "community",
+    "subtype": "podcast",
+    "country": "DE",
+    "city": "",
+    "league": "",
+    "website": "https://www.11freunde.de",
+    "email": "redaktion@11freunde.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.11freunde.de/impressum",
+    "invite_status": "queued",
+    "notes": "",
+    "tags": [
+      "podcast"
+    ]
+  },
+  {
+    "name": "kicker Podcast",
+    "type": "community",
+    "subtype": "podcast",
+    "country": "DE",
+    "city": "",
+    "league": "",
+    "website": "https://www.kicker.de",
+    "email": "redaktion@kicker.de",
+    "email_confidence": "verified",
+    "source_url": "https://www.kicker.de/impressum-316443/artikel",
+    "invite_status": "queued",
+    "notes": "",
+    "tags": [
+      "podcast"
+    ]
+  },
+  {
+    "name": "DAZN YouTube DE",
+    "type": "community",
+    "subtype": "creator_channel",
+    "country": "DE",
+    "city": "",
+    "league": "",
+    "website": "https://www.youtube.com/@DAZNFussball",
+    "email": "pr-dach@dazn.com",
+    "email_confidence": "verified",
+    "source_url": "https://dazngroup.com/contact/",
+    "invite_status": "queued",
+    "notes": "",
+    "tags": [
+      "creator",
+      "streaming"
+    ]
+  },
+  {
+    "name": "Bundesliga Official YouTube",
+    "type": "community",
+    "subtype": "creator_channel",
+    "country": "DE",
+    "city": "",
+    "league": "",
+    "website": "https://www.youtube.com/@bundesliga",
+    "email": null,
+    "email_confidence": "needs_research",
+    "source_url": "https://www.bundesliga.com",
+    "invite_status": "pending",
+    "notes": "Use DFL press for partnerships.",
+    "tags": [
+      "creator"
+    ]
+  }
+]

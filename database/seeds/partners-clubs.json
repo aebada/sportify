@@ -1,0 +1,1191 @@
+[
+  {
+    "name": "FC Bayern München",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "München",
+    "league": "Bundesliga",
+    "website": "https://fcbayern.com",
+    "email": "presse@fcbayern.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://fcbayern.com/de/club/kontakt",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Bayer 04 Leverkusen",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Leverkusen",
+    "league": "Bundesliga",
+    "website": "https://www.bayer04.de",
+    "email": "presse@bayer04.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.bayer04.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "RB Leipzig",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Leipzig",
+    "league": "Bundesliga",
+    "website": "https://www.dierotenbulls.com",
+    "email": "presse@dierotenbulls.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.dierotenbulls.com",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Borussia Dortmund",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Dortmund",
+    "league": "Bundesliga",
+    "website": "https://www.bvb.de",
+    "email": "presse@bvb.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.bvb.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "VfB Stuttgart",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Stuttgart",
+    "league": "Bundesliga",
+    "website": "https://www.vfb.de",
+    "email": "presse@vfb-stuttgart.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.vfb.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Eintracht Frankfurt",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Frankfurt",
+    "league": "Bundesliga",
+    "website": "https://www.eintracht.de",
+    "email": "presse@eintracht.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.eintracht.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "SC Freiburg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Freiburg",
+    "league": "Bundesliga",
+    "website": "https://www.scfreiburg.com",
+    "email": "presse@scfreiburg.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.scfreiburg.com",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "VfL Wolfsburg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Wolfsburg",
+    "league": "Bundesliga",
+    "website": "https://www.vfl-wolfsburg.de",
+    "email": "presse@vfl-wolfsburg.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.vfl-wolfsburg.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "TSG Hoffenheim",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Sinsheim",
+    "league": "Bundesliga",
+    "website": "https://www.tsg-hoffenheim.de",
+    "email": "presse@tsg-hoffenheim.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.tsg-hoffenheim.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "1. FC Union Berlin",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Berlin",
+    "league": "Bundesliga",
+    "website": "https://www.fc-union-berlin.de",
+    "email": "presse@fc-union-berlin.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fc-union-berlin.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Borussia Mönchengladbach",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Mönchengladbach",
+    "league": "Bundesliga",
+    "website": "https://www.borussia.de",
+    "email": "presse@borussia.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.borussia.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "1. FSV Mainz 05",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Mainz",
+    "league": "Bundesliga",
+    "website": "https://www.mainz05.de",
+    "email": "presse@mainz05.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.mainz05.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "FC Augsburg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Augsburg",
+    "league": "Bundesliga",
+    "website": "https://www.fcaugsburg.de",
+    "email": "presse@fcaugsburg.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcaugsburg.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Werder Bremen",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Bremen",
+    "league": "Bundesliga",
+    "website": "https://www.werder.de",
+    "email": "presse@werder.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.werder.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "1. FC Heidenheim",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Heidenheim",
+    "league": "Bundesliga",
+    "website": "https://www.fc-heidenheim.de",
+    "email": "presse@fc-heidenheim.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fc-heidenheim.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "FC St. Pauli",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Hamburg",
+    "league": "Bundesliga",
+    "website": "https://www.fcstpauli.com",
+    "email": "presse@fcstpauli.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcstpauli.com",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Holstein Kiel",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Kiel",
+    "league": "Bundesliga",
+    "website": "https://www.holstein-kiel.de",
+    "email": "presse@holstein-kiel.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.holstein-kiel.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "VfL Bochum",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Bochum",
+    "league": "Bundesliga",
+    "website": "https://www.vfl-bochum.de",
+    "email": "presse@vfl-bochum.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.vfl-bochum.de",
+    "invite_status": "pending",
+    "notes": "Public presse@ pattern common on DE club sites — verify on club impressum/presse page before invite.",
+    "tags": [
+      "bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Hamburger SV",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Hamburg",
+    "league": "2. Bundesliga",
+    "website": "https://www.hsv.de",
+    "email": "presse@hsv.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.hsv.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "1. FC Köln",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Köln",
+    "league": "2. Bundesliga",
+    "website": "https://fc.de",
+    "email": "presse@fc.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://fc.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Hannover 96",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Hannover",
+    "league": "2. Bundesliga",
+    "website": "https://www.hannover96.de",
+    "email": "presse@hannover96.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.hannover96.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Hertha BSC",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Berlin",
+    "league": "2. Bundesliga",
+    "website": "https://www.herthabsc.com",
+    "email": "presse@herthabsc.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.herthabsc.com",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "FC Schalke 04",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Gelsenkirchen",
+    "league": "2. Bundesliga",
+    "website": "https://schalke04.de",
+    "email": "presse@schalke04.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://schalke04.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Fortuna Düsseldorf",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Düsseldorf",
+    "league": "2. Bundesliga",
+    "website": "https://www.f95.de",
+    "email": "presse@f95.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.f95.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "1. FC Kaiserslautern",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Kaiserslautern",
+    "league": "2. Bundesliga",
+    "website": "https://www.fck.de",
+    "email": "presse@fck.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fck.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "1. FC Nürnberg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Nürnberg",
+    "league": "2. Bundesliga",
+    "website": "https://www.fcn.de",
+    "email": "presse@fcn.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcn.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Karlsruher SC",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Karlsruhe",
+    "league": "2. Bundesliga",
+    "website": "https://www.ksc.de",
+    "email": "presse@ksc.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.ksc.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "SV Darmstadt 98",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Darmstadt",
+    "league": "2. Bundesliga",
+    "website": "https://www.sv98.de",
+    "email": "presse@sv98.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.sv98.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "SC Paderborn 07",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Paderborn",
+    "league": "2. Bundesliga",
+    "website": "https://www.scpaderborn07.de",
+    "email": "presse@scpaderborn07.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.scpaderborn07.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Greuther Fürth",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Fürth",
+    "league": "2. Bundesliga",
+    "website": "https://www.greuther-fuerth.de",
+    "email": "presse@greuther-fuerth.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.greuther-fuerth.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Magdeburg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Magdeburg",
+    "league": "2. Bundesliga",
+    "website": "https://www.1.fc-magdeburg.de",
+    "email": "presse@1.fc-magdeburg.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.1.fc-magdeburg.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Eintracht Braunschweig",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Braunschweig",
+    "league": "2. Bundesliga",
+    "website": "https://www.eintracht.com",
+    "email": "presse@eintracht.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.eintracht.com",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "SV Elversberg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Spiesen-Elversberg",
+    "league": "2. Bundesliga",
+    "website": "https://www.sv07elversberg.de",
+    "email": "presse@sv07elversberg.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.sv07elversberg.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Preußen Münster",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Münster",
+    "league": "2. Bundesliga",
+    "website": "https://www.scpreussen-muenster.de",
+    "email": "presse@scpreussen-muenster.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.scpreussen-muenster.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "SSV Ulm 1846",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Ulm",
+    "league": "2. Bundesliga",
+    "website": "https://www.ssvulm1846-fussball.de",
+    "email": "presse@ssvulm1846-fussball.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.ssvulm1846-fussball.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Jahn Regensburg",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Regensburg",
+    "league": "2. Bundesliga",
+    "website": "https://www.ssv-jahn.de",
+    "email": "presse@ssv-jahn.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.ssv-jahn.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "2-bundesliga",
+      "club"
+    ]
+  },
+  {
+    "name": "Dynamo Dresden",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Dresden",
+    "league": "3. Liga",
+    "website": "https://www.dynamo-dresden.de",
+    "email": "presse@dynamo-dresden.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.dynamo-dresden.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "FC Ingolstadt 04",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Ingolstadt",
+    "league": "3. Liga",
+    "website": "https://www.fcingolstadt.de",
+    "email": "presse@fcingolstadt.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcingolstadt.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "1860 München",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "München",
+    "league": "3. Liga",
+    "website": "https://www.tsv1860.de",
+    "email": "presse@tsv1860.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.tsv1860.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Alemannia Aachen",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Aachen",
+    "league": "3. Liga",
+    "website": "https://www.alemannia-aachen.de",
+    "email": "presse@alemannia-aachen.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.alemannia-aachen.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Rot-Weiss Essen",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Essen",
+    "league": "3. Liga",
+    "website": "https://www.rot-weiss-essen.de",
+    "email": "presse@rot-weiss-essen.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.rot-weiss-essen.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Energie Cottbus",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Cottbus",
+    "league": "3. Liga",
+    "website": "https://www.fcenergie.de",
+    "email": "presse@fcenergie.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcenergie.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Viktoria Köln",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Köln",
+    "league": "3. Liga",
+    "website": "https://www.viktoria1904.de",
+    "email": "presse@viktoria1904.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.viktoria1904.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "SV Wehen Wiesbaden",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Wiesbaden",
+    "league": "3. Liga",
+    "website": "https://www.svww.de",
+    "email": "presse@svww.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.svww.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Arminia Bielefeld",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Bielefeld",
+    "league": "3. Liga",
+    "website": "https://www.arminia.de",
+    "email": "presse@arminia.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.arminia.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Hansa Rostock",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "DE",
+    "city": "Rostock",
+    "league": "3. Liga",
+    "website": "https://www.fc-hansa.de",
+    "email": "presse@fc-hansa.de",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fc-hansa.de",
+    "invite_status": "pending",
+    "notes": "Verify presse@ on club website before invite.",
+    "tags": [
+      "3-liga",
+      "club"
+    ]
+  },
+  {
+    "name": "Manchester City",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "Manchester",
+    "league": "Premier League",
+    "website": "https://www.mancity.com",
+    "email": "media@mancity.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.mancity.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Manchester United",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "Manchester",
+    "league": "Premier League",
+    "website": "https://www.manutd.com",
+    "email": "pressoffice@manutd.co.uk",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.manutd.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Liverpool FC",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "Liverpool",
+    "league": "Premier League",
+    "website": "https://www.liverpoolfc.com",
+    "email": "media@liverpoolfc.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.liverpoolfc.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Arsenal",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "London",
+    "league": "Premier League",
+    "website": "https://www.arsenal.com",
+    "email": "media@arsenal.co.uk",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.arsenal.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Chelsea FC",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "London",
+    "league": "Premier League",
+    "website": "https://www.chelseafc.com",
+    "email": "media@chelseafc.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.chelseafc.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Tottenham Hotspur",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "London",
+    "league": "Premier League",
+    "website": "https://www.tottenhamhotspur.com",
+    "email": "media@tottenhamhotspur.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.tottenhamhotspur.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Real Madrid",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "ES",
+    "city": "Madrid",
+    "league": "La Liga",
+    "website": "https://www.realmadrid.com",
+    "email": "prensa@corp.realmadrid.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.realmadrid.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "FC Barcelona",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "ES",
+    "city": "Barcelona",
+    "league": "La Liga",
+    "website": "https://www.fcbarcelona.com",
+    "email": "media@fcbarcelona.cat",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcbarcelona.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Atlético Madrid",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "ES",
+    "city": "Madrid",
+    "league": "La Liga",
+    "website": "https://www.atleticodemadrid.com",
+    "email": "prensa@atleticodemadrid.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.atleticodemadrid.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Juventus",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "IT",
+    "city": "Torino",
+    "league": "Serie A",
+    "website": "https://www.juventus.com",
+    "email": "media@juventus.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.juventus.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "AC Milan",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "IT",
+    "city": "Milano",
+    "league": "Serie A",
+    "website": "https://www.acmilan.com",
+    "email": "media@acmilan.com",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.acmilan.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Inter Milan",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "IT",
+    "city": "Milano",
+    "league": "Serie A",
+    "website": "https://www.inter.it",
+    "email": "media@inter.it",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.inter.it",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "SSC Napoli",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "IT",
+    "city": "Napoli",
+    "league": "Serie A",
+    "website": "https://www.sscnapoli.it",
+    "email": "press@sscnapoli.it",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.sscnapoli.it",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Paris Saint-Germain",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "FR",
+    "city": "Paris",
+    "league": "Ligue 1",
+    "website": "https://www.psg.fr",
+    "email": "media@psg.fr",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.psg.fr",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Olympique de Marseille",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "FR",
+    "city": "Marseille",
+    "league": "Ligue 1",
+    "website": "https://www.om.fr",
+    "email": "presse@om.net",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.om.fr",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Ajax",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "NL",
+    "city": "Amsterdam",
+    "league": "Eredivisie",
+    "website": "https://www.ajax.nl",
+    "email": "pers@ajax.nl",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.ajax.nl",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Benfica",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "PT",
+    "city": "Lisbon",
+    "league": "Primeira Liga",
+    "website": "https://www.slbenfica.pt",
+    "email": "media@slbenfica.pt",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.slbenfica.pt",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "FC Porto",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "PT",
+    "city": "Porto",
+    "league": "Primeira Liga",
+    "website": "https://www.fcporto.pt",
+    "email": "imprensa@fcporto.pt",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.fcporto.pt",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  },
+  {
+    "name": "Celtic FC",
+    "type": "club",
+    "subtype": "first_team",
+    "country": "GB",
+    "city": "Glasgow",
+    "league": "Scottish Premiership",
+    "website": "https://www.celticfc.com",
+    "email": "media@celticfc.co.uk",
+    "email_confidence": "needs_research",
+    "source_url": "https://www.celticfc.com",
+    "invite_status": "pending",
+    "notes": "Common public media mailbox pattern — confirm on club media/press page before invite.",
+    "tags": [
+      "europe",
+      "club",
+      "ucl"
+    ]
+  }
+]

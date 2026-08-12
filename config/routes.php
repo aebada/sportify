@@ -34,6 +34,7 @@ use App\Controllers\MatchController;
 use App\Controllers\ScoutController;
 use App\Controllers\TrainerController;
 use App\Controllers\CrmController;
+use App\Controllers\AdminPartnersController;
 use App\Controllers\ReferralController;
 use App\Controllers\PlayerAnalysisController;
 use App\Controllers\StandingsController;
@@ -473,6 +474,14 @@ $router->get('/admin/crm/campaigns/new', [CrmController::class, 'createCampaignF
 $router->post('/admin/crm/campaigns', [CrmController::class, 'storeCampaign'], 'admin.crm.campaigns.store');
 $router->get('/admin/crm/campaigns/{id}/edit', [CrmController::class, 'editCampaignForm'], 'admin.crm.campaigns.edit');
 $router->post('/admin/crm/campaigns/{id}', [CrmController::class, 'updateCampaign'], 'admin.crm.campaigns.update');
+
+// Potential partners CRM (media, clubs, leagues, ecosystem)
+$router->get('/admin/partners', [AdminPartnersController::class, 'index'], 'admin.partners');
+$router->post('/admin/partners/import', [AdminPartnersController::class, 'importSeeds'], 'admin.partners.import');
+$router->post('/admin/partners/invite-all', [AdminPartnersController::class, 'inviteAll'], 'admin.partners.invite_all');
+$router->get('/admin/partners/{id}', [AdminPartnersController::class, 'show'], 'admin.partners.show');
+$router->get('/admin/partners/{id}/edit', [AdminPartnersController::class, 'editForm'], 'admin.partners.edit');
+$router->post('/admin/partners/{id}', [AdminPartnersController::class, 'update'], 'admin.partners.update');
 $router->get('/admin/referrals', [ReferralController::class, 'adminReport'], 'admin.referrals');
 $router->get('/admin/players', [AdminPlayerController::class, 'index'], 'admin.players');
 $router->get('/admin/players/create', [AdminPlayerController::class, 'createForm'], 'admin.players.create');

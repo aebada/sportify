@@ -128,4 +128,16 @@ return [
             'client_secret' => $get('LINKEDIN_CLIENT_SECRET', ''),
         ],
     ],
+    'mail' => [
+        'mailer'     => $get('MAIL_MAILER', 'smtp'),
+        'host'       => $get('MAIL_HOST', ''),
+        'port'       => (int) $get('MAIL_PORT', 587),
+        'username'   => $get('MAIL_USERNAME', ''),
+        'password'   => $get('MAIL_PASSWORD', ''),
+        'encryption' => $get('MAIL_ENCRYPTION', 'tls'),
+        'from'       => [
+            'address' => $get('MAIL_FROM_ADDRESS', 'partners@sportifyplus.de'),
+            'name'    => $get('MAIL_FROM_NAME', $get('APP_NAME', 'Sportify Plus')),
+        ],
+    ],
 ];

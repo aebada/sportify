@@ -67,7 +67,8 @@ $adminContentAnchor = static fn (string $url): string => str_contains($url, '#')
                 </a>
             <?php endforeach; ?>
             <?php if (Auth::can('crm.access')): ?>
-                <a href="<?= e($adminContentAnchor(route('admin.crm.dashboard'))) ?>" class="<?= str_contains($uri, '/admin/crm') ? 'active' : '' ?>">📊 CRM</a>
+                <a href="<?= e($adminContentAnchor(route('admin.crm.dashboard'))) ?>" class="<?= str_contains($uri, '/admin/crm') && !str_contains($uri, '/admin/partners') ? 'active' : '' ?>">📊 CRM</a>
+                <a href="<?= e($adminContentAnchor(route('admin.partners'))) ?>" class="<?= str_contains($uri, '/admin/partners') ? 'active' : '' ?>">🤝 Partners</a>
             <?php endif; ?>
             <a href="<?= route('home') ?>" style="margin-top:14px"><?= __('admin.back_to_site') ?></a>
         </nav>
