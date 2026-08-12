@@ -170,34 +170,38 @@ class PartnerLeadRepository
         $confidence = in_array($data['email_confidence'] ?? '', self::EMAIL_CONFIDENCE, true)
             ? $data['email_confidence']
             : ($email ? 'needs_research' : 'needs_research');
-        $invite = in_array($data['invite_status'] ?? '', self::INVITE_STATUSES, true)
+        $explicitInvite = in_array($data['invite_status'] ?? '', self::INVITE_STATUSES, true);
+        $invite = $explicitInvite
             ? $data['invite_status']
             : (($email && $confidence === 'verified') ? 'queued' : 'pending');
 
-        $payload = [
-            $name,
-            $type,
-            $data['subtype'] ?? null,
-            isset($data['country']) ? strtoupper((string) $data['country']) : null,
-            $data['city'] ?? null,
-            $data['league'] ?? null,
-            $data['website'] ?? null,
-            $email,
-            $confidence,
-            $data['source_url'] ?? null,
-            $invite,
-            $data['notes'] ?? null,
-            $tags,
-            $now,
-        ];
+        $subtype = $data['subtype'] ?? null;
+        $country = isset($data['country']) ? strtoupper((string) $data['country']) : null;
+        $city = $data['city'] ?? null;
+        $league = $data['league'] ?? null;
+        $websiteRaw = $data['website'] ?? null;
+        $sourceUrl = $data['source_url'] ?? null;
+        $notes = $data['notes'] ?? null;
 
         if ($existing) {
-            Database::execute(
-                'UPDATE partner_leads SET name=?, type=?, subtype=?, country=?, city=?, league=?, website=?,
-                 email=?, email_confidence=?, source_url=?, invite_status=?, notes=?, tags=?, updated_at=?
-                 WHERE id=?',
-                [...$payload, (int) $existing['id']]
-            );
+            // Never wipe CRM invite progress on re-seed unless the seed row sets invite_status explicitly.
+            if ($explicitInvite) {
+                Database::execute(
+                    'UPDATE partner_leads SET name=?, type=?, subtype=?, country=?, city=?, league=?, website=?,
+                     email=?, email_confidence=?, source_url=?, invite_status=?, notes=?, tags=?, updated_at=?
+                     WHERE id=?',
+                    [$name, $type, $subtype, $country, $city, $league, $websiteRaw, $email, $confidence,
+                        $sourceUrl, $invite, $notes, $tags, $now, (int) $existing['id']]
+                );
+            } else {
+                Database::execute(
+                    'UPDATE partner_leads SET name=?, type=?, subtype=?, country=?, city=?, league=?, website=?,
+                     email=?, email_confidence=?, source_url=?, notes=?, tags=?, updated_at=?
+                     WHERE id=?',
+                    [$name, $type, $subtype, $country, $city, $league, $websiteRaw, $email, $confidence,
+                        $sourceUrl, $notes, $tags, $now, (int) $existing['id']]
+                );
+            }
             return (int) $existing['id'];
         }
 
@@ -206,7 +210,8 @@ class PartnerLeadRepository
              (name, type, subtype, country, city, league, website, email, email_confidence, source_url,
               invite_status, notes, tags, created_at, updated_at)
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-            [...$payload, $now]
+            [$name, $type, $subtype, $country, $city, $league, $websiteRaw, $email, $confidence,
+                $sourceUrl, $invite, $notes, $tags, $now, $now]
         );
         return (int) Database::lastInsertId();
     }
